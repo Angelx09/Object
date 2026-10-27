@@ -12,12 +12,13 @@
 
 body {
   margin: 0;
-  background: #282828;
+  background: #faf9f6;
   color: #191919;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-button, a {
+button,
+a {
   font: inherit;
 }
 
@@ -26,7 +27,7 @@ a {
   text-decoration: none;
 }
 
-/* Header */
+/* HEADER */
 
 header {
   position: fixed;
@@ -46,7 +47,7 @@ header h1 {
   text-transform: lowercase;
 }
 
-/* Left introduction */
+/* INTRODUCTION */
 
 .intro {
   position: fixed;
@@ -57,7 +58,7 @@ header h1 {
   pointer-events: none;
 }
 
-.intro .eyebrow {
+.eyebrow {
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: .08em;
@@ -69,7 +70,7 @@ header h1 {
   color: #666;
 }
 
-/* Right navigation */
+/* CATEGORY NAVIGATION */
 
 .categories {
   position: fixed;
@@ -95,11 +96,11 @@ header h1 {
   color: #000;
 }
 
-/* Scrollable archive */
+/* ARCHIVE */
 
 .scroll-track {
   position: relative;
-  height: 750vh;
+  height: 350vh;
 }
 
 .scene {
@@ -148,8 +149,6 @@ header h1 {
   outline-offset: 4px;
 }
 
-/* Image area */
-
 .picture {
   width: 100%;
   height: 82%;
@@ -166,7 +165,7 @@ header h1 {
   height: 100%;
   display: block;
 
-  /* Change to "contain" to show photos without cropping. */
+  /* Use "contain" to show the entire photo without cropping. */
   object-fit: cover;
 }
 
@@ -199,7 +198,7 @@ header h1 {
   pointer-events: none;
 }
 
-/* Enlarged card */
+/* OVERLAY */
 
 .overlay {
   position: fixed;
@@ -222,10 +221,8 @@ header h1 {
 
 .selected-card {
   width: min(360px, 85vw);
-  max-height: 88vh;
-  background: #fff;
-  box-shadow: 0 15px 65px #00000022;
-  overflow-y: auto;
+  height: min(650px, 88vh);
+  perspective: 1400px;
   transform: translateY(22px) scale(.94);
   transition: transform .4s cubic-bezier(.2,.8,.2,1);
 }
@@ -238,8 +235,41 @@ header h1 {
   transform: translateY(0) scale(1);
 }
 
+/* FLIPPING CARD */
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .75s cubic-bezier(.2,.75,.2,1);
+}
+
+.flip-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: 0 15px 65px #00000022;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-front {
+  transform: rotateY(0deg);
+}
+
 .selected-image {
-  height: min(55vh, 460px);
+  height: 65%;
+  flex: 0 0 65%;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,7 +278,10 @@ header h1 {
 }
 
 .selected-info {
-  padding: 18px 20px 20px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 18px 20px;
 }
 
 .selected-number {
@@ -269,6 +302,87 @@ header h1 {
   color: #666;
   margin: 0;
 }
+
+.flip-button {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 13px 20px;
+  border: 0;
+  border-top: 1px solid #00000010;
+  background: transparent;
+  color: #888;
+  text-align: left;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.flip-button:focus-visible,
+.purchase-link:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: -3px;
+}
+
+/* BACK OF CARD */
+
+.card-back {
+  transform: rotateY(180deg);
+  background: #f1eee7;
+  padding: 26px;
+}
+
+.back-eyebrow {
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.back-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+.back-content h2 {
+  margin: 14px 0;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -.04em;
+}
+
+.back-content p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #777;
+}
+
+.purchase-link {
+  display: inline-block;
+  margin-top: 28px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #191919;
+  font-size: 13px;
+  transition: opacity .2s;
+}
+
+.purchase-link:hover {
+  opacity: .55;
+}
+
+.purchase-link[hidden] {
+  display: none;
+}
+
+.card-back .flip-button {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* MOBILE */
 
 @media (max-width: 700px) {
   .intro {
@@ -299,7 +413,8 @@ header h1 {
 @media (prefers-reduced-motion: reduce) {
   .archive-card,
   .overlay,
-  .selected-card {
+  .selected-card,
+  .flip-inner {
     transition: none;
   }
 }
@@ -308,54 +423,102 @@ header h1 {
 
 <body>
 
-<header>
-  <h1>The price of luck</h1>
-</header>
+<div id="pageContent">
 
-<aside class="intro">
-  <div class="eyebrow">About the Archive</div>
-  <p>
-    A collection of objects perceived to carry luck,
-    protection, and personal meaning.
-  </p>
-</aside>
+  <header>
+    <h1>The price of luck</h1>
+  </header>
 
-<nav class="categories" aria-label="Object categories">
-  <a href="category.html?category=all">All Objects</a>
-  <a href="category.html?category=keepsakes">ONE</a>
-  <a href="category.html?category=charms">TWO</a>
-  <a href="category.html?category=rituals">THREE</a>
-  <a href="category.html?category=gifts">FOUR</a>
-  <a href="category.html?category=found">FIVE</a>
-  <a href="category.html?category=memories">SIX</a>
-</nav>
+  <aside class="intro">
+    <div class="eyebrow">About the Archive</div>
+    <p>
+      A collection of objects believed to carry luck,
+      protection, and personal meaning.
+    </p>
+  </aside>
 
-<div class="scroll-track" id="track">
-  <div class="scene">
-    <div class="archive">
-      <div class="archive-line" id="archiveLine"></div>
+  <nav class="categories" aria-label="Object categories">
+    <a href="category.html?category=all">All Objects</a>
+    <a href="category.html?category=keepsakes">Keepsakes</a>
+    <a href="category.html?category=charms">Charms</a>
+    <a href="category.html?category=rituals">Rituals</a>
+    <a href="category.html?category=gifts">Gifts</a>
+    <a href="category.html?category=found">Found Objects</a>
+    <a href="category.html?category=memories">Memories</a>
+  </nav>
+
+  <div class="scroll-track" id="track">
+    <div class="scene">
+      <div class="archive">
+        <div class="archive-line" id="archiveLine"></div>
+      </div>
     </div>
   </div>
+
+  <div class="scroll-hint">SCROLL TO EXPLORE ↕</div>
+
 </div>
 
-<div class="scroll-hint">SCROLL TO EXPLORE ↕</div>
+<!-- ENLARGED CARD -->
 
-<div class="overlay" id="overlay" aria-hidden="true">
+<div class="overlay" id="overlay" aria-hidden="true" inert>
   <article
     class="selected-card"
     id="selectedCard"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="selectedTitle"
-    aria-describedby="selectedDescription"
+    aria-label="Object details and purchase information"
     tabindex="-1"
   >
-    <div class="selected-image" id="selectedImage"></div>
+    <div class="flip-inner" id="flipInner">
 
-    <div class="selected-info">
-      <div class="selected-number" id="selectedNumber"></div>
-      <h2 id="selectedTitle"></h2>
-      <p id="selectedDescription"></p>
+      <!-- FRONT -->
+
+      <div class="card-face card-front" id="cardFront">
+        <div class="selected-image" id="selectedImage"></div>
+
+        <div class="selected-info">
+          <div class="selected-number" id="selectedNumber"></div>
+          <h2 id="selectedTitle"></h2>
+          <p id="selectedDescription"></p>
+        </div>
+
+        <button class="flip-button" id="showBack" type="button">
+          Click to see where to purchase ↗
+        </button>
+      </div>
+
+      <!-- BACK -->
+
+      <div
+        class="card-face card-back"
+        id="cardBack"
+        aria-hidden="true"
+        inert
+      >
+        <div class="back-eyebrow">The price of luck</div>
+
+        <div class="back-content">
+          <div class="selected-number" id="backNumber"></div>
+          <h2 id="backTitle"></h2>
+          <p id="purchaseMessage"></p>
+
+          <a
+            class="purchase-link"
+            id="purchaseLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            hidden
+          >
+            Visit website ↗
+          </a>
+        </div>
+
+        <button class="flip-button" id="showFront" type="button">
+          Click to return ↶
+        </button>
+      </div>
+
     </div>
   </article>
 </div>
@@ -364,46 +527,51 @@ header h1 {
 /* ==========================================
    EDIT YOUR OBJECTS HERE
 
-   Put your photos in an "images" folder
-   beside this HTML file.
+   Put photos in an "images" folder beside
+   this HTML file.
 
-   Example:
-   image: "images/lucky-coin.jpg"
+   image: your photo's path
+   description: the object's story
+   purchaseUrl: the full product website URL
+   purchaseLabel: the text shown on the link
 
-   Copy an object below to add another one.
-   Give each new object a unique id.
+   Leave purchaseUrl empty if there is no link.
+   Each entry appears once in the stack.
 ========================================== */
 
 const objects = [
   {
     id: 1,
-    name: "Street Button",
-    image: "images/street-button.jpeg",
+    name: "Lucky Coin",
+    image: "images/lucky-coin.jpg",
     symbol: "◉",
     color: "#b6aa97",
     category: "keepsakes",
-    description:
-      "Add the story behind your street button here."
+    description: "Add the story behind your lucky coin here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 2,
-    name: "Eggplant Charm",
-    image: "images/eggplant-charm.png",
+    name: "Red Thread",
+    image: "images/red-thread.jpg",
     symbol: "〰",
     color: "#bd7770",
     category: "charms",
-    description:
-      "Add the story behind your eggplant charm here."
+    description: "Add the story behind your red thread here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 3,
-    name: "Watch",
-    image: "images/watch.jpeg",
+    name: "Old Photograph",
+    image: "images/old-photograph.jpg",
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description:
-      "Add the story behind your watch here."
+    description: "Add the story behind your photograph here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
   },
   {
     id: 4,
@@ -412,8 +580,9 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description:
-      "Add the story behind your clover here."
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 5,
@@ -422,8 +591,9 @@ const objects = [
     symbol: "◌",
     color: "#b9b9b5",
     category: "gifts",
-    description:
-      "Add the story behind your silver ring here."
+    description: "Add the story behind your silver ring here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 6,
@@ -432,8 +602,9 @@ const objects = [
     symbol: "⚿",
     color: "#b4a389",
     category: "found",
-    description:
-      "Add the story behind your key here."
+    description: "Add the story behind your key here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 7,
@@ -442,8 +613,9 @@ const objects = [
     symbol: "●",
     color: "#a5aaa9",
     category: "found",
-    description:
-      "Add the story behind your stone here."
+    description: "Add the story behind your stone here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 8,
@@ -452,8 +624,9 @@ const objects = [
     symbol: "◇",
     color: "#c5b4a4",
     category: "rituals",
-    description:
-      "Add the story behind your paper crane here."
+    description: "Add the story behind your paper crane here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 9,
@@ -462,8 +635,9 @@ const objects = [
     symbol: "◎",
     color: "#b9a5a1",
     category: "gifts",
-    description:
-      "Add the story behind your bracelet here."
+    description: "Add the story behind your bracelet here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 10,
@@ -472,8 +646,9 @@ const objects = [
     symbol: "✦",
     color: "#c7b69b",
     category: "rituals",
-    description:
-      "Add the story behind your wishing star here."
+    description: "Add the story behind your wishing star here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 11,
@@ -482,8 +657,9 @@ const objects = [
     symbol: "◔",
     color: "#a6b9b7",
     category: "found",
-    description:
-      "Add the story behind your shell here."
+    description: "Add the story behind your shell here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   },
   {
     id: 12,
@@ -492,43 +668,25 @@ const objects = [
     symbol: "✉",
     color: "#d0c4aa",
     category: "memories",
-    description:
-      "Add the story behind your fortune note here."
-  }
-  {
-    id: 12,
-    name: "Fortune Note",
-    image: "images/fortune-note.jpg",
-    symbol: "✉",
-    color: "#d0c4aa",
-    category: "memories",
-    description: "Add your story here."
-  },
-  {
-    id: 13,
-    name: "Your Next Object",
-    image: "images/object-13.jpg",
-    symbol: "◉",
-    color: "#b6aa97",
-    category: "keepsakes",
-    description: "Add your next object's story here."
+    description: "Add the story behind your fortune note here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
   }
 ];
 
-/* Repeat the objects to keep the long stack.
-   Change 4 to 1 to show each object only once. */
+/* ELEMENTS */
 
-const REPEAT_COUNT = 4;
-
-const archiveObjects = Array.from(
-  { length: REPEAT_COUNT },
-  () => objects
-).flat();
-
+const pageContent = document.getElementById("pageContent");
 const archiveLine = document.getElementById("archiveLine");
 const track = document.getElementById("track");
 const overlay = document.getElementById("overlay");
 const selectedCard = document.getElementById("selectedCard");
+const flipInner = document.getElementById("flipInner");
+const cardFront = document.getElementById("cardFront");
+const cardBack = document.getElementById("cardBack");
+const showBack = document.getElementById("showBack");
+const showFront = document.getElementById("showFront");
+const purchaseLink = document.getElementById("purchaseLink");
 
 const STEP = 28;
 const ANGLE = -20 * Math.PI / 180;
@@ -537,10 +695,13 @@ const dy = Math.sin(ANGLE);
 
 const reducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
-).matches;
+);
 
-/* Add a photo.
-   If the photo is missing, show the symbol instead. */
+let previousFocus = null;
+let previousOverflow = "";
+let isFlipped = false;
+
+/* PHOTO WITH PLACEHOLDER FALLBACK */
 
 function showImage(container, obj) {
   container.replaceChildren();
@@ -549,21 +710,16 @@ function showImage(container, obj) {
   const fallback = document.createElement("span");
   fallback.textContent = obj.symbol;
   fallback.setAttribute("aria-hidden", "true");
-
   container.appendChild(fallback);
 
   if (!obj.image) return;
 
   const img = document.createElement("img");
   img.alt = obj.name;
-
-  // Hide the photo until it loads successfully.
-  img.hidden = true;
   img.style.display = "none";
 
   img.addEventListener("load", () => {
     fallback.remove();
-    img.hidden = false;
     img.style.display = "block";
   });
 
@@ -575,9 +731,9 @@ function showImage(container, obj) {
   img.src = obj.image;
 }
 
-/* Build the stack */
+/* BUILD CARDS — NO REPEATING */
 
-archiveObjects.forEach((obj, i) => {
+objects.forEach((obj, i) => {
   const card = document.createElement("button");
   card.className = "archive-card";
   card.type = "button";
@@ -596,6 +752,7 @@ archiveObjects.forEach((obj, i) => {
   positionCard(false);
 
   card.addEventListener("mouseenter", () => positionCard(true));
+
   card.addEventListener("mouseleave", () => {
     positionCard(document.activeElement === card);
   });
@@ -620,10 +777,11 @@ archiveObjects.forEach((obj, i) => {
   card.append(picture, label);
 
   card.addEventListener("click", () => openCard(obj, card));
+
   archiveLine.appendChild(card);
 });
 
-/* Smooth diagonal movement */
+/* SCROLL MOVEMENT */
 
 let current = 0;
 let target = 0;
@@ -641,20 +799,23 @@ function updateTarget() {
       )
     : 0;
 
-  const total = Math.max(0, archiveObjects.length - 1) * STEP;
-
+  const total = Math.max(0, objects.length - 1) * STEP;
   target = -progress * total;
 }
 
 function animate() {
-  current = reducedMotion
+  current = reducedMotion.matches
     ? target
     : current + (target - current) * .085;
 
+  const mobile = window.innerWidth <= 700;
+  const cardWidth = mobile ? 170 : 210;
+  const cardHeight = mobile ? 235 : 290;
+
   archiveLine.style.transform = `
     translate3d(
-      ${current * dx - 105}px,
-      ${current * dy - 145}px,
+      ${current * dx - cardWidth / 2}px,
+      ${current * dy - cardHeight / 2}px,
       0
     )
   `;
@@ -668,61 +829,165 @@ window.addEventListener("resize", updateTarget);
 updateTarget();
 animate();
 
-/* Open and close the enlarged card */
+/* FLIP THE ENLARGED CARD */
 
-let previousFocus = null;
-let previousOverflow = "";
+function setFlipped(flipped, moveFocus = true) {
+  isFlipped = flipped;
+
+  flipInner.classList.toggle("is-flipped", flipped);
+
+  // Move focus before hiding the previous face.
+  if (moveFocus) {
+    const nextFace = flipped ? cardBack : cardFront;
+    nextFace.inert = false;
+    nextFace.setAttribute("aria-hidden", "false");
+
+    const button = flipped ? showFront : showBack;
+    button.focus({ preventScroll: true });
+  }
+
+  cardFront.inert = flipped;
+  cardBack.inert = !flipped;
+
+  cardFront.setAttribute("aria-hidden", String(flipped));
+  cardBack.setAttribute("aria-hidden", String(!flipped));
+}
+
+/* VALIDATE PURCHASE LINKS */
+
+function validPurchaseUrl(value) {
+  if (!value) return "";
+
+  try {
+    const url = new URL(value);
+
+    return ["https:", "http:"].includes(url.protocol)
+      ? url.href
+      : "";
+  } catch {
+    return "";
+  }
+}
+
+/* OPEN CARD */
 
 function openCard(obj, trigger) {
   previousFocus = trigger;
   previousOverflow = document.body.style.overflow;
 
+  // Reset to the front without a reverse flip animation.
+  flipInner.style.transition = "none";
+  setFlipped(false, false);
+  void flipInner.offsetWidth;
+  flipInner.style.transition = "";
+
   showImage(document.getElementById("selectedImage"), obj);
 
-  document.getElementById("selectedNumber").textContent =
+  const number =
     "ARCHIVE / " + String(obj.id).padStart(3, "0");
 
+  document.getElementById("selectedNumber").textContent = number;
+  document.getElementById("backNumber").textContent = number;
   document.getElementById("selectedTitle").textContent = obj.name;
+  document.getElementById("backTitle").textContent = obj.name;
 
   document.getElementById("selectedDescription").textContent =
     obj.description;
 
-  selectedCard.scrollTop = 0;
-  overlay.classList.add("active");
+  const url = validPurchaseUrl(obj.purchaseUrl);
+  const message = document.getElementById("purchaseMessage");
+
+  if (url) {
+    purchaseLink.href = url;
+    purchaseLink.textContent =
+      (obj.purchaseLabel || "Visit website") + " ↗";
+    purchaseLink.hidden = false;
+
+    message.textContent =
+      "Visit the website below to view this object.";
+  } else {
+    purchaseLink.removeAttribute("href");
+    purchaseLink.hidden = true;
+
+    message.textContent =
+      "No purchase link has been added for this object.";
+  }
+
+  cardFront.querySelector(".selected-info").scrollTop = 0;
+
+  overlay.inert = false;
   overlay.setAttribute("aria-hidden", "false");
+  overlay.classList.add("active");
+
   document.body.style.overflow = "hidden";
-  selectedCard.focus({ preventScroll: true });
+  showBack.focus({ preventScroll: true });
+  pageContent.inert = true;
 }
+
+/* CLOSE CARD */
 
 function closeCard() {
   if (!overlay.classList.contains("active")) return;
 
-  overlay.classList.remove("active");
-  overlay.setAttribute("aria-hidden", "true");
+  pageContent.inert = false;
   document.body.style.overflow = previousOverflow;
 
   previousFocus?.focus({ preventScroll: true });
+
+  overlay.classList.remove("active");
+  overlay.setAttribute("aria-hidden", "true");
+  overlay.inert = true;
 }
 
-/* Click outside the card to close */
+/* CLICK ENLARGED CARD TO FLIP */
+
+selectedCard.addEventListener("click", event => {
+  // Allow the purchase link to open without flipping.
+  if (event.target.closest("a")) return;
+
+  // Allow visitors to select and copy the text.
+  if (window.getSelection()?.toString()) return;
+
+  setFlipped(!isFlipped);
+});
+
+/* CLICK OUTSIDE TO CLOSE */
 
 overlay.addEventListener("click", event => {
   if (event.target === overlay) closeCard();
 });
 
-/* Escape closes the card.
-   Keep keyboard focus inside while it is open. */
+/* KEYBOARD CONTROLS */
 
 document.addEventListener("keydown", event => {
   if (!overlay.classList.contains("active")) return;
 
   if (event.key === "Escape") {
+    event.preventDefault();
     closeCard();
+    return;
   }
 
-  if (event.key === "Tab") {
+  if (event.key !== "Tab") return;
+
+  const visibleFace = isFlipped ? cardBack : cardFront;
+
+  const controls = Array.from(
+    visibleFace.querySelectorAll("button, a[href]")
+  ).filter(element => !element.hidden);
+
+  const first = controls[0];
+  const last = controls[controls.length - 1];
+  const active = document.activeElement;
+
+  if (event.shiftKey) {
+    if (active === first || !controls.includes(active)) {
+      event.preventDefault();
+      last.focus();
+    }
+  } else if (active === last || !controls.includes(active)) {
     event.preventDefault();
-    selectedCard.focus({ preventScroll: true });
+    first.focus();
   }
 });
 </script>
