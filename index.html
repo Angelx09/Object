@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +6,25 @@
 <title>The Price of Luck</title>
 
 <style>
-* { box-sizing: border-box; }
-
-html { scroll-behavior: auto; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  background: #faf9f6;
+  background: #282828;
   color: #191919;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-button, a { font: inherit; }
+button, a {
+  font: inherit;
+}
 
-a { color: inherit; text-decoration: none; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
 /* Header */
 
@@ -86,11 +90,10 @@ header h1 {
 }
 
 .categories a:hover,
-.categories a:focus-visible {
+.categories a:focus-visible,
+.categories a:first-child {
   color: #000;
 }
-
-.categories a:first-child { color: #000; }
 
 /* Scrollable archive */
 
@@ -132,15 +135,22 @@ header h1 {
   height: 290px;
   padding: 0;
   border: 1px solid #f8f8f8;
-  background: white;
+  background: #fff;
+  color: inherit;
   cursor: pointer;
   transform-style: preserve-3d;
-  transition: transform 0.3s ease-out;
-  backface-visibility: visible;
+  transition: transform .3s ease-out;
   box-shadow: 1px 2px 5px #0000000b;
 }
 
-.archive-card .picture {
+.archive-card:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: 4px;
+}
+
+/* Image area */
+
+.picture {
   width: 100%;
   height: 82%;
   display: flex;
@@ -150,14 +160,17 @@ header h1 {
   overflow: hidden;
 }
 
-.archive-card .picture img {
+.picture img,
+.selected-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   display: block;
+
+  /* Change to "contain" to show photos without cropping. */
+  object-fit: cover;
 }
 
-.archive-card .label {
+.label {
   height: 18%;
   background: #f7f6f3;
   padding: 9px;
@@ -165,8 +178,13 @@ header h1 {
   font-size: 9px;
 }
 
-.archive-card:hover {
-  filter: brightness(.94);
+.label-name {
+  display: block;
+  margin-top: 5px;
+  color: #777;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .scroll-hint {
@@ -181,7 +199,7 @@ header h1 {
   pointer-events: none;
 }
 
-/* Floating selected card */
+/* Enlarged card */
 
 .overlay {
   position: fixed;
@@ -212,6 +230,10 @@ header h1 {
   transition: transform .4s cubic-bezier(.2,.8,.2,1);
 }
 
+.selected-card:focus {
+  outline: none;
+}
+
 .overlay.active .selected-card {
   transform: translateY(0) scale(1);
 }
@@ -222,6 +244,7 @@ header h1 {
   align-items: center;
   justify-content: center;
   font-size: 105px;
+  overflow: hidden;
 }
 
 .selected-info {
@@ -248,10 +271,37 @@ header h1 {
 }
 
 @media (max-width: 700px) {
-  .intro { left: 15px; top: 90px; width: 140px; }
-  .categories { right: 15px; gap: 10px; }
-  .categories a { font-size: 11px; }
-  .archive-card { width: 170px; height: 235px; }
+  .intro {
+    left: 15px;
+    top: 90px;
+    width: 140px;
+  }
+
+  .categories {
+    right: 15px;
+    gap: 10px;
+  }
+
+  .categories a {
+    font-size: 11px;
+  }
+
+  .archive-card {
+    width: 170px;
+    height: 235px;
+  }
+
+  .archive {
+    left: 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .archive-card,
+  .overlay,
+  .selected-card {
+    transition: none;
+  }
 }
 </style>
 </head>
@@ -265,19 +315,19 @@ header h1 {
 <aside class="intro">
   <div class="eyebrow">About the Archive</div>
   <p>
-    An collection of objects believed
-    to carry luck, protection, and personal meaning.
+    A collection of objects perceived to carry luck,
+    protection, and personal meaning.
   </p>
 </aside>
 
-<nav class="categories">
+<nav class="categories" aria-label="Object categories">
   <a href="category.html?category=all">All Objects</a>
-  <a href="category.html?category=keepsakes">Keepsakes</a>
-  <a href="category.html?category=charms">Charms</a>
-  <a href="category.html?category=rituals">Rituals</a>
-  <a href="category.html?category=gifts">Gifts</a>
-  <a href="category.html?category=found">Found Objects</a>
-  <a href="category.html?category=memories">Memories</a>
+  <a href="category.html?category=keepsakes">ONE</a>
+  <a href="category.html?category=charms">TWO</a>
+  <a href="category.html?category=rituals">THREE</a>
+  <a href="category.html?category=gifts">FOUR</a>
+  <a href="category.html?category=found">FIVE</a>
+  <a href="category.html?category=memories">SIX</a>
 </nav>
 
 <div class="scroll-track" id="track">
@@ -290,9 +340,18 @@ header h1 {
 
 <div class="scroll-hint">SCROLL TO EXPLORE ↕</div>
 
-<div class="overlay" id="overlay">
-  <article class="selected-card" id="selectedCard">
+<div class="overlay" id="overlay" aria-hidden="true">
+  <article
+    class="selected-card"
+    id="selectedCard"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="selectedTitle"
+    aria-describedby="selectedDescription"
+    tabindex="-1"
+  >
     <div class="selected-image" id="selectedImage"></div>
+
     <div class="selected-info">
       <div class="selected-number" id="selectedNumber"></div>
       <h2 id="selectedTitle"></h2>
@@ -302,42 +361,169 @@ header h1 {
 </div>
 
 <script>
-const names = [
-  "Lucky Coin", "Red Thread", "Old Photograph",
-  "Four-Leaf Clover", "Silver Ring", "Lucky Key",
-  "Small Stone", "Paper Crane", "Family Bracelet",
-  "Wishing Star", "Shell", "Fortune Note"
+/* ==========================================
+   EDIT YOUR OBJECTS HERE
+
+   Put your photos in an "images" folder
+   beside this HTML file.
+
+   Example:
+   image: "images/lucky-coin.jpg"
+
+   Copy an object below to add another one.
+   Give each new object a unique id.
+========================================== */
+
+const objects = [
+  {
+    id: 1,
+    name: "Street Button",
+    image: "images/street-button.jpeg",
+    symbol: "◉",
+    color: "#b6aa97",
+    category: "keepsakes",
+    description:
+      "Add the story behind your street button here."
+  },
+  {
+    id: 2,
+    name: "Eggplant Charm",
+    image: "images/eggplant-charm.png",
+    symbol: "〰",
+    color: "#bd7770",
+    category: "charms",
+    description:
+      "Add the story behind your eggplant charm here."
+  },
+  {
+    id: 3,
+    name: "Watch",
+    image: "images/watch.jpeg",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description:
+      "Add the story behind your watch here."
+  },
+  {
+    id: 4,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description:
+      "Add the story behind your clover here."
+  },
+  {
+    id: 5,
+    name: "Silver Ring",
+    image: "images/silver-ring.jpg",
+    symbol: "◌",
+    color: "#b9b9b5",
+    category: "gifts",
+    description:
+      "Add the story behind your silver ring here."
+  },
+  {
+    id: 6,
+    name: "Lucky Key",
+    image: "images/lucky-key.jpg",
+    symbol: "⚿",
+    color: "#b4a389",
+    category: "found",
+    description:
+      "Add the story behind your key here."
+  },
+  {
+    id: 7,
+    name: "Small Stone",
+    image: "images/small-stone.jpg",
+    symbol: "●",
+    color: "#a5aaa9",
+    category: "found",
+    description:
+      "Add the story behind your stone here."
+  },
+  {
+    id: 8,
+    name: "Paper Crane",
+    image: "images/paper-crane.jpg",
+    symbol: "◇",
+    color: "#c5b4a4",
+    category: "rituals",
+    description:
+      "Add the story behind your paper crane here."
+  },
+  {
+    id: 9,
+    name: "Family Bracelet",
+    image: "images/family-bracelet.jpg",
+    symbol: "◎",
+    color: "#b9a5a1",
+    category: "gifts",
+    description:
+      "Add the story behind your bracelet here."
+  },
+  {
+    id: 10,
+    name: "Wishing Star",
+    image: "images/wishing-star.jpg",
+    symbol: "✦",
+    color: "#c7b69b",
+    category: "rituals",
+    description:
+      "Add the story behind your wishing star here."
+  },
+  {
+    id: 11,
+    name: "Shell",
+    image: "images/shell.jpg",
+    symbol: "◔",
+    color: "#a6b9b7",
+    category: "found",
+    description:
+      "Add the story behind your shell here."
+  },
+  {
+    id: 12,
+    name: "Fortune Note",
+    image: "images/fortune-note.jpg",
+    symbol: "✉",
+    color: "#d0c4aa",
+    category: "memories",
+    description:
+      "Add the story behind your fortune note here."
+  }
+  {
+    id: 12,
+    name: "Fortune Note",
+    image: "images/fortune-note.jpg",
+    symbol: "✉",
+    color: "#d0c4aa",
+    category: "memories",
+    description: "Add your story here."
+  },
+  {
+    id: 13,
+    name: "Your Next Object",
+    image: "images/object-13.jpg",
+    symbol: "◉",
+    color: "#b6aa97",
+    category: "keepsakes",
+    description: "Add your next object's story here."
+  }
 ];
 
-const symbols = [
-  "◉", "〰", "▣", "✳", "◌", "⚿",
-  "●", "◇", "◎", "✦", "◔", "✉"
-];
+/* Repeat the objects to keep the long stack.
+   Change 4 to 1 to show each object only once. */
 
-const colors = [
-  "#b6aa97", "#bd7770", "#a6ada3", "#b9bd96",
-  "#b9b9b5", "#b4a389", "#a5aaa9", "#c5b4a4",
-  "#b9a5a1", "#c7b69b", "#a6b9b7", "#d0c4aa"
-];
+const REPEAT_COUNT = 4;
 
-const categories = [
-  "keepsakes", "charms", "memories",
-  "charms", "gifts", "found",
-  "found", "rituals", "gifts",
-  "rituals", "found", "memories"
-];
-
-const objects = Array.from({ length: 48 }, (_, i) => ({
-  id: i + 1,
-  name: names[i % names.length],
-  symbol: symbols[i % symbols.length],
-  color: colors[i % colors.length],
-  category: categories[i % categories.length],
-  description:
-    "This object is kept as a reminder of an important moment. " +
-    "Its monetary value may be small, but its personal significance " +
-    "is difficult to measure."
-}));
+const archiveObjects = Array.from(
+  { length: REPEAT_COUNT },
+  () => objects
+).flat();
 
 const archiveLine = document.getElementById("archiveLine");
 const track = document.getElementById("track");
@@ -349,43 +535,91 @@ const ANGLE = -20 * Math.PI / 180;
 const dx = Math.cos(ANGLE);
 const dy = Math.sin(ANGLE);
 
-objects.forEach((obj, i) => {
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+/* Add a photo.
+   If the photo is missing, show the symbol instead. */
+
+function showImage(container, obj) {
+  container.replaceChildren();
+  container.style.backgroundColor = obj.color;
+
+  const fallback = document.createElement("span");
+  fallback.textContent = obj.symbol;
+  fallback.setAttribute("aria-hidden", "true");
+
+  container.appendChild(fallback);
+
+  if (!obj.image) return;
+
+  const img = document.createElement("img");
+  img.alt = obj.name;
+
+  // Hide the photo until it loads successfully.
+  img.hidden = true;
+  img.style.display = "none";
+
+  img.addEventListener("load", () => {
+    fallback.remove();
+    img.hidden = false;
+    img.style.display = "block";
+  });
+
+  img.addEventListener("error", () => {
+    img.remove();
+  });
+
+  container.appendChild(img);
+  img.src = obj.image;
+}
+
+/* Build the stack */
+
+archiveObjects.forEach((obj, i) => {
   const card = document.createElement("button");
   card.className = "archive-card";
   card.type = "button";
   card.setAttribute("aria-label", "View " + obj.name);
 
   const x = i * STEP * dx;
-const y = i * STEP * dy;
+  const y = i * STEP * dy;
 
-card.style.transform = `
-  translate3d(${x}px, ${y}px, 0)
-  rotateY(-25deg)
-`;
+  function positionCard(raised) {
+    card.style.transform = `
+      translate3d(${x}px, ${y - (raised ? 35 : 0)}px, 0)
+      rotateY(-25deg)
+    `;
+  }
 
-card.addEventListener("mouseenter", () => {
-  card.style.transform = `
-    translate3d(${x}px, ${y - 35}px, 0)
-    rotateY(-25deg)
-  `;
-});
+  positionCard(false);
 
-card.addEventListener("mouseleave", () => {
-  card.style.transform = `
-    translate3d(${x}px, ${y}px, 0)
-    rotateY(-25deg)
-  `;
-});
-  card.innerHTML = `
-    <div class="picture" style="background:${obj.color}">
-      ${obj.symbol}
-    </div>
-    <div class="label">
-      OBJECT ${String(obj.id).padStart(3, "0")}
-    </div>
-  `;
+  card.addEventListener("mouseenter", () => positionCard(true));
+  card.addEventListener("mouseleave", () => {
+    positionCard(document.activeElement === card);
+  });
 
-  card.addEventListener("click", () => openCard(obj));
+  card.addEventListener("focus", () => positionCard(true));
+  card.addEventListener("blur", () => positionCard(false));
+
+  const picture = document.createElement("div");
+  picture.className = "picture";
+  showImage(picture, obj);
+
+  const label = document.createElement("div");
+  label.className = "label";
+  label.textContent =
+    "OBJECT " + String(obj.id).padStart(3, "0");
+
+  const name = document.createElement("span");
+  name.className = "label-name";
+  name.textContent = obj.name;
+
+  label.appendChild(name);
+  card.append(picture, label);
+
+  card.addEventListener("click", () => openCard(obj, card));
   archiveLine.appendChild(card);
 });
 
@@ -396,27 +630,31 @@ let target = 0;
 
 function updateTarget() {
   const maxScroll = track.offsetHeight - window.innerHeight;
+
   const progress = maxScroll > 0
-    ? Math.min(1, Math.max(0, window.scrollY / maxScroll))
+    ? Math.min(
+        1,
+        Math.max(
+          0,
+          (window.scrollY - track.offsetTop) / maxScroll
+        )
+      )
     : 0;
 
-  const total = (objects.length - 1) * STEP;
+  const total = Math.max(0, archiveObjects.length - 1) * STEP;
 
   target = -progress * total;
 }
 
 function animate() {
-  current += (target - current) * 0.085;
-
-  const total = (objects.length - 1) * STEP;
-
-  // Keep the visible section near the screen center.
-  const offset = total * 0.22 + current;
+  current = reducedMotion
+    ? target
+    : current + (target - current) * .085;
 
   archiveLine.style.transform = `
     translate3d(
-      ${offset * dx}px,
-      ${offset * dy}px,
+      ${current * dx - 105}px,
+      ${current * dy - 145}px,
       0
     )
   `;
@@ -430,32 +668,62 @@ window.addEventListener("resize", updateTarget);
 updateTarget();
 animate();
 
-/* Card preview */
+/* Open and close the enlarged card */
 
-function openCard(obj) {
-  document.getElementById("selectedImage").style.background = obj.color;
-  document.getElementById("selectedImage").textContent = obj.symbol;
+let previousFocus = null;
+let previousOverflow = "";
+
+function openCard(obj, trigger) {
+  previousFocus = trigger;
+  previousOverflow = document.body.style.overflow;
+
+  showImage(document.getElementById("selectedImage"), obj);
+
   document.getElementById("selectedNumber").textContent =
     "ARCHIVE / " + String(obj.id).padStart(3, "0");
+
   document.getElementById("selectedTitle").textContent = obj.name;
+
   document.getElementById("selectedDescription").textContent =
     obj.description;
 
+  selectedCard.scrollTop = 0;
   overlay.classList.add("active");
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  selectedCard.focus({ preventScroll: true });
 }
 
 function closeCard() {
+  if (!overlay.classList.contains("active")) return;
+
   overlay.classList.remove("active");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = previousOverflow;
+
+  previousFocus?.focus({ preventScroll: true });
 }
 
-overlay.addEventListener("click", closeCard);
+/* Click outside the card to close */
 
-selectedCard.addEventListener("click", e => {
-  e.stopPropagation();
+overlay.addEventListener("click", event => {
+  if (event.target === overlay) closeCard();
 });
 
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeCard();
+/* Escape closes the card.
+   Keep keyboard focus inside while it is open. */
+
+document.addEventListener("keydown", event => {
+  if (!overlay.classList.contains("active")) return;
+
+  if (event.key === "Escape") {
+    closeCard();
+  }
+
+  if (event.key === "Tab") {
+    event.preventDefault();
+    selectedCard.focus({ preventScroll: true });
+  }
 });
 </script>
 
