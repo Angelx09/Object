@@ -53,9 +53,21 @@ header {
   color: #999;
 }
 
+.section-nav a {
+  transition: color .2s ease;
+}
+
 .section-nav a:hover,
+.section-nav a:focus-visible {
+  color: var(--hover-color, #191919);
+}
+
 .section-nav a[aria-current="page"] {
-  color: #000;
+  color: #191919;
+}
+
+.section-nav a[aria-current="page"]:hover {
+  color: var(--hover-color, #191919);
 }
 
 /* EACH SECTION HAS ITS OWN GRID */
@@ -534,7 +546,7 @@ const sectionData = [
       { name: "Wearable 5", image: "images/golden-bead-bracelet.png" },
       { name: "Wearable 6", image: "images/watch.jpeg" },
       { name: "Wearable 7", image: "images/black-beaded-necklace.png" },
-      { name: "Wearable 8", image: "images/silver-chain-necklace.png" }
+      { name: "Wearable 8", image: "images/silver-chain.png" }
     ]
   },
   {
