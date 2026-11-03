@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sections — The Price of Luck</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #faf9f6;
+  color: #191919;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* HEADER */
+
+header {
+  padding: 25px 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.site-title {
+  font-size: 16px;
+  letter-spacing: -.03em;
+  text-transform: lowercase;
+}
+
+.back-link {
+  font-size: 11px;
+  color: #777;
+}
+
+/* SECTION NAVIGATION */
+
+.section-nav {
+  padding: 25px 34px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 25px;
+}
+
+.section-nav a {
+  font-size: 12px;
+  color: #999;
+}
+
+.section-nav a:hover,
+.section-nav a[aria-current="page"] {
+  color: #000;
+}
+
+/* SECTION INTRODUCTION */
+
+.section-intro {
+  margin: 0 34px 40px;
+  padding: 30px;
+  background: var(--section-color, #eee);
+}
+
+.section-number {
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.section-intro h1 {
+  margin: 12px 0;
+  font-size: clamp(32px, 6vw, 70px);
+  font-weight: 400;
+  letter-spacing: -.06em;
+}
+
+.section-intro p {
+  max-width: 400px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* EIGHT-CARD GRID */
+
+.object-grid {
+  padding: 0 34px 60px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px 22px;
+}
+
+/* CARD */
+
+.object-card {
+  aspect-ratio: 2 / 3;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: 0 2px 12px #00000008;
+  transition: transform .25s ease;
+}
+
+.object-card:hover {
+  transform: translateY(-7px);
+}
+
+.object-card:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: 4px;
+}
+
+.card-heading {
+  flex: 0 0 16.5%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--card-color);
+  text-align: center;
+  font-size: clamp(12px, 1.4vw, 20px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.04em;
+}
+
+.card-heading h2 {
+  margin: 3px 0 0;
+  font: inherit;
+}
+
+/* IMAGE AND PINK BRACKETS */
+
+.card-image-area {
+  flex: 1;
+  min-height: 0;
+  padding: 9% 16% 6%;
+}
+
+.card-brackets {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+}
+
+.card-brackets::before,
+.card-brackets::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  border-top: 1px solid #ff0098;
+  border-bottom: 1px solid #ff0098;
+}
+
+.card-brackets::before {
+  left: 0;
+  border-left: 1px solid #ff0098;
+}
+
+.card-brackets::after {
+  right: 0;
+  border-right: 1px solid #ff0098;
+}
+
+.card-brackets img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card-caption {
+  flex: 0 0 17%;
+  min-height: 0;
+  padding: 8px 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-caption p {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* PREVIOUS / NEXT SECTION */
+
+.section-pagination {
+  padding: 0 34px 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+}
+
+.section-pagination a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 1500px) {
+  main {
+    max-width: 1500px;
+    margin: auto;
+  }
+}
+
+@media (max-width: 850px) {
+  .object-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card-heading {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 500px) {
+  header {
+    padding: 22px 16px;
+  }
+
+  .section-nav {
+    padding: 20px 16px 30px;
+    gap: 14px;
+  }
+
+  .section-intro {
+    margin: 0 16px 25px;
+    padding: 24px;
+  }
+
+  .object-grid {
+    padding: 0 16px 35px;
+    gap: 18px 12px;
+  }
+
+  .card-heading {
+    font-size: 12px;
+  }
+
+  .card-caption p {
+    font-size: 8px;
+  }
+
+  .section-pagination {
+    padding: 0 16px 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .object-card {
+    transition: none;
+  }
+}
+/* Section cover inside the grid */
+
+.section-cover {
+  aspect-ratio: 2 / 3;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--section-color);
+  color: #191919;
+}
+
+.section-cover-number,
+.section-cover-count {
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.section-cover h2 {
+  margin: 0 0 16px;
+  font-size: clamp(24px, 3vw, 48px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.06em;
+  overflow-wrap: anywhere;
+}
+
+.section-cover p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Start each section on a new grid row. */
+
+.section-cover {
+  grid-column: 1;
+}
+
+@media (max-width: 500px) {
+  .section-cover {
+    padding: 15px;
+  }
+
+  .section-cover h2 {
+    font-size: 25px;
+  }
+
+  .section-cover p {
+    font-size: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="back-link" href="index.html">← Back to stack</a>
+  <a class="site-title" href="index.html">The price of luck</a>
+</header>
+
+<nav class="section-nav" aria-label="Object sections">
+  <a href="category.html" data-section="0">All Objects</a>
+  <a href="?section=1" data-section="1">Wearables</a>
+  <a href="?section=2" data-section="2">Rituals</a>
+  <a href="?section=3" data-section="3">Paper</a>
+  <a href="?section=4" data-section="4">Keychains</a>
+  <a href="?section=5" data-section="5">Found Objects</a>
+  <a href="?section=6" data-section="6">Others</a>
+</nav>
+
+<main>
+  <section class="section-intro" id="sectionIntro">
+    <div class="section-number" id="sectionNumber"></div>
+    <h1 id="sectionTitle"></h1>
+    <p id="sectionDescription"></p>
+  </section>
+
+  <div class="object-grid" id="objectGrid"></div>
+
+  <nav
+    class="section-pagination"
+    id="pagination"
+    aria-label="Browse sections"
+  ></nav>
+</main>
+
+<script src="objects.js"></script>
+
+<script>
+/* EDIT SECTION NAMES AND DESCRIPTIONS HERE */
+
+const sections = [
+  {
+    name: "Wearables",
+    description: "Objects kept close for the moments and people they hold."
+  },
+  {
+    name: "Rituals",
+    description: "Small objects carried with hopes of luck and protection."
+  },
+  {
+    name: "Paper",
+    description: "Objects that become meaningful through repeated actions."
+  },
+  {
+    name: "found",
+    description: "Objects passed from one person to another, carrying a wish."
+  },
+  {
+    name: "Keychains",
+    description: "Unexpected discoveries given a meaning of their own."
+  },
+  {
+    name: "Others",
+    description: "Objects that keep a person, place, or experience within reach."
+  }
+];
+
+const params = new URLSearchParams(window.location.search);
+const requestedSection = Number(params.get("section"));
+
+const section = Number.isInteger(requestedSection)
+  && requestedSection >= 1
+  && requestedSection <= 6
+    ? requestedSection
+    : 0;
+
+const sectionData = sections[section - 1];
+
+document.title =
+  (sectionData ? sectionData.name : "All Objects")
+  + " — The Price of Luck";
+
+document.getElementById("sectionTitle").textContent =
+  sectionData ? sectionData.name : "All Objects";
+
+document.getElementById("sectionNumber").textContent =
+  section
+    ? "SECTION " + String(section).padStart(2, "0") + " / 06"
+    : "THE COMPLETE COLLECTION";
+
+document.getElementById("sectionDescription").textContent =
+  sectionData
+    ? sectionData.description
+    : "Six sections exploring the meaning we give to ordinary objects.";
+
+document.getElementById("sectionIntro").style.setProperty(
+  "--section-color",
+  section ? groupColors[section - 1] : "#eeece6"
+);
+
+document.querySelectorAll("[data-section]").forEach(link => {
+  if (Number(link.dataset.section) === section) {
+    link.setAttribute("aria-current", "page");
+  }
+});
+
+/* Each section contains eight consecutive objects. */
+
+const categoryKeys = [
+  "Wearables",
+  "Rituals",
+  "Paper",
+  "Keychains",
+  "Found Objects",
+  "Others"
+];
+
+function getObjectCategory(obj) {
+  return String(obj.category || "").trim().toLowerCase();
+}
+
+/* Group objects by category. */
+
+function getObjectCategory(obj) {
+  const category = String(obj.category || "")
+    .trim()
+    .toLowerCase();
+
+  // Accept either spelling for Found Objects.
+  return category === "found objects" ? "found" : category;
+}
+
+const visibleObjects = section
+  ? indexedObjects.filter(item => item.groupIndex === section - 1)
+  : indexedObjects;
+
+const grid = document.getElementById("objectGrid");
+/* Hide the large banner because the section cover
+   now appears as a card inside the grid. */
+
+document.getElementById("sectionIntro").hidden = true;
+
+function addSectionCover(groupIndex) {
+  const data = sections[groupIndex];
+
+  const cover = document.createElement("article");
+  cover.className = "section-cover";
+
+  cover.style.setProperty(
+    "--section-color",
+    groupColors[groupIndex]
+  );
+
+  const number = document.createElement("div");
+  number.className = "section-cover-number";
+  number.textContent =
+    "SECTION " + String(groupIndex + 1).padStart(2, "0");
+
+  const content = document.createElement("div");
+
+  const title = document.createElement("h2");
+  title.textContent = data.name;
+
+  const description = document.createElement("p");
+  description.textContent = data.description;
+
+  content.append(title, description);
+
+  const count = document.createElement("div");
+  count.className = "section-cover-count";
+  const objectCount = objects.filter(
+  obj => getObjectCategory(obj) === categoryKeys[groupIndex]
+).length;
+
+count.textContent =
+  objectCount + (objectCount === 1 ? " OBJECT" : " OBJECTS");
+
+  cover.append(number, content, count);
+  grid.appendChild(cover);
+}
+
+let previousGroup = -1;
+
+visibleObjects.forEach(({ obj, groupIndex }) => {
+  if (groupIndex !== previousGroup) {
+    addSectionCover(groupIndex);
+    previousGroup = groupIndex;
+  }
+  const card = document.createElement("a");
+  card.className = "object-card";
+  card.href = "index.html?object=" + encodeURIComponent(obj.id);
+  card.setAttribute("aria-label", "View " + obj.name);
+  card.style.setProperty("--card-color", groupColors[groupIndex]);
+
+  const heading = document.createElement("div");
+  heading.className = "card-heading";
+
+  const number = document.createElement("div");
+  number.textContent = "Object " + obj.id;
+
+  const title = document.createElement("h2");
+  title.textContent = obj.name;
+
+  heading.append(number, title);
+
+  const imageArea = document.createElement("div");
+  imageArea.className = "card-image-area";
+
+  const brackets = document.createElement("div");
+  brackets.className = "card-brackets";
+
+  const fallback = document.createElement("span");
+  fallback.textContent = obj.symbol || "◉";
+  brackets.appendChild(fallback);
+
+  if (obj.image) {
+    const image = document.createElement("img");
+    image.alt = obj.name;
+    image.loading = "lazy";
+    image.style.display = "none";
+
+    image.addEventListener("load", () => {
+      fallback.remove();
+      image.style.display = "block";
+    });
+
+    image.addEventListener("error", () => image.remove());
+
+    brackets.appendChild(image);
+    image.src = obj.image;
+  }
+
+  imageArea.appendChild(brackets);
+
+  const caption = document.createElement("div");
+  caption.className = "card-caption";
+
+  const description = document.createElement("p");
+  description.textContent = obj.description;
+
+  caption.appendChild(description);
+  card.append(heading, imageArea, caption);
+  grid.appendChild(card);
+});
+
+if (!visibleObjects.length) {
+  grid.textContent = "Objects for this section are coming soon.";
+}
+
+/* SECTION PAGE NAVIGATION */
+
+const pagination = document.getElementById("pagination");
+
+if (section) {
+  const previous = document.createElement("a");
+  previous.href = section === 1
+    ? "category.html"
+    : "?section=" + (section - 1);
+
+  previous.textContent = section === 1
+    ? "← All Objects"
+    : "← " + sections[section - 2].name;
+
+  const next = document.createElement("a");
+  next.href = section === 6
+    ? "category.html"
+    : "?section=" + (section + 1);
+
+  next.textContent = section === 6
+    ? "All Objects →"
+    : sections[section].name + " →";
+
+  pagination.append(previous, next);
+}
+</script>
+
+</body>
+</html>

@@ -423,6 +423,249 @@ header h1 {
     transition: none;
   }
 }
+/* CARD PROPORTIONS */
+
+.selected-card {
+  width: min(480px, 88vw, 56vh);
+  height: min(720px, 84vh);
+}
+
+/* WHITE FRONT */
+
+.card-front {
+  background: #fff;
+}
+
+/* YELLOW TITLE BAND */
+
+.object-heading {
+  flex: 0 0 16.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fff500;
+  color: #000;
+  text-align: center;
+}
+
+.object-heading #selectedNumber,
+.object-heading h2 {
+  margin: 0;
+  font-size: clamp(18px, 2.8vh, 28px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.045em;
+}
+
+.object-heading h2 {
+  margin-top: 4px;
+}
+
+/* IMAGE AREA */
+
+.object-image-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9% 16% 6%;
+  background: #fff;
+}
+
+.image-brackets {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
+}
+
+/* PINK BRACKETS */
+
+.image-brackets::before,
+.image-brackets::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 11px;
+  border-top: 2px solid #ff0098;
+  border-bottom: 2px solid #ff0098;
+  pointer-events: none;
+}
+
+.image-brackets::before {
+  left: 0;
+  border-left: 2px solid #ff0098;
+}
+
+.image-brackets::after {
+  right: 0;
+  border-right: 2px solid #ff0098;
+}
+
+.card-front .selected-image {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: #fff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-front .selected-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* CENTERED DESCRIPTION */
+
+.card-front .selected-info {
+  flex: 0 0 17%;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 12%;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.card-front .selected-info p {
+  margin: auto 0;
+  color: #191919;
+  font-size: clamp(11px, 1.6vh, 15px);
+  line-height: 1.35;
+  letter-spacing: -.03em;
+}
+
+/* SUBTLE FLIP INSTRUCTION */
+
+.card-front .flip-button {
+  padding: 9px 16px;
+  border: 0;
+  color: #888;
+  text-align: center;
+  font-size: 9px;
+}
+/* STACK CARD COVER */
+
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Yellow title band */
+
+.stack-heading {
+  flex: 0 0 16.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 5px 8px;
+  background: #fff500;
+  color: #000;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.045em;
+  text-align: center;
+}
+
+.stack-heading div:last-child {
+  margin-top: 2px;
+}
+
+/* White image area */
+
+.stack-image-area {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 9% 16% 6%;
+  background: #fff;
+}
+
+.stack-brackets {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 6px;
+}
+
+/* Pink brackets */
+
+.stack-brackets::before,
+.stack-brackets::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  border-top: 1px solid #ff0098;
+  border-bottom: 1px solid #ff0098;
+  pointer-events: none;
+}
+
+.stack-brackets::before {
+  left: 0;
+  border-left: 1px solid #ff0098;
+}
+
+.stack-brackets::after {
+  right: 0;
+  border-right: 1px solid #ff0098;
+}
+
+/* Full object visible */
+
+.archive-card .picture {
+  width: 100%;
+  height: 100%;
+  background: #fff !important;
+  font-size: 40px;
+}
+
+.archive-card .picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Small centered description */
+
+.stack-caption {
+  flex: 0 0 17%;
+  width: 100%;
+  padding: 5px 12%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  color: #191919;
+  font-size: 7px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .stack-heading {
+    font-size: 11px;
+  }
+
+  .stack-caption {
+    font-size: 6px;
+  }
+}
 </style>
 </head>
 
@@ -444,12 +687,12 @@ header h1 {
 
   <nav class="categories" aria-label="Object categories">
     <a href="category.html?category=all">All Objects</a>
-    <a href="category.html?category=keepsakes">ONE</a>
-    <a href="category.html?category=charms">TWO</a>
-    <a href="category.html?category=rituals">THREE</a>
-    <a href="category.html?category=gifts">FOUR</a>
-    <a href="category.html?category=found">FIVE</a>
-    <a href="category.html?category=memories">SIX</a>
+    <a href="category.html?category=keepsakes">Wearables</a>
+    <a href="category.html?category=charms">Rituals</a>
+    <a href="category.html?category=rituals">Paper</a>
+    <a href="category.html?category=gifts">Keychains</a>
+    <a href="category.html?category=found">Found Objects</a>
+    <a href="category.html?category=memories">Others</a>
   </nav>
 
   <div class="scroll-track" id="track">
@@ -479,21 +722,30 @@ header h1 {
 
       <!-- FRONT -->
 
-      <div class="card-face card-front" id="cardFront">
-        <div class="selected-image" id="selectedImage"></div>
+<div class="card-face card-front" id="cardFront">
 
-        <div class="selected-info">
-          <div class="selected-number" id="selectedNumber"></div>
-          <h2 id="selectedTitle"></h2>
-          <p id="selectedDescription"></p>
-        </div>
+  <div class="object-heading">
+    <div id="selectedNumber"></div>
+    <h2 id="selectedTitle"></h2>
+  </div>
 
-        <button class="flip-button" id="showBack" type="button">
-          Click to see where to purchase ↗
-        </button>
-      </div>
+  <div class="object-image-area">
+    <div class="image-brackets">
+      <div class="selected-image" id="selectedImage"></div>
+    </div>
+  </div>
 
-      <!-- BACK -->
+  <div class="selected-info">
+    <p id="selectedDescription"></p>
+  </div>
+
+  <button class="flip-button" id="showBack" type="button">
+    Click to flip ↗
+  </button>
+
+</div>
+
+<!-- BACK -->
 
       <div
         class="card-face card-back"
@@ -528,6 +780,7 @@ header h1 {
   </article>
 </div>
 
+
 <script>
 /* ==========================================
    EDIT YOUR OBJECTS HERE
@@ -543,115 +796,126 @@ header h1 {
    Leave purchaseUrl empty if there is no link.
    Each entry appears once in the stack.
 ========================================== */
+const groupColors = [
+  "#FFF500", // Group 1 — yellow
+  "#FF9BCB", // Group 2 — pink
+  "#B9DFFF", // Group 3 — blue
+  "#BFE6AE", // Group 4 — green
+  "#FFC18C", // Group 5 — orange
+  "#CDBBFA"  // Group 6 — lavender
+];
 
+function getGroupColor(index) {
+  return groupColors[Math.floor(index / 8) % groupColors.length];
+}
 const objects = [
   {
     id: 1,
-    name: "Eggplant Charm",
-    image: "images/eggplant-charm.png",
+    name: "Jade Heart Necklace",
+    image: "images/jade-heart-necklace.png",
     symbol: "◉",
     color: "#b6aa97",
-    category: "keepsakes",
-    description: "Add the story behind eggplant charm here.",
+    category: "Wearables",
+    description: "Add the story behind jade heart necklace here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 2,
-    name: "street-button",
-    image: "images/street-button.jpeg",
+    name: "Scorpio Necklace",
+    image: "images/Yellow GOld Scorpio Necklace.png",
     symbol: "〰",
     color: "#bd7770",
-    category: "charms",
-    description: "Add the story behind street button here.",
+    category: "Wearables",
+    description: "Add the story behind scorpio necklace here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 3,
-    name: "watch",
-    image: "images/watch.jpeg",
+    name: "Polished Wooden Bead Bracelet",
+    image: "images/polished-wooden-bead-bracelet.jpg",
     symbol: "▣",
     color: "#a6ada3",
-    category: "memories",
-    description: "Add the story behind watch here.",
+    category: "Wearables",
+    description: "Add the story behind polished wooden bead bracelet here.",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
   {
     id: 4,
-    name: "Four-Leaf Clover",
-    image: "images/four-leaf-clover.jpg",
+    name: "Golden Bead Bracelet",
+    image: "images/golden-bead-bracelet.png",
     symbol: "✳",
     color: "#b9bd96",
-    category: "charms",
-    description: "Add the story behind your clover here.",
+    category: "Wearables",
+    description: "Add the story behind your golden bead bracelet here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 5,
-    name: "Silver Ring",
-    image: "images/silver-ring.jpg",
+    name: "Red Twisted Cord with Gold Charm",
+    image: "images/red-twisted-cord.png",
     symbol: "◌",
     color: "#b9b9b5",
-    category: "gifts",
-    description: "Add the story behind your silver ring here.",
+    category: "Wearables",
+    description: "Add the story behind your red twisted cord with gold charm here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 6,
-    name: "Lucky Key",
-    image: "images/lucky-key.jpg",
+    name: "Watch",
+    image: "images/watch.jpeg",
     symbol: "⚿",
     color: "#b4a389",
-    category: "found",
-    description: "Add the story behind your key here.",
+    category: "Wearables",
+    description: "Add the story behind your watch here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 7,
-    name: "Small Stone",
-    image: "images/small-stone.jpg",
+    name: "Black Beaded Necklace with Carved Pendant",
+    image: "images/black-beaded-necklace.png",
     symbol: "●",
     color: "#a5aaa9",
-    category: "found",
-    description: "Add the story behind your stone here.",
+    category: "Wearables",
+    description: "Add the story behind your black beaded necklace with carved pendant here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 8,
-    name: "Paper Crane",
-    image: "images/paper-crane.jpg",
+    name: "Silver Chain",
+    image: "images/silver-chain-necklace.png",
     symbol: "◇",
     color: "#c5b4a4",
-    category: "rituals",
-    description: "Add the story behind your paper crane here.",
+    category: "Wearables",
+    description: "Add the story behind your silver chain here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 9,
-    name: "Family Bracelet",
-    image: "images/family-bracelet.jpg",
+    name: "Amethyst Cathedral",
+    image: "images/Amethyst-cathedral.png",
     symbol: "◎",
     color: "#b9a5a1",
     category: "gifts",
-    description: "Add the story behind your bracelet here.",
+    description: "Add the story behind your amethyst cathedral here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
   {
     id: 10,
-    name: "Wishing Star",
-    image: "images/wishing-star.jpg",
+    name: "Framed Chinese Amber Ornament",
+    image: "images/Framed-Chinese-Amber-Ornament.jpg",
     symbol: "✦",
     color: "#c7b69b",
     category: "rituals",
-    description: "Add the story behind your wishing star here.",
+    description: "Add the story behind your framed chinese amber ornament here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -723,12 +987,12 @@ const objects = [
   },
   {
     id: 17,
-    name: "Fortune Note",
-    image: "images/fortune-note.jpg",
+    name: "Red Pocket",
+    image: "images/Red.png",
     symbol: "✉",
     color: "#a5aaa9",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    description: "Add the story behind your red pocket here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -745,12 +1009,12 @@ const objects = [
   },
   {
     id: 19,
-    name: "Fortune Note",
-    image: "images/fortune-note.jpg",
+    name: "Yellow Tailsman ",
+    image: "images/yellow-tailsman.jpg",
     symbol: "✉",
     color: "#d0c4aa",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    description: "Add the story behind your tailsman here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -833,12 +1097,12 @@ const objects = [
   },
   {
     id: 27,
-    name: "watch",
-    image: "images/four-leaf-clover.jpg",
+    name: "Red Underwear",
+    image: "images/Red-Underwear.jpg",
     symbol: "▣",
     color: "#b9bd96",
     category: "memories",
-    description: "Add the story behind watch here.",
+    description: "Add the story behind red underwear here.",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -874,6 +1138,215 @@ const objects = [
     description: "Add the story behind your clover here.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
+  },
+  {
+    id: 31,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#a6b9b7",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 32,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#a6b9b7",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 33,
+    name: "Jellycat Eggpplant Keychain",
+    image: "images/Jellycat-Eggplant-Keychain.jpg",
+    symbol: "✳",
+    color: "#a6b9b7",
+    category: "charms",
+    description: "Add the story behind your eggplant here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 34,
+    name: "Pink Plush Bunny Keychain",
+    image: "images/Pink-plush-keychain.png",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your pink plush bunny here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 35,
+    name: "watch",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind watch here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
+  },
+  {
+    id: 36,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 37,
+    name: "watch",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind watch here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
+  },
+  {
+    id: 38,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 39,
+    name: "watch",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind watch here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
+  },
+  {
+    id: 40,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 41,
+    name: "Lysol Disinfectant Spray",
+    image: "images/Lysol.png",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind lysol disinfectant spray here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
+  },
+  {
+    id: 42,
+    name: "Big Blue Helmet",
+    image: "images/Light-aqua-blue-helmet.png",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your helmet here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 43,
+    name: "Tetronica Pencil with its Full Eraser",
+    image: "images/yellow-pencil.png",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind the pencil here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
+  },
+  {
+    id: 44,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 45,
+    name: "watch",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind watch here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
+  },
+  {
+    id: 45,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 46,
+    name: "watch",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind watch here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
+  },
+  {
+    id: 47,
+    name: "Four-Leaf Clover",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "✳",
+    color: "#b9bd96",
+    category: "charms",
+    description: "Add the story behind your clover here.",
+    purchaseUrl: "",
+    purchaseLabel: "Shop this object"
+  },
+  {
+    id: 48,
+    name: "watch",
+    image: "images/four-leaf-clover.jpg",
+    symbol: "▣",
+    color: "#a6ada3",
+    category: "memories",
+    description: "Add the story behind watch here.",
+    purchaseUrl: "",
+    purchaseLabel: "Visit website"
   }
 ];
 
@@ -963,21 +1436,36 @@ objects.forEach((obj, i) => {
   card.addEventListener("focus", () => positionCard(true));
   card.addEventListener("blur", () => positionCard(false));
 
-  const picture = document.createElement("div");
-  picture.className = "picture";
-  showImage(picture, obj);
+  const heading = document.createElement("div");
+heading.className = "stack-heading";
+heading.style.backgroundColor = getGroupColor(i);
 
-  const label = document.createElement("div");
-  label.className = "label";
-  label.textContent =
-    "OBJECT " + String(obj.id).padStart(3, "0");
+const number = document.createElement("div");
+number.textContent = "Object " + obj.id;
 
-  const name = document.createElement("span");
-  name.className = "label-name";
-  name.textContent = obj.name;
+const title = document.createElement("div");
+title.textContent = obj.name;
 
-  label.appendChild(name);
-  card.append(picture, label);
+heading.append(number, title);
+
+const imageArea = document.createElement("div");
+imageArea.className = "stack-image-area";
+
+const brackets = document.createElement("div");
+brackets.className = "stack-brackets";
+
+const picture = document.createElement("div");
+picture.className = "picture";
+showImage(picture, obj);
+
+brackets.appendChild(picture);
+imageArea.appendChild(brackets);
+
+const caption = document.createElement("div");
+caption.className = "stack-caption";
+caption.textContent = obj.description;
+
+card.append(heading, imageArea, caption);
 
   card.addEventListener("click", () => openCard(obj, card));
 
@@ -1075,6 +1563,14 @@ function validPurchaseUrl(value) {
 /* OPEN CARD */
 
 function openCard(obj, trigger) {
+  const objectIndex = objects.findIndex(item => item.id === obj.id);
+const groupColor = getGroupColor(objectIndex);
+
+document.querySelector(".object-heading").style.backgroundColor =
+  groupColor;
+
+document.getElementById("cardBack").style.backgroundColor =
+  groupColor;
   previousFocus = trigger;
   previousOverflow = document.body.style.overflow;
 
@@ -1089,7 +1585,7 @@ function openCard(obj, trigger) {
   const number =
     "ARCHIVE / " + String(obj.id).padStart(3, "0");
 
-  document.getElementById("selectedNumber").textContent = number;
+  document.getElementById("selectedNumber").textContent = "Object " + obj.id;
   document.getElementById("backNumber").textContent = number;
   document.getElementById("selectedTitle").textContent = obj.name;
   document.getElementById("backTitle").textContent = obj.name;
@@ -1193,6 +1689,36 @@ document.addEventListener("keydown", event => {
     first.focus();
   }
 });
+/* Open the object selected from a section page. */
+
+const requestedObject = new URLSearchParams(
+  window.location.search
+).get("object");
+
+if (requestedObject !== null) {
+  const index = objects.findIndex(
+    obj => String(obj.id) === requestedObject
+  );
+
+  if (index !== -1) {
+    const trigger = archiveLine.children[index];
+
+    const maxScroll = track.offsetHeight - window.innerHeight;
+    const progress = objects.length > 1
+      ? index / (objects.length - 1)
+      : 0;
+
+    window.scrollTo(
+      0,
+      track.offsetTop + progress * maxScroll
+    );
+
+    updateTarget();
+    current = target;
+
+    openCard(objects[index], trigger);
+  }
+}
 </script>
 
 </body>
