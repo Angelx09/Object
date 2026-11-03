@@ -439,28 +439,32 @@ document.querySelectorAll("[data-section]").forEach(link => {
 /* Each section contains eight consecutive objects. */
 
 const categoryKeys = [
-  "Wearables",
-  "Rituals",
-  "Paper",
-  "Keychains",
-  "Found Objects",
-  "Others"
+  "wearables",
+  "rituals",
+  "paper",
+  "keychains",
+  "found",
+  "others"
 ];
-
-function getObjectCategory(obj) {
-  return String(obj.category || "").trim().toLowerCase();
-}
-
-/* Group objects by category. */
 
 function getObjectCategory(obj) {
   const category = String(obj.category || "")
     .trim()
     .toLowerCase();
 
-  // Accept either spelling for Found Objects.
   return category === "found objects" ? "found" : category;
 }
+
+/* Sort objects into their sections. */
+
+const indexedObjects = categoryKeys.flatMap((key, groupIndex) =>
+  objects
+    .filter(obj => getObjectCategory(obj) === key)
+    .map(obj => ({
+      obj,
+      groupIndex
+    }))
+);
 
 const visibleObjects = section
   ? indexedObjects.filter(item => item.groupIndex === section - 1)
