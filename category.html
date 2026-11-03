@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sections — The Price of Luck</title>
+<title>The Price of Luck — Objects</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -17,12 +15,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* HEADER */
+button, a { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button { color: inherit; }
+[hidden] { display: none !important; }
 
 header {
   padding: 25px 34px;
@@ -43,13 +39,13 @@ header {
   color: #777;
 }
 
-/* SECTION NAVIGATION */
+/* NAVIGATION */
 
 .section-nav {
-  padding: 25px 34px 40px;
+  padding: 20px 34px 35px;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 25px;
+  gap: 14px 25px;
 }
 
 .section-nav a {
@@ -62,72 +58,88 @@ header {
   color: #000;
 }
 
-/* SECTION INTRODUCTION */
+/* EACH SECTION HAS ITS OWN GRID */
 
-.section-intro {
-  margin: 0 34px 40px;
-  padding: 30px;
-  background: var(--section-color, #eee);
+.collection-section {
+  margin-bottom: 48px;
 }
 
-.section-number {
+.object-grid {
+  padding: 0 34px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 25px 20px;
+}
+
+/* SECTION COVER */
+
+.section-cover {
+  aspect-ratio: 2 / 3;
+  min-width: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--section-color);
+}
+
+.section-cover-number,
+.section-cover-count {
   font-size: 10px;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
 
-.section-intro h1 {
-  margin: 12px 0;
-  font-size: clamp(32px, 6vw, 70px);
+.section-cover h2 {
+  margin: 0 0 18px;
+  font-size: clamp(25px, 3vw, 46px);
   font-weight: 400;
+  line-height: 1;
   letter-spacing: -.06em;
+  overflow-wrap: anywhere;
 }
 
-.section-intro p {
-  max-width: 400px;
+.section-cover p {
   margin: 0;
   font-size: 12px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* EIGHT-CARD GRID */
-
-.object-grid {
-  padding: 0 34px 60px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 30px 22px;
-}
-
-/* CARD */
+/* OBJECT CARDS */
 
 .object-card {
   aspect-ratio: 2 / 3;
   min-width: 0;
+  padding: 0;
+  border: 0;
   display: flex;
   flex-direction: column;
   background: #fff;
+  cursor: pointer;
   box-shadow: 0 2px 12px #00000008;
-  transition: transform .25s ease;
+  transition: transform .25s;
 }
 
 .object-card:hover {
   transform: translateY(-7px);
 }
 
-.object-card:focus-visible {
+.object-card:focus-visible,
+button:focus-visible,
+a:focus-visible {
   outline: 2px solid #191919;
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
 .card-heading {
   flex: 0 0 16.5%;
-  padding: 10px;
+  width: 100%;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--card-color);
+  background: var(--section-color);
   text-align: center;
   font-size: clamp(12px, 1.4vw, 20px);
   font-weight: 700;
@@ -135,17 +147,17 @@ header {
   letter-spacing: -.04em;
 }
 
-.card-heading h2 {
+.card-heading h3 {
   margin: 3px 0 0;
   font: inherit;
 }
 
-/* IMAGE AND PINK BRACKETS */
-
 .card-image-area {
   flex: 1;
   min-height: 0;
+  width: 100%;
   padding: 9% 16% 6%;
+  background: #fff;
 }
 
 .card-brackets {
@@ -153,10 +165,6 @@ header {
   width: 100%;
   height: 100%;
   padding: 0 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 45px;
 }
 
 .card-brackets::before,
@@ -168,6 +176,7 @@ header {
   width: 7px;
   border-top: 1px solid #ff0098;
   border-bottom: 1px solid #ff0098;
+  pointer-events: none;
 }
 
 .card-brackets::before {
@@ -180,15 +189,32 @@ header {
   border-right: 1px solid #ff0098;
 }
 
-.card-brackets img {
+.photo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.photo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
+}
+
+.photo-placeholder {
+  color: #bbb;
+  font-size: 10px;
+  text-align: center;
 }
 
 .card-caption {
   flex: 0 0 17%;
   min-height: 0;
+  width: 100%;
   padding: 8px 12%;
   display: flex;
   align-items: center;
@@ -207,19 +233,154 @@ header {
   text-align: center;
 }
 
-/* PREVIOUS / NEXT SECTION */
+/* ENLARGED CARD */
 
-.section-pagination {
-  padding: 0 34px 40px;
+dialog {
+  width: min(440px, 88vw, 58vh);
+  height: min(730px, 88vh);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+dialog::backdrop {
+  background: #faf9f699;
+  backdrop-filter: blur(5px);
+}
+
+.modal-layout {
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  flex-direction: column;
+}
+
+.flip-stage {
+  flex: 1;
+  min-height: 0;
+  perspective: 1400px;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.2,.75,.2,1);
+}
+
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 15px 65px #00000022;
+  cursor: pointer;
+}
+
+.front { transform: rotateY(0deg); }
+
+.front .card-heading {
+  font-size: clamp(18px, 2.8vh, 28px);
+}
+
+.front .card-heading h2 {
+  margin: 4px 0 0;
+  font: inherit;
+}
+
+.front .card-caption {
+  overflow-y: auto;
+}
+
+.front .card-caption p {
+  display: block;
   font-size: 12px;
 }
 
-.section-pagination a:hover {
-  text-decoration: underline;
+.flip-button {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  color: #777;
+  font-size: 10px;
+  cursor: pointer;
 }
+
+.back {
+  transform: rotateY(180deg);
+  padding: 28px;
+  background: var(--section-color);
+}
+
+.back-eyebrow {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.back-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.back-content h2 {
+  margin: 14px 0;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -.05em;
+}
+
+.back-content p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.purchase-link {
+  margin-top: 20px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid;
+  font-size: 13px;
+}
+
+.modal-controls {
+  flex: 0 0 44px;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.modal-controls button {
+  border: 0;
+  padding: 0 16px;
+  background: transparent;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.modal-controls button:hover {
+  background: #f1eee7;
+}
+
+/* RESPONSIVE */
 
 @media (min-width: 1500px) {
   main {
@@ -233,100 +394,33 @@ header {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .card-heading {
-    font-size: 16px;
-  }
+  .card-heading { font-size: 16px; }
 }
 
 @media (max-width: 500px) {
-  header {
-    padding: 22px 16px;
-  }
+  header { padding: 22px 16px; }
 
   .section-nav {
-    padding: 20px 16px 30px;
+    padding: 15px 16px 28px;
     gap: 14px;
   }
 
-  .section-intro {
-    margin: 0 16px 25px;
-    padding: 24px;
-  }
-
   .object-grid {
-    padding: 0 16px 35px;
+    padding: 0 16px;
     gap: 18px 12px;
   }
 
-  .card-heading {
-    font-size: 12px;
-  }
-
-  .card-caption p {
-    font-size: 8px;
-  }
-
-  .section-pagination {
-    padding: 0 16px 30px;
-  }
+  .section-cover { padding: 15px; }
+  .section-cover h2 { font-size: 25px; }
+  .section-cover p { font-size: 10px; }
+  .card-heading { font-size: 12px; }
+  .card-caption p { font-size: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .object-card {
+  .object-card,
+  .flip-inner {
     transition: none;
-  }
-}
-/* Section cover inside the grid */
-
-.section-cover {
-  aspect-ratio: 2 / 3;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: var(--section-color);
-  color: #191919;
-}
-
-.section-cover-number,
-.section-cover-count {
-  font-size: 10px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.section-cover h2 {
-  margin: 0 0 16px;
-  font-size: clamp(24px, 3vw, 48px);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -.06em;
-  overflow-wrap: anywhere;
-}
-
-.section-cover p {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-/* Start each section on a new grid row. */
-
-.section-cover {
-  grid-column: 1;
-}
-
-@media (max-width: 500px) {
-  .section-cover {
-    padding: 15px;
-  }
-
-  .section-cover h2 {
-    font-size: 25px;
-  }
-
-  .section-cover p {
-    font-size: 10px;
   }
 }
 </style>
@@ -339,153 +433,294 @@ header {
   <a class="site-title" href="index.html">The price of luck</a>
 </header>
 
-<nav class="section-nav" aria-label="Object sections">
-  <a href="category.html" data-section="0">All Objects</a>
-  <a href="?section=1" data-section="1">Wearables</a>
-  <a href="?section=2" data-section="2">Rituals</a>
-  <a href="?section=3" data-section="3">Paper</a>
-  <a href="?section=4" data-section="4">Keychains</a>
-  <a href="?section=5" data-section="5">Found Objects</a>
-  <a href="?section=6" data-section="6">Others</a>
-</nav>
+<nav class="section-nav" id="sectionNav" aria-label="Sections"></nav>
 
-<main>
-  <section class="section-intro" id="sectionIntro">
-    <div class="section-number" id="sectionNumber"></div>
-    <h1 id="sectionTitle"></h1>
-    <p id="sectionDescription"></p>
-  </section>
+<main id="collection"></main>
 
-  <div class="object-grid" id="objectGrid"></div>
+<dialog id="objectDialog" aria-label="Object details">
+  <div class="modal-layout" id="modalLayout">
 
-  <nav
-    class="section-pagination"
-    id="pagination"
-    aria-label="Browse sections"
-  ></nav>
-</main>
+    <div class="flip-stage">
+      <div class="flip-inner" id="flipInner">
 
-<script src="objects.js"></script>
+        <div class="face front" id="frontFace">
+          <div class="card-heading">
+            <div id="modalNumber"></div>
+            <h2 id="modalTitle"></h2>
+          </div>
+
+          <div class="card-image-area">
+            <div class="card-brackets">
+              <div class="photo" id="modalPhoto"></div>
+            </div>
+          </div>
+
+          <div class="card-caption">
+            <p id="modalDescription"></p>
+          </div>
+
+          <button class="flip-button" id="flipBack" type="button">
+            Click to see where to purchase ↗
+          </button>
+        </div>
+
+        <div class="face back" id="backFace" inert aria-hidden="true">
+          <div class="back-eyebrow">The price of luck</div>
+
+          <div class="back-content">
+            <h2 id="backTitle"></h2>
+            <p id="purchaseMessage"></p>
+
+            <a
+              class="purchase-link"
+              id="purchaseLink"
+              target="_blank"
+              rel="noopener noreferrer"
+              hidden
+            >
+              Visit website ↗
+            </a>
+          </div>
+
+          <button class="flip-button" id="flipFront" type="button">
+            Click to return ↶
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-controls">
+      <button id="closeButton" type="button">Close</button>
+      <button id="nextButton" type="button">Next object →</button>
+    </div>
+
+  </div>
+</dialog>
 
 <script>
-/* EDIT SECTION NAMES AND DESCRIPTIONS HERE */
+/* ==========================================
+   YOUR SIX SECTIONS
 
-const sections = [
+   Each section contains eight sample cards.
+
+   Replace the sample data below with your
+   actual objects. Keep each object inside
+   its correct section's items array.
+
+   Object format:
+
+   {
+     name: "Jade Necklace",
+     image: "images/jade-necklace.jpg",
+     description: "Your object's story.",
+     purchaseUrl: "https://your-store.com/product"
+   }
+
+   The image filenames below are placeholders.
+========================================== */
+
+const sectionData = [
   {
+    key: "wearables",
     name: "Wearables",
-    description: "Objects kept close for the moments and people they hold."
+    color: "#FFF500",
+    description: "Objects worn close to the body, carrying luck and protection.",
+    items: [
+      { name: "Wearable 1", image: "images/jade-heart-necklace.png" },
+      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png" },
+      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png" },
+      { name: "Wearable 4", image: "images/red-twisted-cord.png" },
+      { name: "Wearable 5", image: "images/golden-bead-bracelet.png" },
+      { name: "Wearable 6", image: "images/watch.png" },
+      { name: "Wearable 7", image: "images/black-beaded-necklace.png" },
+      { name: "Wearable 8", image: "images/silver-chain-necklace.png" }
+    ]
   },
   {
+    key: "rituals",
     name: "Rituals",
-    description: "Small objects carried with hopes of luck and protection."
+    color: "#FF9BCB",
+    description: "Objects given meaning through repeated actions and beliefs.",
+    items: [
+      { name: "Ritual Object 1", image: "images/Amethyst-cathedral.png" },
+      { name: "Ritual Object 2", image: "images/Framed-Chinese-Amber-Ornament.png" },
+      { name: "Ritual Object 3", image: "images/object-11.jpg" },
+      { name: "Ritual Object 4", image: "images/object-12.jpg" },
+      { name: "Ritual Object 5", image: "images/object-13.jpg" },
+      { name: "Ritual Object 6", image: "images/object-14.jpg" },
+      { name: "Ritual Object 7", image: "images/object-15.jpg" },
+      { name: "Ritual Object 8", image: "images/object-16.jpg" }
+    ]
   },
   {
+    key: "paper",
     name: "Paper",
-    description: "Objects that become meaningful through repeated actions."
+    color: "#B9DFFF",
+    description: "Wishes, messages, and memories held on paper.",
+    items: [
+      { name: "Paper Object 1", image: "images/Red.png" },
+      { name: "Paper Object 2", image: "images/yellow-tailsman.png" },
+      { name: "Paper Object 3", image: "images/object-19.jpg" },
+      { name: "Paper Object 4", image: "images/object-20.jpg" },
+      { name: "Paper Object 5", image: "images/object-21.jpg" },
+      { name: "Paper Object 6", image: "images/object-22.jpg" },
+      { name: "Paper Object 7", image: "images/object-23.jpg" },
+      { name: "Paper Object 8", image: "images/object-24.jpg" }
+    ]
   },
   {
-    name: "found",
-    description: "Objects passed from one person to another, carrying a wish."
-  },
-  {
+    key: "keychains",
     name: "Keychains",
-    description: "Unexpected discoveries given a meaning of their own."
+    color: "#BFE6AE",
+    description: "Small companions carried from place to place.",
+    items: [
+      { name: "Keychain 1", image: "images/Eggplant-plush-keychain.png" },
+      { name: "Keychain 2", image: "images/pink-plush-keychain.png" },
+      { name: "Keychain 3", image: "images/object-27.jpg" },
+      { name: "Keychain 4", image: "images/object-28.jpg" },
+      { name: "Keychain 5", image: "images/object-29.jpg" },
+      { name: "Keychain 6", image: "images/object-30.jpg" },
+      { name: "Keychain 7", image: "images/object-31.jpg" },
+      { name: "Keychain 8", image: "images/object-32.jpg" }
+    ]
   },
   {
+    key: "found",
+    name: "Found Objects",
+    color: "#FFC18C",
+    description: "Unexpected discoveries given a meaning of their own.",
+    items: [
+      { name: "Found Object 1", image: "images/Lysol.png" },
+      { name: "Found Object 2", image: "images/Light-aqua-blue-helmet.png" },
+      { name: "Found Object 3", image: "images/yellow-pencil.png" },
+      { name: "Found Object 4", image: "images/object-36.jpg" },
+      { name: "Found Object 5", image: "images/object-37.jpg" },
+      { name: "Found Object 6", image: "images/object-38.jpg" },
+      { name: "Found Object 7", image: "images/object-39.jpg" },
+      { name: "Found Object 8", image: "images/object-40.jpg" }
+    ]
+  },
+  {
+    key: "others",
     name: "Others",
-    description: "Objects that keep a person, place, or experience within reach."
+    color: "#CDBBFA",
+    description: "Other ordinary objects with extraordinary personal meaning.",
+    items: [
+      { name: "Object 41", image: "images/object-41.jpg" },
+      { name: "Object 42", image: "images/object-42.jpg" },
+      { name: "Object 43", image: "images/object-43.jpg" },
+      { name: "Object 44", image: "images/object-44.jpg" },
+      { name: "Object 45", image: "images/object-45.jpg" },
+      { name: "Object 46", image: "images/object-46.jpg" },
+      { name: "Object 47", image: "images/object-47.jpg" },
+      { name: "Object 48", image: "images/object-48.jpg" }
+    ]
   }
 ];
 
-const params = new URLSearchParams(window.location.search);
-const requestedSection = Number(params.get("section"));
+/* PREPARE OBJECTS */
 
-const section = Number.isInteger(requestedSection)
-  && requestedSection >= 1
-  && requestedSection <= 6
-    ? requestedSection
-    : 0;
+let objectNumber = 0;
 
-const sectionData = sections[section - 1];
-
-document.title =
-  (sectionData ? sectionData.name : "All Objects")
-  + " — The Price of Luck";
-
-document.getElementById("sectionTitle").textContent =
-  sectionData ? sectionData.name : "All Objects";
-
-document.getElementById("sectionNumber").textContent =
-  section
-    ? "SECTION " + String(section).padStart(2, "0") + " / 06"
-    : "THE COMPLETE COLLECTION";
-
-document.getElementById("sectionDescription").textContent =
-  sectionData
-    ? sectionData.description
-    : "Six sections exploring the meaning we give to ordinary objects.";
-
-document.getElementById("sectionIntro").style.setProperty(
-  "--section-color",
-  section ? groupColors[section - 1] : "#eeece6"
-);
-
-document.querySelectorAll("[data-section]").forEach(link => {
-  if (Number(link.dataset.section) === section) {
-    link.setAttribute("aria-current", "page");
-  }
+sectionData.forEach((group, groupIndex) => {
+  group.items = group.items.map(item => ({
+    ...item,
+    id: ++objectNumber,
+    groupIndex,
+    description: item.description || "Add this object's story here.",
+    purchaseUrl: item.purchaseUrl || ""
+  }));
 });
 
-/* Each section contains eight consecutive objects. */
+const params = new URLSearchParams(location.search);
+const requested = params.get("section");
 
-const categoryKeys = [
-  "wearables",
-  "rituals",
-  "paper",
-  "keychains",
-  "found",
-  "others"
-];
+/* Supports both ?section=1 and ?section=wearables. */
 
-function getObjectCategory(obj) {
-  const category = String(obj.category || "")
-    .trim()
-    .toLowerCase();
-
-  return category === "found objects" ? "found" : category;
-}
-
-/* Sort objects into their sections. */
-
-const indexedObjects = categoryKeys.flatMap((key, groupIndex) =>
-  objects
-    .filter(obj => getObjectCategory(obj) === key)
-    .map(obj => ({
-      obj,
-      groupIndex
-    }))
+const activeGroup = sectionData.findIndex((group, index) =>
+  requested === String(index + 1) || requested === group.key
 );
 
-const visibleObjects = section
-  ? indexedObjects.filter(item => item.groupIndex === section - 1)
-  : indexedObjects;
+const shownGroups = activeGroup === -1
+  ? sectionData
+  : [sectionData[activeGroup]];
 
-const grid = document.getElementById("objectGrid");
-/* Hide the large banner because the section cover
-   now appears as a card inside the grid. */
+const visibleObjects = shownGroups.flatMap(group => group.items);
 
-document.getElementById("sectionIntro").hidden = true;
+document.title =
+  (activeGroup === -1 ? "All Objects" : sectionData[activeGroup].name)
+  + " — The Price of Luck";
 
-function addSectionCover(groupIndex) {
-  const data = sections[groupIndex];
+/* NAVIGATION */
+
+const nav = document.getElementById("sectionNav");
+
+function addNavLink(label, href, active) {
+  const link = document.createElement("a");
+  link.textContent = label;
+  link.href = href;
+
+  if (active) link.setAttribute("aria-current", "page");
+
+  nav.appendChild(link);
+}
+
+addNavLink("All Objects", "category.html", activeGroup === -1);
+
+sectionData.forEach((group, index) => {
+  addNavLink(
+    group.name,
+    "?section=" + (index + 1),
+    activeGroup === index
+  );
+});
+
+/* PHOTOS — PLACEHOLDER IF A FILE IS MISSING */
+
+function addPhoto(container, object) {
+  container.replaceChildren();
+
+  const placeholder = document.createElement("span");
+  placeholder.className = "photo-placeholder";
+  placeholder.textContent = "Add object photo";
+  container.appendChild(placeholder);
+
+  if (!object.image) return;
+
+  const image = document.createElement("img");
+  image.alt = object.name;
+  image.hidden = true;
+
+  image.addEventListener("load", () => {
+    placeholder.remove();
+    image.hidden = false;
+  });
+
+  image.addEventListener("error", () => image.remove());
+
+  container.appendChild(image);
+  image.src = object.image;
+}
+
+/* BUILD SECTION GRIDS */
+
+const collection = document.getElementById("collection");
+
+shownGroups.forEach(group => {
+  const groupIndex = sectionData.indexOf(group);
+
+  const section = document.createElement("section");
+  section.className = "collection-section";
+  section.style.setProperty("--section-color", group.color);
+
+  const grid = document.createElement("div");
+  grid.className = "object-grid";
+
+  /* Section cover always appears. */
 
   const cover = document.createElement("article");
   cover.className = "section-cover";
-
-  cover.style.setProperty(
-    "--section-color",
-    groupColors[groupIndex]
-  );
 
   const number = document.createElement("div");
   number.className = "section-cover-number";
@@ -494,120 +729,210 @@ function addSectionCover(groupIndex) {
 
   const content = document.createElement("div");
 
-  const title = document.createElement("h2");
-  title.textContent = data.name;
+  const heading = document.createElement("h2");
+  heading.id = "section-heading-" + groupIndex;
+  heading.textContent = group.name;
 
-  const description = document.createElement("p");
-  description.textContent = data.description;
+  section.setAttribute("aria-labelledby", heading.id);
 
-  content.append(title, description);
+  const introduction = document.createElement("p");
+  introduction.textContent = group.description;
+
+  content.append(heading, introduction);
 
   const count = document.createElement("div");
   count.className = "section-cover-count";
-  const objectCount = objects.filter(
-  obj => getObjectCategory(obj) === categoryKeys[groupIndex]
-).length;
-
-count.textContent =
-  objectCount + (objectCount === 1 ? " OBJECT" : " OBJECTS");
+  count.textContent = group.items.length + " OBJECTS";
 
   cover.append(number, content, count);
   grid.appendChild(cover);
-}
 
-let previousGroup = -1;
+  /* Object cards */
 
-visibleObjects.forEach(({ obj, groupIndex }) => {
-  if (groupIndex !== previousGroup) {
-    addSectionCover(groupIndex);
-    previousGroup = groupIndex;
-  }
-  const card = document.createElement("a");
-  card.className = "object-card";
-  card.href = "index.html?object=" + encodeURIComponent(obj.id);
-  card.setAttribute("aria-label", "View " + obj.name);
-  card.style.setProperty("--card-color", groupColors[groupIndex]);
+  group.items.forEach(object => {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "object-card";
+    card.setAttribute("aria-label", "View " + object.name);
 
-  const heading = document.createElement("div");
-  heading.className = "card-heading";
+    const titleBand = document.createElement("div");
+    titleBand.className = "card-heading";
 
-  const number = document.createElement("div");
-  number.textContent = "Object " + obj.id;
+    const objectLabel = document.createElement("div");
+    objectLabel.textContent = "Object " + object.id;
 
-  const title = document.createElement("h2");
-  title.textContent = obj.name;
+    const title = document.createElement("h3");
+    title.textContent = object.name;
 
-  heading.append(number, title);
+    titleBand.append(objectLabel, title);
 
-  const imageArea = document.createElement("div");
-  imageArea.className = "card-image-area";
+    const imageArea = document.createElement("div");
+    imageArea.className = "card-image-area";
 
-  const brackets = document.createElement("div");
-  brackets.className = "card-brackets";
+    const brackets = document.createElement("div");
+    brackets.className = "card-brackets";
 
-  const fallback = document.createElement("span");
-  fallback.textContent = obj.symbol || "◉";
-  brackets.appendChild(fallback);
+    const photo = document.createElement("div");
+    photo.className = "photo";
+    addPhoto(photo, object);
 
-  if (obj.image) {
-    const image = document.createElement("img");
-    image.alt = obj.name;
-    image.loading = "lazy";
-    image.style.display = "none";
+    brackets.appendChild(photo);
+    imageArea.appendChild(brackets);
 
-    image.addEventListener("load", () => {
-      fallback.remove();
-      image.style.display = "block";
+    const caption = document.createElement("div");
+    caption.className = "card-caption";
+
+    const story = document.createElement("p");
+    story.textContent = object.description;
+
+    caption.appendChild(story);
+    card.append(titleBand, imageArea, caption);
+
+    card.addEventListener("click", () => {
+      openObject(visibleObjects.indexOf(object));
     });
 
-    image.addEventListener("error", () => image.remove());
+    grid.appendChild(card);
+  });
 
-    brackets.appendChild(image);
-    image.src = obj.image;
-  }
-
-  imageArea.appendChild(brackets);
-
-  const caption = document.createElement("div");
-  caption.className = "card-caption";
-
-  const description = document.createElement("p");
-  description.textContent = obj.description;
-
-  caption.appendChild(description);
-  card.append(heading, imageArea, caption);
-  grid.appendChild(card);
+  section.appendChild(grid);
+  collection.appendChild(section);
 });
 
-if (!visibleObjects.length) {
-  grid.textContent = "Objects for this section are coming soon.";
+/* ENLARGED CARD AND FLIP */
+
+const dialog = document.getElementById("objectDialog");
+const modalLayout = document.getElementById("modalLayout");
+const flipInner = document.getElementById("flipInner");
+const frontFace = document.getElementById("frontFace");
+const backFace = document.getElementById("backFace");
+const flipBack = document.getElementById("flipBack");
+const flipFront = document.getElementById("flipFront");
+const purchaseLink = document.getElementById("purchaseLink");
+
+let currentIndex = 0;
+let flipped = false;
+let savedOverflow = "";
+
+function setFlipped(value, focusButton = true) {
+  flipped = value;
+
+  const nextFace = value ? backFace : frontFace;
+  nextFace.inert = false;
+  nextFace.setAttribute("aria-hidden", "false");
+
+  if (focusButton) {
+    (value ? flipFront : flipBack).focus({ preventScroll: true });
+  }
+
+  frontFace.inert = value;
+  backFace.inert = !value;
+
+  frontFace.setAttribute("aria-hidden", String(value));
+  backFace.setAttribute("aria-hidden", String(!value));
+
+  flipInner.classList.toggle("flipped", value);
 }
 
-/* SECTION PAGE NAVIGATION */
-
-const pagination = document.getElementById("pagination");
-
-if (section) {
-  const previous = document.createElement("a");
-  previous.href = section === 1
-    ? "category.html"
-    : "?section=" + (section - 1);
-
-  previous.textContent = section === 1
-    ? "← All Objects"
-    : "← " + sections[section - 2].name;
-
-  const next = document.createElement("a");
-  next.href = section === 6
-    ? "category.html"
-    : "?section=" + (section + 1);
-
-  next.textContent = section === 6
-    ? "All Objects →"
-    : sections[section].name + " →";
-
-  pagination.append(previous, next);
+function safeUrl(value) {
+  try {
+    const url = new URL(value);
+    return ["https:", "http:"].includes(url.protocol) ? url.href : "";
+  } catch {
+    return "";
+  }
 }
+
+function openObject(index) {
+  currentIndex = index;
+
+  const object = visibleObjects[index];
+  const group = sectionData[object.groupIndex];
+
+  /* Reset the flip before showing the next object. */
+
+  document.getElementById("closeButton").focus();
+
+  flipInner.style.transition = "none";
+  setFlipped(false, false);
+  void flipInner.offsetWidth;
+  flipInner.style.transition = "";
+
+  modalLayout.style.setProperty("--section-color", group.color);
+
+  document.getElementById("modalNumber").textContent =
+    "Object " + object.id;
+
+  document.getElementById("modalTitle").textContent = object.name;
+  document.getElementById("backTitle").textContent = object.name;
+
+  document.getElementById("modalDescription").textContent =
+    object.description;
+
+  addPhoto(document.getElementById("modalPhoto"), object);
+
+  const url = safeUrl(object.purchaseUrl);
+
+  purchaseLink.hidden = !url;
+
+  if (url) {
+    purchaseLink.href = url;
+  } else {
+    purchaseLink.removeAttribute("href");
+  }
+
+  document.getElementById("purchaseMessage").textContent = url
+    ? "Visit the website below to view this object."
+    : "No purchase link has been added for this object.";
+
+  frontFace.querySelector(".card-caption").scrollTop = 0;
+
+  if (!dialog.open) {
+    savedOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialog.showModal();
+  }
+
+  flipBack.focus({ preventScroll: true });
+}
+
+frontFace.addEventListener("click", () => {
+  if (!window.getSelection()?.toString()) setFlipped(true);
+});
+
+backFace.addEventListener("click", event => {
+  if (event.target.closest("a")) return;
+  if (!window.getSelection()?.toString()) setFlipped(false);
+});
+
+document.getElementById("closeButton").addEventListener("click", () => {
+  dialog.close();
+});
+
+document.getElementById("nextButton").addEventListener("click", () => {
+  openObject((currentIndex + 1) % visibleObjects.length);
+});
+
+/* Click outside the card to close. */
+
+dialog.addEventListener("click", event => {
+  if (event.target !== dialog) return;
+
+  const bounds = dialog.getBoundingClientRect();
+
+  if (
+    event.clientX < bounds.left ||
+    event.clientX > bounds.right ||
+    event.clientY < bounds.top ||
+    event.clientY > bounds.bottom
+  ) {
+    dialog.close();
+  }
+});
+
+dialog.addEventListener("close", () => {
+  document.body.style.overflow = savedOverflow;
+});
 </script>
 
 </body>
