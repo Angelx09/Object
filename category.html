@@ -435,6 +435,49 @@ dialog::backdrop {
     transition: none;
   }
 }
+/* Section colors — main page and category page */
+
+.categories a:nth-child(2),
+.section-nav a:nth-child(2) {
+  --section-hover: #fff500;
+}
+
+.categories a:nth-child(3),
+.section-nav a:nth-child(3) {
+  --section-hover: #ff9bcb;
+}
+
+.categories a:nth-child(4),
+.section-nav a:nth-child(4) {
+  --section-hover: #b9dfff;
+}
+
+.categories a:nth-child(5),
+.section-nav a:nth-child(5) {
+  --section-hover: #bfe6ae;
+}
+
+.categories a:nth-child(6),
+.section-nav a:nth-child(6) {
+  --section-hover: #ffc18c;
+}
+
+.categories a:nth-child(7),
+.section-nav a:nth-child(7) {
+  --section-hover: #cdbbfa;
+}
+
+.categories a,
+.section-nav a {
+  transition: color .2s ease;
+}
+
+.categories a:hover,
+.categories a:focus-visible,
+.section-nav a:hover,
+.section-nav a:focus-visible {
+  color: var(--section-hover, #191919) !important;
+}
 </style>
 </head>
 
