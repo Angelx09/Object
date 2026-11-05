@@ -16,19 +16,31 @@ body {
 }
 
 button, a { font: inherit; }
-a { color: inherit; text-decoration: none; }
 button { color: inherit; }
+a { color: inherit; text-decoration: none; }
 [hidden] { display: none !important; }
 
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: 4px;
+}
+
+/* HEADER */
+
 header {
+  position: relative;
+  min-height: 80px;
   padding: 25px 34px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
 }
 
 .site-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
   font-size: 16px;
   letter-spacing: -.03em;
   text-transform: lowercase;
@@ -39,7 +51,7 @@ header {
   color: #777;
 }
 
-/* NAVIGATION */
+/* SECTION LINKS */
 
 .section-nav {
   padding: 20px 34px 35px;
@@ -49,28 +61,21 @@ header {
 }
 
 .section-nav a {
-  font-size: 12px;
   color: #999;
-}
-
-.section-nav a {
-  transition: color .2s ease;
-}
-
-.section-nav a:hover,
-.section-nav a:focus-visible {
-  color: var(--hover-color, #191919);
+  font-size: 12px;
+  transition: color .2s;
 }
 
 .section-nav a[aria-current="page"] {
   color: #191919;
 }
 
-.section-nav a[aria-current="page"]:hover {
-  color: var(--hover-color, #191919);
+.section-nav a:hover,
+.section-nav a:focus-visible {
+  color: var(--section-hover, #191919);
 }
 
-/* EACH SECTION HAS ITS OWN GRID */
+/* GRID */
 
 .collection-section {
   margin-bottom: 48px;
@@ -99,7 +104,6 @@ header {
 .section-cover-count {
   font-size: 10px;
   letter-spacing: .08em;
-  text-transform: uppercase;
 }
 
 .section-cover h2 {
@@ -117,7 +121,7 @@ header {
   line-height: 1.5;
 }
 
-/* OBJECT CARDS */
+/* OBJECT FRONT */
 
 .object-card {
   aspect-ratio: 2 / 3;
@@ -136,13 +140,6 @@ header {
   transform: translateY(-7px);
 }
 
-.object-card:focus-visible,
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid #191919;
-  outline-offset: 3px;
-}
-
 .card-heading {
   flex: 0 0 16.5%;
   width: 100%;
@@ -159,6 +156,7 @@ a:focus-visible {
   letter-spacing: -.04em;
 }
 
+.card-heading h2,
 .card-heading h3 {
   margin: 3px 0 0;
   font: inherit;
@@ -245,10 +243,10 @@ a:focus-visible {
   text-align: center;
 }
 
-/* ENLARGED CARD */
+/* ENLARGED POSTCARD */
 
-dialog {
-  width: min(440px, 88vw, 58vh);
+#objectDialog {
+  width: min(440px, calc(100vw - 140px), 58vh);
   height: min(730px, 88vh);
   max-width: none;
   max-height: none;
@@ -258,21 +256,20 @@ dialog {
   background: transparent;
 }
 
-dialog::backdrop {
+#objectDialog::backdrop {
   background: #faf9f699;
   backdrop-filter: blur(5px);
 }
 
 .modal-layout {
+  position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .flip-stage {
-  flex: 1;
-  min-height: 0;
+  width: 100%;
+  height: 100%;
   perspective: 1400px;
 }
 
@@ -301,15 +298,12 @@ dialog::backdrop {
   cursor: pointer;
 }
 
-.front { transform: rotateY(0deg); }
+.front {
+  transform: rotateY(0deg);
+}
 
 .front .card-heading {
   font-size: clamp(18px, 2.8vh, 28px);
-}
-
-.front .card-heading h2 {
-  margin: 4px 0 0;
-  font: inherit;
 }
 
 .front .card-caption {
@@ -318,6 +312,7 @@ dialog::backdrop {
 
 .front .card-caption p {
   display: block;
+  overflow: visible;
   font-size: 12px;
 }
 
@@ -332,64 +327,80 @@ dialog::backdrop {
   cursor: pointer;
 }
 
+/* SECTION-COLORED BACK */
+
 .back {
   transform: rotateY(180deg);
-  padding: 28px;
   background: var(--section-color);
-}
-
-.back-eyebrow {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .08em;
+  color: #000;
 }
 
 .back-content {
   flex: 1;
   min-height: 0;
+  padding: 12% 25%;
   overflow-y: auto;
+}
+
+.back-copy {
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 }
 
-.back-content h2 {
-  margin: 14px 0;
-  font-size: 30px;
-  font-weight: 400;
-  letter-spacing: -.05em;
-}
-
-.back-content p {
-  font-size: 12px;
-  line-height: 1.6;
+#purchaseMessage {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-size: clamp(14px, 2vh, 19px);
+  line-height: 1.2;
+  text-align: left;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .purchase-link {
-  margin-top: 20px;
+  margin-top: 22px;
   padding-bottom: 5px;
   border-bottom: 1px solid;
+  font-family: "Times New Roman", Times, serif;
   font-size: 13px;
 }
 
-.modal-controls {
-  flex: 0 0 44px;
-  display: flex;
-  justify-content: space-between;
-  background: #fff;
+.back .flip-button {
+  color: #000;
+  font-size: 9px;
+  opacity: .5;
 }
 
-.modal-controls button {
+/* CIRCULAR ARROWS */
+
+.postcard-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: 0;
-  padding: 0 16px;
-  background: transparent;
-  font-size: 11px;
+  border-radius: 50%;
+  background: #fff;
+  color: #191919;
+  box-shadow: 0 2px 14px #00000012;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
   cursor: pointer;
+  transition: background .2s;
 }
 
-.modal-controls button:hover {
-  background: #f1eee7;
+.postcard-prev { left: -62px; }
+.postcard-next { right: -62px; }
+
+.postcard-arrow:hover {
+  background: var(--section-color);
 }
 
 /* RESPONSIVE */
@@ -409,8 +420,32 @@ dialog::backdrop {
   .card-heading { font-size: 16px; }
 }
 
+@media (max-width: 600px) {
+  #objectDialog {
+    width: min(440px, calc(100vw - 112px), 58vh);
+  }
+
+  .postcard-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .postcard-prev { left: -48px; }
+  .postcard-next { right: -48px; }
+
+  .back-content { padding: 15% 18%; }
+}
+
 @media (max-width: 500px) {
-  header { padding: 22px 16px; }
+  header {
+    min-height: 95px;
+    padding: 15px 16px;
+    align-items: flex-start;
+  }
+
+  .site-title {
+    top: 53px;
+  }
 
   .section-nav {
     padding: 15px 16px 28px;
@@ -431,125 +466,10 @@ dialog::backdrop {
 
 @media (prefers-reduced-motion: reduce) {
   .object-card,
-  .flip-inner {
+  .flip-inner,
+  .postcard-arrow {
     transition: none;
   }
-}
-/* Section colors — main page and category page */
-
-.categories a:nth-child(2),
-.section-nav a:nth-child(2) {
-  --section-hover: #fff500;
-}
-
-.categories a:nth-child(3),
-.section-nav a:nth-child(3) {
-  --section-hover: #ff9bcb;
-}
-
-.categories a:nth-child(4),
-.section-nav a:nth-child(4) {
-  --section-hover: #b9dfff;
-}
-
-.categories a:nth-child(5),
-.section-nav a:nth-child(5) {
-  --section-hover: #bfe6ae;
-}
-
-.categories a:nth-child(6),
-.section-nav a:nth-child(6) {
-  --section-hover: #ffc18c;
-}
-
-.categories a:nth-child(7),
-.section-nav a:nth-child(7) {
-  --section-hover: #cdbbfa;
-}
-
-.categories a,
-.section-nav a {
-  transition: color .2s ease;
-}
-
-.categories a:hover,
-.categories a:focus-visible,
-.section-nav a:hover,
-.section-nav a:focus-visible {
-  color: var(--section-hover, #191919) !important;
-}
-/* POSTCARD BACK */
-
-.back {
-  padding: 0;
-  background: var(--section-color, #fff500);
-  color: #000;
-}
-
-.back .back-eyebrow,
-.back #backTitle {
-  display: none;
-}
-
-.back .back-content {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  padding: 12% 25%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  overflow-y: auto;
-}
-
-.back #purchaseMessage {
-  flex-shrink: 0;
-  margin: 0;
-  font-family: "Times New Roman", Times, serif;
-  font-size: clamp(14px, 2vh, 19px);
-  font-weight: 400;
-  line-height: 1.2;
-  text-align: left;
-  white-space: pre-line;
-}
-
-.back .purchase-link {
-  align-self: flex-start;
-  flex-shrink: 0;
-  margin-top: 22px;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 13px;
-}
-
-.back .flip-button {
-  color: #000;
-  font-size: 9px;
-  opacity: .5;
-}
-header {
-  position: relative;
-  justify-content: flex-start;
-  min-height: 70px;
-}
-
-header .site-title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-}
-.back #purchaseMessage {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: #000;
-}
-
-.back .back-content {
-  justify-content: flex-start;
-  padding: 25% 20%;
 }
 </style>
 </head>
@@ -565,7 +485,7 @@ header .site-title {
 
 <main id="collection"></main>
 
-<dialog id="objectDialog" aria-label="Object details">
+<dialog id="objectDialog" aria-label="Object postcard">
   <div class="modal-layout" id="modalLayout">
 
     <div class="flip-stage">
@@ -588,26 +508,25 @@ header .site-title {
           </div>
 
           <button class="flip-button" id="flipBack" type="button">
-            Click to see where to purchase ↗
+            Click to flip ↗
           </button>
         </div>
 
         <div class="face back" id="backFace" inert aria-hidden="true">
-          <div class="back-eyebrow">The price of luck</div>
+          <div class="back-content" id="backContent">
+            <div class="back-copy">
+              <p id="purchaseMessage"></p>
 
-          <div class="back-content">
-            <h2 id="backTitle"></h2>
-            <p id="purchaseMessage"></p>
-
-            <a
-              class="purchase-link"
-              id="purchaseLink"
-              target="_blank"
-              rel="noopener noreferrer"
-              hidden
-            >
-              Visit website ↗
-            </a>
+              <a
+                class="purchase-link"
+                id="purchaseLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                hidden
+              >
+                Visit website ↗
+              </a>
+            </div>
           </div>
 
           <button class="flip-button" id="flipFront" type="button">
@@ -618,17 +537,30 @@ header .site-title {
       </div>
     </div>
 
-    <div class="modal-controls">
-      <button id="closeButton" type="button">Close</button>
-      <button id="nextButton" type="button">Next object →</button>
-    </div>
+    <button
+      class="postcard-arrow postcard-prev"
+      id="previousButton"
+      type="button"
+      aria-label="Previous postcard"
+    >←</button>
+
+    <button
+      class="postcard-arrow postcard-next"
+      id="nextButton"
+      type="button"
+      aria-label="Next postcard"
+    >→</button>
 
   </div>
 </dialog>
 
 <script>
 /* ==========================================
-    Category page script
+   EDIT YOUR OBJECTS HERE
+
+   description = front caption
+   backText = individual story on the back
+   purchaseUrl = optional shopping link
 ========================================== */
 
 const sectionData = [
@@ -638,14 +570,14 @@ const sectionData = [
     color: "#FFF500",
     description: "Objects worn close to the body, carrying luck and protection.",
     items: [
-      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "name", backText:"Behavior phenonm",purchaseUrl: "" },
-      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "name", backText:"boo",purchaseUrl: "" },
-      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "name", backText:"boo",purchaseUrl: "" },
-      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "name", backText:"boo",purchaseUrl: "" },
-      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "name", backText:"boo",purchaseUrl: "" },
-      { name: "Wearable 6", image: "images/watch.jpeg", description: "name", backText:"boo",purchaseUrl: "" },
-      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "name", backText:"boo",purchaseUrl: "" },
-      { name: "Wearable 8", image: "images/silver-chain.png", description: "name", backText:"boo",purchaseUrl: "" }
+      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "name", backText: "Behavior phenonm", purchaseUrl: "" },
+      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "name", backText: "boo", purchaseUrl: "" },
+      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "name", backText: "boo", purchaseUrl: "" },
+      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "name", backText: "boo", purchaseUrl: "" },
+      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "name", backText: "boo", purchaseUrl: "" },
+      { name: "Wearable 6", image: "images/watch.jpeg", description: "name", backText: "boo", purchaseUrl: "" },
+      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "name", backText: "boo", purchaseUrl: "" },
+      { name: "Wearable 8", image: "images/silver-chain.png", description: "name", backText: "boo", purchaseUrl: "" }
     ]
   },
   {
@@ -730,7 +662,7 @@ const sectionData = [
   }
 ];
 
-/* PREPARE OBJECTS */
+/* PREPARE DATA */
 
 let objectNumber = 0;
 
@@ -739,15 +671,13 @@ sectionData.forEach((group, groupIndex) => {
     ...item,
     id: ++objectNumber,
     groupIndex,
-    description: item.description || "Add this object's story here.",
+    description: item.description || "",
+    backText: item.backText || item.backtxt || "",
     purchaseUrl: item.purchaseUrl || ""
   }));
 });
 
-const params = new URLSearchParams(location.search);
-const requested = params.get("section");
-
-/* Supports both ?section=1 and ?section=wearables. */
+const requested = new URLSearchParams(location.search).get("section");
 
 const activeGroup = sectionData.findIndex((group, index) =>
   requested === String(index + 1) || requested === group.key
@@ -767,10 +697,11 @@ document.title =
 
 const nav = document.getElementById("sectionNav");
 
-function addNavLink(label, href, active) {
+function addNavLink(label, href, active, color = "#191919") {
   const link = document.createElement("a");
   link.textContent = label;
   link.href = href;
+  link.style.setProperty("--section-hover", color);
 
   if (active) link.setAttribute("aria-current", "page");
 
@@ -783,11 +714,12 @@ sectionData.forEach((group, index) => {
   addNavLink(
     group.name,
     "?section=" + (index + 1),
-    activeGroup === index
+    activeGroup === index,
+    group.color
   );
 });
 
-/* PHOTOS — PLACEHOLDER IF A FILE IS MISSING */
+/* PHOTO LOADING */
 
 function addPhoto(container, object) {
   container.replaceChildren();
@@ -828,8 +760,6 @@ shownGroups.forEach(group => {
   const grid = document.createElement("div");
   grid.className = "object-grid";
 
-  /* Section cover always appears. */
-
   const cover = document.createElement("article");
   cover.className = "section-cover";
 
@@ -843,12 +773,10 @@ shownGroups.forEach(group => {
   const heading = document.createElement("h2");
   heading.id = "section-heading-" + groupIndex;
   heading.textContent = group.name;
-
   section.setAttribute("aria-labelledby", heading.id);
 
   const introduction = document.createElement("p");
   introduction.textContent = group.description;
-
   content.append(heading, introduction);
 
   const count = document.createElement("div");
@@ -857,8 +785,6 @@ shownGroups.forEach(group => {
 
   cover.append(number, content, count);
   grid.appendChild(cover);
-
-  /* Object cards */
 
   group.items.forEach(object => {
     const card = document.createElement("button");
@@ -874,7 +800,6 @@ shownGroups.forEach(group => {
 
     const title = document.createElement("h3");
     title.textContent = object.name;
-
     titleBand.append(objectLabel, title);
 
     const imageArea = document.createElement("div");
@@ -895,12 +820,12 @@ shownGroups.forEach(group => {
 
     const story = document.createElement("p");
     story.textContent = object.description;
-
     caption.appendChild(story);
+
     card.append(titleBand, imageArea, caption);
 
     card.addEventListener("click", () => {
-      openObject(visibleObjects.indexOf(object));
+      openObject(visibleObjects.indexOf(object), card);
     });
 
     grid.appendChild(card);
@@ -910,7 +835,7 @@ shownGroups.forEach(group => {
   collection.appendChild(section);
 });
 
-/* ENLARGED CARD AND FLIP */
+/* POSTCARD CONTROLS */
 
 const dialog = document.getElementById("objectDialog");
 const modalLayout = document.getElementById("modalLayout");
@@ -920,19 +845,19 @@ const backFace = document.getElementById("backFace");
 const flipBack = document.getElementById("flipBack");
 const flipFront = document.getElementById("flipFront");
 const purchaseLink = document.getElementById("purchaseLink");
+const previousButton = document.getElementById("previousButton");
+const nextButton = document.getElementById("nextButton");
 
 let currentIndex = 0;
-let flipped = false;
 let savedOverflow = "";
+let returnFocus = null;
 
-function setFlipped(value, focusButton = true) {
-  flipped = value;
+function setFlipped(value, moveFocus = true) {
+  const visibleFace = value ? backFace : frontFace;
+  visibleFace.inert = false;
+  visibleFace.setAttribute("aria-hidden", "false");
 
-  const nextFace = value ? backFace : frontFace;
-  nextFace.inert = false;
-  nextFace.setAttribute("aria-hidden", "false");
-
-  if (focusButton) {
+  if (moveFocus) {
     (value ? flipFront : flipBack).focus({ preventScroll: true });
   }
 
@@ -948,21 +873,31 @@ function setFlipped(value, focusButton = true) {
 function safeUrl(value) {
   try {
     const url = new URL(value);
-    return ["https:", "http:"].includes(url.protocol) ? url.href : "";
+    return ["https:", "http:"].includes(url.protocol)
+      ? url.href
+      : "";
   } catch {
     return "";
   }
 }
 
-function openObject(index) {
-  currentIndex = index;
+function openObject(index, trigger = null) {
+  if (!visibleObjects.length) return;
 
-  const object = visibleObjects[index];
+  currentIndex =
+    (index + visibleObjects.length) % visibleObjects.length;
+
+  const object = visibleObjects[currentIndex];
   const group = sectionData[object.groupIndex];
+  const alreadyOpen = dialog.open;
 
-  /* Reset the flip before showing the next object. */
+  if (!alreadyOpen) {
+    returnFocus = trigger || document.activeElement;
+  } else {
+    nextButton.focus({ preventScroll: true });
+  }
 
-  document.getElementById("closeButton").focus();
+  /* Reset to the front without animating backward. */
 
   flipInner.style.transition = "none";
   setFlipped(false, false);
@@ -975,15 +910,16 @@ function openObject(index) {
     "Object " + object.id;
 
   document.getElementById("modalTitle").textContent = object.name;
-  document.getElementById("backTitle").textContent = object.name;
 
   document.getElementById("modalDescription").textContent =
     object.description;
 
+  document.getElementById("purchaseMessage").textContent =
+    object.backText;
+
   addPhoto(document.getElementById("modalPhoto"), object);
 
   const url = safeUrl(object.purchaseUrl);
-
   purchaseLink.hidden = !url;
 
   if (url) {
@@ -992,14 +928,10 @@ function openObject(index) {
     purchaseLink.removeAttribute("href");
   }
 
-  
-  const backStory = object.backText || object.backtxt || "";
-
-  document.getElementById("purchaseMessage").textContent =
-  backStory || "Add this object's story.";
   frontFace.querySelector(".card-caption").scrollTop = 0;
+  document.getElementById("backContent").scrollTop = 0;
 
-  if (!dialog.open) {
+  if (!alreadyOpen) {
     savedOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     dialog.showModal();
@@ -1008,42 +940,75 @@ function openObject(index) {
   flipBack.focus({ preventScroll: true });
 }
 
+/* CLICK POSTCARD TO FLIP */
+
 frontFace.addEventListener("click", () => {
-  if (!window.getSelection()?.toString()) setFlipped(true);
+  if (!window.getSelection()?.toString()) {
+    setFlipped(true);
+  }
 });
 
 backFace.addEventListener("click", event => {
   if (event.target.closest("a")) return;
-  if (!window.getSelection()?.toString()) setFlipped(false);
+
+  if (!window.getSelection()?.toString()) {
+    setFlipped(false);
+  }
 });
 
-document.getElementById("closeButton").addEventListener("click", () => {
-  dialog.close();
+/* CIRCULAR PREVIOUS / NEXT ARROWS */
+
+previousButton.addEventListener("click", event => {
+  event.stopPropagation();
+  openObject(currentIndex - 1);
 });
 
-document.getElementById("nextButton").addEventListener("click", () => {
-  openObject((currentIndex + 1) % visibleObjects.length);
+nextButton.addEventListener("click", event => {
+  event.stopPropagation();
+  openObject(currentIndex + 1);
 });
 
-/* Click outside the card to close. */
+/* CLOSE WHEN BOTH PRESS AND RELEASE ARE OUTSIDE */
+
+let pressedOutside = false;
+
+function isOutsidePostcard(target) {
+  return target instanceof Element &&
+    !target.closest(".face, .postcard-arrow");
+}
+
+dialog.addEventListener("pointerdown", event => {
+  pressedOutside = isOutsidePostcard(event.target);
+});
 
 dialog.addEventListener("click", event => {
-  if (event.target !== dialog) return;
-
-  const bounds = dialog.getBoundingClientRect();
-
-  if (
-    event.clientX < bounds.left ||
-    event.clientX > bounds.right ||
-    event.clientY < bounds.top ||
-    event.clientY > bounds.bottom
-  ) {
+  if (pressedOutside && isOutsidePostcard(event.target)) {
     dialog.close();
+  }
+
+  pressedOutside = false;
+});
+
+/* KEYBOARD LEFT / RIGHT NAVIGATION
+   Escape closes the native dialog automatically. */
+
+dialog.addEventListener("keydown", event => {
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    openObject(currentIndex - 1);
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    openObject(currentIndex + 1);
   }
 });
 
 dialog.addEventListener("close", () => {
   document.body.style.overflow = savedOverflow;
+  returnFocus?.focus({ preventScroll: true });
 });
 </script>
 
