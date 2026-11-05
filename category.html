@@ -540,6 +540,17 @@ header .site-title {
   transform: translate(-50%, -50%);
   white-space: nowrap;
 }
+.back #purchaseMessage {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #000;
+}
+
+.back .back-content {
+  justify-content: flex-start;
+  padding: 25% 20%;
+}
 </style>
 </head>
 
@@ -627,14 +638,14 @@ const sectionData = [
     color: "#FFF500",
     description: "Objects worn close to the body, carrying luck and protection.",
     items: [
-      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
-      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
-      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
-      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
-      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
-      { name: "Wearable 6", image: "images/watch.jpeg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
-      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
-      { name: "Wearable 8", image: "images/silver-chain.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" }
+      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "name", backText:"Behavior phenonm",purchaseUrl: "" },
+      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "name", backText:"boo",purchaseUrl: "" },
+      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "name", backText:"boo",purchaseUrl: "" },
+      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "name", backText:"boo",purchaseUrl: "" },
+      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "name", backText:"boo",purchaseUrl: "" },
+      { name: "Wearable 6", image: "images/watch.jpeg", description: "name", backText:"boo",purchaseUrl: "" },
+      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "name", backText:"boo",purchaseUrl: "" },
+      { name: "Wearable 8", image: "images/silver-chain.png", description: "name", backText:"boo",purchaseUrl: "" }
     ]
   },
   {
@@ -643,14 +654,14 @@ const sectionData = [
     color: "#FF9BCB",
     description: "Objects given meaning through repeated actions and beliefs.",
     items: [
-      { name: "Ritual Object 1", image: "images/Amethyst-cathedral.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 2", image: "images/Framed-Chinese-Amber-Ornament.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 3", image: "images/object-11.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 4", image: "images/object-12.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 5", image: "images/object-13.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 6", image: "images/object-14.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 7", image: "images/object-15.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 8", image: "images/object-16.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." }
+      { name: "Ritual Object 1", image: "images/Amethyst-cathedral.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Ritual Object 2", image: "images/Framed-Chinese-Amber-Ornament.png", description: "name", backText: "behavior" },
+      { name: "Ritual Object 3", image: "images/object-11.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 4", image: "images/object-12.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 5", image: "images/object-13.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 6", image: "images/object-14.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 7", image: "images/object-15.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 8", image: "images/object-16.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." }
     ]
   },
   {
@@ -659,14 +670,14 @@ const sectionData = [
     color: "#B9DFFF",
     description: "Wishes, messages, and memories held on paper.",
     items: [
-      { name: "Paper Object 1", image: "images/Red.png" },
-      { name: "Paper Object 2", image: "images/yellow-tailsman.png" },
-      { name: "Paper Object 3", image: "images/object-19.jpg" },
-      { name: "Paper Object 4", image: "images/object-20.jpg" },
-      { name: "Paper Object 5", image: "images/object-21.jpg" },
-      { name: "Paper Object 6", image: "images/object-22.jpg" },
-      { name: "Paper Object 7", image: "images/object-23.jpg" },
-      { name: "Paper Object 8", image: "images/object-24.jpg" }
+      { name: "Paper Object 1", image: "images/Red.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Paper Object 2", image: "images/yellow-tailsman.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Paper Object 3", image: "images/object-19.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Paper Object 4", image: "images/object-20.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Paper Object 5", image: "images/object-21.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Paper Object 6", image: "images/object-22.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Paper Object 7", image: "images/object-23.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Paper Object 8", image: "images/object-24.jpg", description: "name", backText: "Behavior phenomenon" }
     ]
   },
   {
@@ -675,14 +686,14 @@ const sectionData = [
     color: "#BFE6AE",
     description: "Small companions carried from place to place.",
     items: [
-      { name: "Keychain 1", image: "images/Eggplant-plush-keychain.png" },
-      { name: "Keychain 2", image: "images/pink-plush-keychain.png" },
-      { name: "Keychain 3", image: "images/object-27.jpg" },
-      { name: "Keychain 4", image: "images/object-28.jpg" },
-      { name: "Keychain 5", image: "images/object-29.jpg" },
-      { name: "Keychain 6", image: "images/object-30.jpg" },
-      { name: "Keychain 7", image: "images/object-31.jpg" },
-      { name: "Keychain 8", image: "images/object-32.jpg" }
+      { name: "Keychain 1", image: "images/Eggplant-plush-keychain.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Keychain 2", image: "images/pink-plush-keychain.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Keychain 3", image: "images/object-27.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Keychain 4", image: "images/object-28.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Keychain 5", image: "images/object-29.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Keychain 6", image: "images/object-30.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Keychain 7", image: "images/object-31.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Keychain 8", image: "images/object-32.jpg", description: "name", backText: "Behavior phenomenon" }
     ]
   },
   {
@@ -691,14 +702,14 @@ const sectionData = [
     color: "#FFC18C",
     description: "Unexpected discoveries given a meaning of their own.",
     items: [
-      { name: "Found Object 1", image: "images/Lysol.png" },
-      { name: "Found Object 2", image: "images/Light-aqua-blue-helmet.png" },
-      { name: "Found Object 3", image: "images/yellow-pencil.png" },
-      { name: "Found Object 4", image: "images/object-36.jpg" },
-      { name: "Found Object 5", image: "images/object-37.jpg" },
-      { name: "Found Object 6", image: "images/object-38.jpg" },
-      { name: "Found Object 7", image: "images/object-39.jpg" },
-      { name: "Found Object 8", image: "images/object-40.jpg" }
+      { name: "Found Object 1", image: "images/Lysol.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Found Object 2", image: "images/Light-aqua-blue-helmet.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Found Object 3", image: "images/yellow-pencil.png", description: "name", backText: "Behavior phenomenon" },
+      { name: "Found Object 4", image: "images/object-36.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Found Object 5", image: "images/object-37.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Found Object 6", image: "images/object-38.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Found Object 7", image: "images/object-39.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Found Object 8", image: "images/object-40.jpg", description: "name", backText: "Behavior phenomenon" }
     ]
   },
   {
@@ -707,14 +718,14 @@ const sectionData = [
     color: "#CDBBFA",
     description: "Other ordinary objects with extraordinary personal meaning.",
     items: [
-      { name: "Object 41", image: "images/object-41.jpg" },
-      { name: "Object 42", image: "images/object-42.jpg" },
-      { name: "Object 43", image: "images/object-43.jpg" },
-      { name: "Object 44", image: "images/object-44.jpg" },
-      { name: "Object 45", image: "images/object-45.jpg" },
-      { name: "Object 46", image: "images/object-46.jpg" },
-      { name: "Object 47", image: "images/object-47.jpg" },
-      { name: "Object 48", image: "images/object-48.jpg" }
+      { name: "Object 41", image: "images/object-41.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Object 42", image: "images/object-42.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Object 43", image: "images/object-43.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Object 44", image: "images/object-44.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Object 45", image: "images/object-45.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Object 46", image: "images/object-46.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Object 47", image: "images/object-47.jpg", description: "name", backText: "Behavior phenomenon" },
+      { name: "Object 48", image: "images/object-48.jpg", description: "name", backText: "Behavior phenomenon" }
     ]
   }
 ];
@@ -981,9 +992,11 @@ function openObject(index) {
     purchaseLink.removeAttribute("href");
   }
 
-  document.getElementById("purchaseMessage").textContent =
-  object.backText || "";
+  
+  const backStory = object.backText || object.backtxt || "";
 
+  document.getElementById("purchaseMessage").textContent =
+  backStory || "Add this object's story.";
   frontFace.querySelector(".card-caption").scrollTop = 0;
 
   if (!dialog.open) {
