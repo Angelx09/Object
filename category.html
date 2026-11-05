@@ -527,6 +527,19 @@ dialog::backdrop {
   font-size: 9px;
   opacity: .5;
 }
+header {
+  position: relative;
+  justify-content: flex-start;
+  min-height: 70px;
+}
+
+header .site-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
 </style>
 </head>
 
@@ -614,14 +627,14 @@ const sectionData = [
     color: "#FFF500",
     description: "Objects worn close to the body, carrying luck and protection.",
     items: [
-      { name: "Wearable 1", image: "images/jade-heart-necklace.png" },
-      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png" },
-      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png" },
-      { name: "Wearable 4", image: "images/red-twisted-cord.png" },
-      { name: "Wearable 5", image: "images/golden-bead-bracelet.png" },
-      { name: "Wearable 6", image: "images/watch.jpeg" },
-      { name: "Wearable 7", image: "images/black-beaded-necklace.png" },
-      { name: "Wearable 8", image: "images/silver-chain.png" }
+      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
+      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
+      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
+      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
+      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
+      { name: "Wearable 6", image: "images/watch.jpeg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
+      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
+      { name: "Wearable 8", image: "images/silver-chain.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" }
     ]
   },
   {
@@ -630,14 +643,14 @@ const sectionData = [
     color: "#FF9BCB",
     description: "Objects given meaning through repeated actions and beliefs.",
     items: [
-      { name: "Ritual Object 1", image: "images/Amethyst-cathedral.png" },
-      { name: "Ritual Object 2", image: "images/Framed-Chinese-Amber-Ornament.png" },
-      { name: "Ritual Object 3", image: "images/object-11.jpg" },
-      { name: "Ritual Object 4", image: "images/object-12.jpg" },
-      { name: "Ritual Object 5", image: "images/object-13.jpg" },
-      { name: "Ritual Object 6", image: "images/object-14.jpg" },
-      { name: "Ritual Object 7", image: "images/object-15.jpg" },
-      { name: "Ritual Object 8", image: "images/object-16.jpg" }
+      { name: "Ritual Object 1", image: "images/Amethyst-cathedral.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 2", image: "images/Framed-Chinese-Amber-Ornament.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 3", image: "images/object-11.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 4", image: "images/object-12.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 5", image: "images/object-13.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 6", image: "images/object-14.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 7", image: "images/object-15.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." },
+      { name: "Ritual Object 8", image: "images/object-16.jpg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person." }
     ]
   },
   {
