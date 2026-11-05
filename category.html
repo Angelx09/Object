@@ -1011,6 +1011,8 @@ document.getElementById("closeButton").addEventListener("click", () => {
 document.getElementById("nextButton").addEventListener("click", () => {
   openObject((currentIndex + 1) % visibleObjects.length);
 });
+document.getElementById("purchaseMessage").textContent =
+  object.backText || "";
 
 /* Click outside the card to close. */
 
