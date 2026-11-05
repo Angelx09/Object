@@ -627,14 +627,14 @@ const sectionData = [
     color: "#FFF500",
     description: "Objects worn close to the body, carrying luck and protection.",
     items: [
-      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
-      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
-      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
-      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
-      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
-      { name: "Wearable 6", image: "images/watch.jpeg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
-      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" },
-      { name: "Wearable 8", image: "images/silver-chain.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtxt:"boo",purchaseUrl: "" }
+      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
+      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
+      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
+      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
+      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
+      { name: "Wearable 6", image: "images/watch.jpeg", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
+      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" },
+      { name: "Wearable 8", image: "images/silver-chain.png", description: "personal story word filling up this postcards about how the object holds significant meanings to this person.", backtext:"boo",purchaseUrl: "" }
     ]
   },
   {
@@ -982,7 +982,7 @@ function openObject(index) {
   }
 
   document.getElementById("purchaseMessage").textContent =
-  object.backText || object.description;
+  object.backText || "";
 
   frontFace.querySelector(".card-caption").scrollTop = 0;
 
@@ -1011,8 +1011,6 @@ document.getElementById("closeButton").addEventListener("click", () => {
 document.getElementById("nextButton").addEventListener("click", () => {
   openObject((currentIndex + 1) % visibleObjects.length);
 });
-document.getElementById("purchaseMessage").textContent =
-  object.backText || "";
 
 /* Click outside the card to close. */
 
