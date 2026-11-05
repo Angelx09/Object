@@ -692,6 +692,59 @@ header h1 {
 .categories a:nth-child(7):hover {
   color: #cdbbfa !important; /* Others */
 }
+/* POSTCARD BACK — MAIN PAGE */
+
+.card-back {
+  padding: 0;
+  background: var(--section-color, #fff500);
+  color: #000;
+}
+
+.card-back .back-eyebrow,
+.card-back #backNumber,
+.card-back #backTitle {
+  display: none;
+}
+
+.card-back .back-content {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 12% 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  overflow-y: auto;
+}
+
+.card-back #purchaseMessage {
+  flex-shrink: 0;
+  margin: 0;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: clamp(14px, 2vh, 19px);
+  line-height: 1.2;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.card-back .purchase-link {
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-top: 22px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+}
+
+.card-back .flip-button {
+  padding: 10px;
+  border: 0;
+  color: #000;
+  text-align: center;
+  font-size: 9px;
+  opacity: .5;
+}
 </style>
 </head>
 
@@ -839,14 +892,10 @@ const objects = [
     id: 1,
     name: "Jade Heart Necklace",
     image: "images/jade-heart-necklace.png",
-    symbol: "◉",
     color: "#b6aa97",
     category: "Wearables",
     description: "Chloe C",
-    backText:
-    "Write the longer story behind this object here. " +
-    "Who gave it to you? When do you wear it? " +
-    "What makes it feel protective or lucky?",
+    backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -854,10 +903,9 @@ const objects = [
     id: 2,
     name: "Scorpio Necklace",
     image: "images/Yellow GOld Scorpio Necklace.png",
-    symbol: "〰",
     color: "#bd7770",
     category: "Wearables",
-    description: "Colby ",
+    description: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -868,7 +916,8 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "Wearables",
-    description: "Jason X",
+    description: "Personal story",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -879,7 +928,8 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "Wearables",
-    description: "Jina L",
+    description: "Personal story",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -891,6 +941,7 @@ const objects = [
     color: "#b9b9b5",
     category: "Wearables",
     description: "Angel X",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -902,6 +953,7 @@ const objects = [
     color: "#b4a389",
     category: "Wearables",
     description: "Faizul Rahman",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -912,7 +964,7 @@ const objects = [
     symbol: "●",
     color: "#a5aaa9",
     category: "Wearables",
-    description: "Add the story behind your black beaded necklace with carved pendant here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -923,7 +975,7 @@ const objects = [
     symbol: "◇",
     color: "#c5b4a4",
     category: "Wearables",
-    description: "Add the story behind your silver chain here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -934,7 +986,7 @@ const objects = [
     symbol: "◎",
     color: "#b9a5a1",
     category: "gifts",
-    description: "Add the story behind your amethyst cathedral here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -945,8 +997,8 @@ const objects = [
     symbol: "✦",
     color: "#c7b69b",
     category: "rituals",
-    description: "Add the story behind your framed chinese amber ornament here.",
-    purchaseUrl: "",
+    backText: "Personal story",
+    purchaseUrl: "",  
     purchaseLabel: "Shop this object"
   },
   {
@@ -956,7 +1008,7 @@ const objects = [
     symbol: "◔",
     color: "#a6b9b7",
     category: "found",
-    description: "Add the story behind your shell here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -967,7 +1019,7 @@ const objects = [
     symbol: "✉",
     color: "#d0c4aa",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -978,7 +1030,7 @@ const objects = [
     symbol: "✉",
     color: "#d0c4aa",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -989,7 +1041,7 @@ const objects = [
     symbol: "✉",
     color: "#d0c4aa",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1000,7 +1052,7 @@ const objects = [
     symbol: "✉",
     color: "#b9bd96",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1011,7 +1063,7 @@ const objects = [
     symbol: "✉",
     color: "#c7b69b",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1022,7 +1074,7 @@ const objects = [
     symbol: "✉",
     color: "#a5aaa9",
     category: "memories",
-    description: "Add the story behind your red pocket here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1033,7 +1085,7 @@ const objects = [
     symbol: "✉",
     color: "#b9b9b5",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1044,7 +1096,7 @@ const objects = [
     symbol: "✉",
     color: "#d0c4aa",
     category: "memories",
-    description: "Add the story behind your tailsman here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1055,7 +1107,7 @@ const objects = [
     symbol: "✉",
     color: "#b9bd96",
     category: "memories",
-    description: "Add the story behind your fortune note here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1066,7 +1118,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1077,7 +1129,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1088,7 +1140,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1099,7 +1151,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1110,7 +1162,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1121,7 +1173,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1132,7 +1184,7 @@ const objects = [
     symbol: "▣",
     color: "#b9bd96",
     category: "memories",
-    description: "Add the story behind red underwear here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1143,7 +1195,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1154,7 +1206,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1165,7 +1217,7 @@ const objects = [
     symbol: "✳",
     color: "#a6b9b7",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1176,7 +1228,7 @@ const objects = [
     symbol: "✳",
     color: "#a6b9b7",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1187,7 +1239,7 @@ const objects = [
     symbol: "✳",
     color: "#a6b9b7",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1198,7 +1250,7 @@ const objects = [
     symbol: "✳",
     color: "#a6b9b7",
     category: "charms",
-    description: "Add the story behind your eggplant here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1209,7 +1261,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your pink plush bunny here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1220,7 +1272,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1231,7 +1283,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1242,7 +1294,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1253,7 +1305,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1264,7 +1316,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1275,7 +1327,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1286,7 +1338,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind lysol disinfectant spray here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1297,7 +1349,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your helmet here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1308,7 +1360,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind the pencil here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1319,7 +1371,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1330,7 +1382,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1341,7 +1393,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1352,7 +1404,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   },
@@ -1363,7 +1415,7 @@ const objects = [
     symbol: "✳",
     color: "#b9bd96",
     category: "charms",
-    description: "Add the story behind your clover here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -1374,7 +1426,7 @@ const objects = [
     symbol: "▣",
     color: "#a6ada3",
     category: "memories",
-    description: "Add the story behind watch here.",
+    backText: "Personal story",
     purchaseUrl: "",
     purchaseLabel: "Visit website"
   }
@@ -1625,22 +1677,18 @@ document.getElementById("cardBack").style.backgroundColor =
 
   const url = validPurchaseUrl(obj.purchaseUrl);
   const message = document.getElementById("purchaseMessage");
+if (url) {
+  purchaseLink.href = url;
+  purchaseLink.textContent =
+    (obj.purchaseLabel || "Visit website") + " ↗";
+  purchaseLink.hidden = false;
+} else {
+  purchaseLink.removeAttribute("href");
+  purchaseLink.hidden = true;
+}
 
-  if (url) {
-    purchaseLink.href = url;
-    purchaseLink.textContent =
-      (obj.purchaseLabel || "Visit website") + " ↗";
-    purchaseLink.hidden = false;
+message.textContent = obj.backText || obj.description;
 
-    message.textContent =
-      "Visit the website below to view this object.";
-  } else {
-    purchaseLink.removeAttribute("href");
-    purchaseLink.hidden = true;
-
-    message.textContent =
-      "No purchase link has been added for this object.";
-  }
 
   cardFront.querySelector(".selected-info").scrollTop = 0;
 
