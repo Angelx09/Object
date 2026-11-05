@@ -478,6 +478,55 @@ dialog::backdrop {
 .section-nav a:focus-visible {
   color: var(--section-hover, #191919) !important;
 }
+/* POSTCARD BACK */
+
+.back {
+  padding: 0;
+  background: var(--section-color, #fff500);
+  color: #000;
+}
+
+.back .back-eyebrow,
+.back #backTitle {
+  display: none;
+}
+
+.back .back-content {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 12% 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  overflow-y: auto;
+}
+
+.back #purchaseMessage {
+  flex-shrink: 0;
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-size: clamp(14px, 2vh, 19px);
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.back .purchase-link {
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-top: 22px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+}
+
+.back .flip-button {
+  color: #000;
+  font-size: 9px;
+  opacity: .5;
+}
 </style>
 </head>
 
@@ -919,9 +968,8 @@ function openObject(index) {
     purchaseLink.removeAttribute("href");
   }
 
-  document.getElementById("purchaseMessage").textContent = url
-    ? "Visit the website below to view this object."
-    : "No purchase link has been added for this object.";
+  document.getElementById("purchaseMessage").textContent =
+  object.backText || object.description;
 
   frontFace.querySelector(".card-caption").scrollTop = 0;
 
