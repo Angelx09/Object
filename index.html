@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Price of Luck</title>
-
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap"
+>
 <style>
 * {
   box-sizing: border-box;
@@ -99,7 +102,7 @@ header h1 {
 .categories a:hover,
 .categories a:focus-visible,
 .categories a:first-child {
-  color: #000;
+  color: #f2eded;
 }
 
 /* ARCHIVE */
@@ -199,7 +202,7 @@ header h1 {
   transform: translateX(-50%);
   font-size: 10px;
   letter-spacing: .08em;
-  color: #777;
+  color: #f8f4f4;
   z-index: 20;
   pointer-events: none;
 }
@@ -745,6 +748,42 @@ header h1 {
   font-size: 9px;
   opacity: .5;
 }
+/* Object names on the stack and enlarged postcard */
+.stack-heading div:last-child,
+#selectedTitle {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+/* Short descriptions on the front */
+.stack-caption,
+#selectedDescription {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* Longer story on the back */
+.card-back #purchaseMessage {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+}
+/* Object name */
+.stack-heading div:last-child { font-size: 14px; } /* In the stack */
+#selectedTitle { font-size: 30px; }                 /* Enlarged */
+
+/* Text under the object image */
+.stack-caption { font-size: 18px; }                /* In the stack */
+#selectedDescription { font-size: 30px; }          /* Enlarged */
+.card-back .back-content,
+.back .back-content {
+  padding-inline: 15%;
+}
 </style>
 </head>
 
@@ -895,7 +934,7 @@ const objects = [
     color: "#b6aa97",
     category: "Wearables",
     description: "Chloe C",
-    backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person.",
+    backText: "Every summer, Chloe’s mom would buy her a jade necklace. Over time, it became their tradition. Chloe wore hers every day, wherever she went. She believed the jade brought her luck and protection, and it felt especially meaningful because it came from her mom. When the jade chipped and its green color faded, Chloe felt as though some of its luck had faded with it. Her mom bought her another necklace, and Chloe has kept it for years. By now, it holds memories of her mom and all the time she’s spent wearing it. If she ever lost it, she’d do everything she could to find it again.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -905,7 +944,8 @@ const objects = [
     image: "images/Yellow GOld Scorpio Necklace.png",
     color: "#bd7770",
     category: "Wearables",
-    description: "Personal story",
+    description: "Coby",
+    backText: "Coby got it at a crystal shop in Hawaii a few years ago. It’s been with Coby for so long that it’s come to feel lucky. “It’s like a child to me,” Coby says. It’s something Coby plans to keep forever.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },
@@ -940,8 +980,8 @@ const objects = [
     symbol: "◌",
     color: "#b9b9b5",
     category: "Wearables",
-    description: "Angel X",
-    backText: "Personal story",
+    description: "Anne L",
+    backText: "My mom gave me this gold Winnie the Pooh necklace for my sixth birthday. In Chinese culture, giving someone gold can be a way of wishing them good luck. I’ve had this necklace for so long that it holds memories from different parts of my life. When I wear it, I feel like I’m carrying a little of that luck with me, along with a reminder of my mom’s love.",
     purchaseUrl: "",
     purchaseLabel: "Shop this object"
   },

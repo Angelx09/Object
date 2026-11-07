@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Price of Luck — Objects</title>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap"
+>
 
 <style>
 * { box-sizing: border-box; }
@@ -478,6 +482,35 @@ header {
   .postcard-arrow {
     transition: none;
   }
+  
+}
+/* Object names on the grid and enlarged postcards */
+.object-card .card-heading h3,
+#modalTitle {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+/* Short description on the front */
+.card-caption p {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* Longer story on the back */
+#purchaseMessage {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.card-back .back-content,
+.back .back-content {
+  padding-inline: 12%;
 }
 </style>
 </head>
