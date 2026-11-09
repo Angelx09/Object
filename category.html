@@ -4,40 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Price of Luck — Objects</title>
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap"
->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap">
 
 <style>
 * { box-sizing: border-box; }
-  @import url("https://use.typekit.net/wcs7vbf.css");
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   background: #faf9f6;
   color: #191919;
-  font-family: "Fraunces", Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
-button, a { font: inherit; }
-button { color: inherit; }
-a { color: inherit; text-decoration: none; }
-[hidden] { display: none !important; }
-
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid #191919;
-  outline-offset: 4px;
-}
-
-/* HEADER */
+button, a { color: inherit; font: inherit; }
+a { text-decoration: none; }
 
 header {
   position: relative;
-  min-height: 80px;
-  padding: 25px 34px;
   display: flex;
   align-items: center;
+  min-height: 72px;
+  padding: 12px 34px;
 }
 
 .site-title {
@@ -46,519 +34,69 @@ header {
   transform: translateX(-50%);
   white-space: nowrap;
   font-size: 16px;
-  letter-spacing: -.03em;
   text-transform: lowercase;
 }
 
 .back-link {
-  font-size: 11px;
-  color: #777;
-}
-
-/* SECTION LINKS */
-
-.section-nav {
-  padding: 20px 34px 35px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px 25px;
-}
-
-.section-nav a {
-  color: #999;
-  font-size: 12px;
-  transition: color .2s;
-}
-
-.section-nav a[aria-current="page"] {
-  color: #191919;
-}
-
-.section-nav a:hover,
-.section-nav a:focus-visible {
-  color: var(--section-hover, #191919);
-}
-
-/* GRID */
-
-.collection-section {
-  margin-bottom: 48px;
-}
-
-.object-grid {
-  padding: 0 34px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 25px 20px;
-}
-
-/* SECTION COVER */
-
-.section-cover {
-  aspect-ratio: 2 / 3;
-  min-width: 0;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: var(--section-color);
-}
-
-.section-cover-number,
-.section-cover-count {
-  font-size: 10px;
-  letter-spacing: .08em;
-}
-
-.section-cover h2 {
-  margin: 0 0 18px;
-  font-size: clamp(25px, 3vw, 46px);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -.06em;
-  overflow-wrap: anywhere;
-}
-
-.section-cover p {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-/* OBJECT FRONT */
-
-.object-card {
-  aspect-ratio: 2 / 3;
-  min-width: 0;
-  padding: 0;
-  border: 0;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  cursor: pointer;
-  box-shadow: 0 2px 12px #00000008;
-  transition: transform .25s;
-}
-
-.object-card:hover {
-  transform: translateY(-7px);
-}
-
-.card-heading {
-  flex: 0 0 16.5%;
-  width: 100%;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: var(--section-color);
-  text-align: center;
-  font-size: clamp(12px, 1.4vw, 20px);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -.04em;
-}
-
-.card-heading h2,
-.card-heading h3 {
-  margin: 3px 0 0;
-  font: inherit;
-}
-
-.card-image-area {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  padding: 9% 16% 6%;
-  background: #fff;
-}
-
-.card-brackets {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 0 8px;
-}
-
-.card-brackets::before,
-.card-brackets::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 7px;
-  border-top: 1px solid #ff0098;
-  border-bottom: 1px solid #ff0098;
-  pointer-events: none;
-}
-
-.card-brackets::before {
-  left: 0;
-  border-left: 1px solid #ff0098;
-}
-
-.card-brackets::after {
-  right: 0;
-  border-right: 1px solid #ff0098;
-}
-
-.photo {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-}
-
-.photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.photo-placeholder {
-  color: #bbb;
-  font-size: 10px;
-  text-align: center;
-}
-
-.card-caption {
-  flex: 0 0 17%;
-  min-height: 0;
-  width: 100%;
-  padding: 8px 12%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.card-caption p {
-  margin: 0;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  font-size: 10px;
-  line-height: 1.4;
-  text-align: center;
-}
-
-/* ENLARGED POSTCARD */
-
-#objectDialog {
-  width: min(440px, calc(100vw - 140px), 58vh);
-  height: min(730px, 88vh);
-  max-width: none;
-  max-height: none;
-  padding: 0;
-  border: 0;
-  overflow: visible;
-  background: transparent;
-}
-
-#objectDialog::backdrop {
-  background: #faf9f699;
-  backdrop-filter: blur(5px);
-}
-
-.modal-layout {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.flip-stage {
-  width: 100%;
-  height: 100%;
-  perspective: 1400px;
-}
-
-.flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform .7s cubic-bezier(.2,.75,.2,1);
-}
-
-.flip-inner.flipped {
-  transform: rotateY(180deg);
-}
-
-.face {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: #fff;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  box-shadow: 0 15px 65px #00000022;
-  cursor: pointer;
-}
-
-.front {
-  transform: rotateY(0deg);
-}
-
-.front .card-heading {
-  font-size: clamp(18px, 2.8vh, 28px);
-}
-
-.front .card-caption {
-  overflow-y: auto;
-}
-
-.front .card-caption p {
-  display: block;
-  overflow: visible;
-  font-size: 12px;
-}
-
-.flip-button {
-  flex-shrink: 0;
-  width: 100%;
-  padding: 10px;
-  border: 0;
-  background: transparent;
-  color: #777;
-  font-size: 10px;
-  cursor: pointer;
-}
-
-/* SECTION-COLORED BACK */
-
-.back {
-  transform: rotateY(180deg);
-  background: var(--section-color);
-  color: #000;
-}
-
-.back-content {
-  flex: 1;
-  min-height: 0;
-  padding: 12% 25%;
-  overflow-y: auto;
-}
-
-.back-copy {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-#purchaseMessage {
-  margin: 0;
-  font-family: "Times New Roman", Times, serif;
-  font-size: clamp(14px, 2vh, 19px);
-  line-height: 1.2;
-  text-align: left;
-  white-space: pre-line;
-  overflow-wrap: anywhere;
-}
-
-.purchase-link {
-  margin-top: 22px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid;
-  font-family: "Fraunces", Times, serif;
-  font-size: 13px;
-}
-
-.back .flip-button {
-  color: #000;
-  font-size: 9px;
-  opacity: .5;
-}
-
-/* CIRCULAR ARROWS */
-
-.postcard-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 5;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: #fff;
-  color: #191919;
-  box-shadow: 0 2px 14px #00000012;
-  display: grid;
-  place-items: center;
-  font-size: 21px;
-  cursor: pointer;
-  transition: background .2s;
-}
-
-.postcard-prev { left: -62px; }
-.postcard-next { right: -62px; }
-
-.postcard-arrow:hover {
-  background: var(--section-color);
-}
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 40px;
   height: 40px;
-  color: #191919;
+  place-items: center;
   font-size: 24px;
 }
-/* RESPONSIVE */
 
-@media (min-width: 1500px) {
-  main {
-    max-width: 1500px;
-    margin: auto;
-  }
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 12px 34px 26px;
 }
 
-@media (max-width: 850px) {
-  .object-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.section-nav a { color: #67635d; font-size: 12px; }
 
-  .card-heading { font-size: 16px; }
+.section-nav a[aria-current="page"],
+.section-nav a:hover,
+.section-nav a:focus-visible {
+  color: #191919;
+  text-decoration: underline;
+  text-decoration-color: var(--link-color, currentColor);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
-@media (max-width: 600px) {
-  #objectDialog {
-    width: min(440px, calc(100vw - 112px), 58vh);
-  }
-
-  .postcard-arrow {
-    width: 40px;
-    height: 40px;
-  }
-
-  .postcard-prev { left: -48px; }
-  .postcard-next { right: -48px; }
-
-  .back-content { padding: 15% 18%; }
-}
-
-@media (max-width: 500px) {
-  header {
-    min-height: 95px;
-    padding: 15px 16px;
-    align-items: flex-start;
-  }
-
-  .site-title {
-    top: 53px;
-  }
-
-  .section-nav {
-    padding: 15px 16px 28px;
-    gap: 14px;
-  }
-
-  .object-grid {
-    padding: 0 16px;
-    gap: 18px 12px;
-  }
-
-  .section-cover { padding: 15px; }
-  .section-cover h2 { font-size: 25px; }
-  .section-cover p { font-size: 10px; }
-  .card-heading { font-size: 12px; }
-  .card-caption p { font-size: 8px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .object-card,
-  .flip-inner,
-  .postcard-arrow {
-    transition: none;
-  }
-  
-}
-/* Object names on the grid and enlarged postcards */
-.object-card .card-heading h3,
-#modalTitle {
-  font-family: "Fraunces", Georgia, serif;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-}
-
-/* Short description on the front */
-.card-caption p {
-  font-family: "Fraunces", Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.35;
-}
-
-/* Longer story on the back */
-#purchaseMessage {
-  font-family: "Fraunces", Georgia, serif;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.4;
-}
-.card-back .back-content,
-.back .back-content {
-  padding-inline: 12%;
-}
-/* EDITORIAL CATEGORY CATALOG */
+/* CATEGORY CATALOG */
 
 .catalog-section {
-  --catalog-rule: #b9b5ae;
-  margin: 0 34px 64px;
-  border: 1px solid var(--catalog-rule);
+  --rule: #b9b5ae;
+  margin: 0 34px 56px;
+  border: 1px solid var(--rule);
 }
 
 .catalog-strip {
   height: 7px;
   background: var(--section-color);
-  border-bottom: 1px solid var(--catalog-rule);
+  border-bottom: 1px solid var(--rule);
 }
 
 .catalog-hero {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-bottom: 1px solid var(--catalog-rule);
+  border-bottom: 1px solid var(--rule);
 }
 
-.catalog-hero-text-only {
-  grid-template-columns: 1fr;
-}
+.catalog-intro { padding: clamp(24px, 4vw, 64px); }
 
-.catalog-intro {
-  padding: clamp(24px, 4vw, 64px);
-}
-
-.catalog-kicker,
-.catalog-bar,
-.catalog-feature-label,
-.catalog-object-number {
+.catalog-kicker, .catalog-feature-label, .catalog-bar, .catalog-number {
   font-size: 11px;
   letter-spacing: .06em;
   text-transform: uppercase;
 }
 
-.catalog-kicker {
-  margin: 0 0 22px;
-}
+.catalog-kicker { margin: 0 0 22px; }
 
 .catalog-title {
   margin: 0 0 18px;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(36px, 6vw, 84px);
-  font-weight: 400;
-  line-height: 1;
+  font: 400 clamp(36px, 6vw, 84px)/1 Fraunces, Georgia, serif;
   letter-spacing: -.055em;
 }
 
@@ -569,8 +107,7 @@ header {
   line-height: 1.5;
 }
 
-.catalog-feature,
-.catalog-object {
+.catalog-feature, .catalog-object {
   min-width: 0;
   padding: 0;
   border: 0;
@@ -585,19 +122,30 @@ header {
   align-content: center;
   gap: 18px;
   min-height: 320px;
-  padding: 30px 24px 22px;
-  border-left: 1px solid var(--catalog-rule);
-  background: color-mix(in srgb, var(--section-color) 20%, #fff);
+  padding: 26px 24px;
+  border-left: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--section-color) 20%, white);
 }
 
-.catalog-feature-image.photo {
-  width: min(78%, 300px);
+.catalog-feature-label { text-align: center; }
+
+.catalog-image, .postcard-photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.catalog-image img, .postcard-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.catalog-feature .catalog-image {
+  width: min(100%, 320px);
   height: clamp(180px, 24vw, 330px);
-  background: transparent;
-}
-
-.catalog-feature-label {
-  text-align: center;
 }
 
 .catalog-bar {
@@ -610,25 +158,28 @@ header {
 .catalog-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--rule);
 }
 
 .catalog-object {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--catalog-rule);
-  border-left: 1px solid var(--catalog-rule);
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
 }
 
-.catalog-object:nth-child(4n + 1) {
-  border-left: 0;
-}
+.catalog-object:nth-child(4n) { border-right: 0; }
 
-.catalog-object-image.photo {
+.catalog-object .catalog-image {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  padding: 14%;
-  background: #fff;
+  aspect-ratio: 1;
+  background: white;
+}
+
+.catalog-object .catalog-image img {
+  inset: 12%;
+  width: 76%;
+  height: 76%;
 }
 
 .catalog-caption {
@@ -638,629 +189,1011 @@ header {
 
 .catalog-caption-top {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px 10px;
 }
 
-.catalog-caption h3 {
-  margin: 0;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.catalog-object-number {
-  flex-shrink: 0;
-  color: #57534d;
-}
+.catalog-object-title { font: 400 16px/1.15 Fraunces, Georgia, serif; }
+.catalog-number, .catalog-object-caption { color: #57534d; }
 
 .catalog-object-caption {
-  margin: 6px 0 0;
+  display: block;
+  margin-top: 6px;
   font-size: 12px;
   line-height: 1.45;
-  color: #57534d;
 }
 
-.catalog-feature:hover .catalog-feature-label,
-.catalog-object:hover h3 {
+.catalog-object:hover .catalog-object-title,
+.catalog-feature:hover .catalog-feature-label {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.catalog-feature:focus-visible,
-.catalog-object:focus-visible {
+.catalog-object:focus-visible,
+.catalog-feature:focus-visible {
   outline-offset: -4px;
 }
 
-@media (max-width: 760px) {
-  .catalog-section {
-    margin: 0 16px 40px;
-  }
+.photo-placeholder { color: #999; font-size: 18px; }
 
-  .catalog-hero {
-    grid-template-columns: 1fr;
-  }
+/* ENLARGED POSTCARD */
+
+body:has(#postcard[open]) { overflow: hidden; }
+
+#postcard {
+  width: min(440px, calc(100vw - 104px), 60vh);
+  height: min(700px, 86vh);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+  color: #191919;
+}
+
+#postcard::backdrop {
+  background: #faf9f699;
+  backdrop-filter: blur(5px);
+}
+
+.postcard-shell {
+  position: relative;
+  height: 100%;
+  perspective: 1400px;
+}
+
+.postcard-turn {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .65s ease;
+}
+
+.postcard-turn.flipped { transform: rotateY(180deg); }
+.postcard-turn.reset { transition: none; }
+
+.postcard-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: white;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 15px 65px #0002;
+  cursor: pointer;
+}
+
+.postcard-heading {
+  padding: 14px 12px;
+  background: var(--card-color);
+  text-align: center;
+}
+
+.postcard-number { font-size: 12px; }
+
+.postcard-title {
+  margin: 4px 0 0;
+  font: 700 clamp(17px, 3.8vw, 30px)/1.08 Fraunces, Georgia, serif;
+}
+
+.postcard-photo {
+  flex: 1;
+  min-height: 0;
+  margin: 7% 14% 4%;
+}
+
+.postcard-photo img {
+  inset: 0 10px;
+  width: calc(100% - 20px);
+}
+
+.postcard-photo::before, .postcard-photo::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  border-block: 1px solid #ff0098;
+  content: "";
+  pointer-events: none;
+}
+
+.postcard-photo::before { left: 0; border-left: 1px solid #ff0098; }
+.postcard-photo::after { right: 0; border-right: 1px solid #ff0098; }
+
+.postcard-caption {
+  margin: 0;
+  padding: 12px 14px;
+  text-align: center;
+  font: italic clamp(16px, 3vw, 26px)/1.2 Fraunces, Georgia, serif;
+}
+
+.postcard-back {
+  transform: rotateY(180deg);
+  background: var(--card-color);
+}
+
+.postcard-copy {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10% 12%;
+}
+
+.postcard-copy-inner {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.postcard-story {
+  margin: 0;
+  font: 400 clamp(13px, 2vw, 18px)/1.4 Fraunces, Georgia, serif;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.postcard-email {
+  display: inline-block;
+  margin-top: 22px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  font-size: 13px;
+}
+
+.postcard-flip {
+  flex: 0 0 36px;
+  border: 0;
+  background: transparent;
+  color: #444;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.postcard-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 38px;
+  height: 38px;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 50%;
+  background: white;
+  color: #191919;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.postcard-arrow:hover { background: var(--card-color); }
+.postcard-prev { right: calc(100% + 8px); }
+.postcard-next { left: calc(100% + 8px); }
+
+@media (max-width: 760px) {
+  header, .section-nav { padding-inline: 16px; }
+  .catalog-section { margin: 0 16px 40px; }
+  .catalog-hero { grid-template-columns: 1fr; }
 
   .catalog-feature {
     min-height: 0;
     border-left: 0;
-    border-top: 1px solid var(--catalog-rule);
+    border-top: 1px solid var(--rule);
   }
 
-  .catalog-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .catalog-object:nth-child(2n) { border-right: 0; }
+}
 
-  .catalog-object:nth-child(2n + 1) {
-    border-left: 0;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .postcard-turn { transition: none; }
+}
+.cart-toggle {
+  margin-left: auto;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+}
 
-  .catalog-caption-top {
-    flex-wrap: wrap;
+button.postcard-email {
+  padding: 0 0 4px;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+}
+
+#cartDialog {
+  width: min(470px, calc(100% - 32px));
+  max-height: 85vh;
+  padding: 24px;
+  border: 1px solid #b9b5ae;
+  background: #faf9f6;
+  color: #191919;
+}
+
+#cartDialog::backdrop { background: #19191955; }
+
+.cart-header, .cart-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-header h2 {
+  margin: 0;
+  font: 400 28px Fraunces, Georgia, serif;
+}
+
+.cart-item {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 4px solid var(--item-color);
+}
+
+.cart-item h3 { margin: 0 0 12px; }
+
+.cart-item label {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.cart-item input, .cart-item textarea {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #b9b5ae;
+  background: white;
+  font: inherit;
+}
+
+.cart-item textarea { resize: vertical; }
+#cartDialog button { cursor: pointer; }
+
+.cart-preview {
+  width: min(100%, 300px);
+  margin: 16px auto;
+}
+
+.cart-preview-card {
+  aspect-ratio: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 16px #0002;
+}
+
+.cart-preview-back {
+  background: var(--card-color);
+}
+
+.cart-preview-flip {
+  display: block;
+  margin: 10px auto 0;
+  padding: 4px 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  font-size: 12px;
+}
+
+.cart-preview .postcard-title {
+  font-size: 20px;
+}
+
+.cart-preview .postcard-caption {
+  font-size: 15px;
+}
+
+.cart-preview .postcard-story.is-empty {
+  color: #444;
+  font-style: italic;
+}
+.catalog-tile {
+  position: relative;
+  min-width: 0;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.catalog-tile:nth-child(4n) {
+  border-right: 0;
+}
+
+.catalog-tile > .catalog-object {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.grid-cart,
+.postcard-cart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  padding: 6px 9px;
+  border: 1px solid #b9b5ae;
+  background: white;
+  color: #191919;
+  font-size: 11px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.grid-cart:hover:not(:disabled),
+.postcard-cart:hover {
+  background: var(--section-color, var(--card-color, #faf9f6));
+}
+
+.grid-cart:disabled {
+  opacity: .7;
+  cursor: default;
+}
+
+/* Give the corner button room above the postcard title. */
+.postcard-shell .postcard-heading {
+  padding-top: 44px;
+}
+
+@media (max-width: 760px) {
+  .catalog-tile:nth-child(2n) {
+    border-right: 0;
   }
 }
+
 </style>
 </head>
 
 <body>
-
 <header>
-  <a class="site-title" href="index.html">The price of luck</a>
+  <a class="back-link" href="index.html" aria-label="Back to stack">←</a>
+  <a class="site-title" href="index.html">The Price of Luck</a>
+  <button class="cart-toggle" id="cartToggle" type="button">
+  Cart (0)
+</button>
 </header>
 
-<nav class="section-nav" id="sectionNav" aria-label="Sections"></nav>
-
+<nav class="section-nav" id="sectionNav" aria-label="Object sections"></nav>
 <main id="collection"></main>
 
-<dialog id="objectDialog" aria-label="Object postcard">
-  <div class="modal-layout" id="modalLayout">
-
-    <div class="flip-stage">
-      <div class="flip-inner" id="flipInner">
-
-        <div class="face front" id="frontFace">
-          <div class="card-heading">
-            <div id="modalNumber"></div>
-            <h2 id="modalTitle"></h2>
-          </div>
-
-          <div class="card-image-area">
-            <div class="card-brackets">
-              <div class="photo" id="modalPhoto"></div>
-            </div>
-          </div>
-
-          <div class="card-caption">
-            <p id="modalDescription"></p>
-          </div>
-
-          <button class="flip-button" id="flipBack" type="button">
-            Click to flip ↗
-          </button>
+<dialog id="postcard" aria-labelledby="postcardTitle">
+  <div class="postcard-shell">
+    <div class="postcard-turn" id="postcardTurn">
+      <div class="postcard-face" id="frontFace">
+        <div class="postcard-heading">
+          <div class="postcard-number" id="postcardNumber"></div>
+          <h2 class="postcard-title" id="postcardTitle"></h2>
         </div>
+        <div class="postcard-photo" id="postcardPhoto"></div>
+        <p class="postcard-caption" id="postcardCaption"></p>
+        <button class="postcard-flip" id="flipBack" type="button">Click to flip ↗</button>
+      </div>
 
-        <div class="face back" id="backFace" inert aria-hidden="true">
-          <div class="back-content" id="backContent">
-            <div class="back-copy">
-              <p id="purchaseMessage"></p>
-
-              <a
-                class="purchase-link"
-                id="purchaseLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                hidden
-              >
-                Visit website ↗
-              </a>
-            </div>
+      <div class="postcard-face postcard-back" id="backFace" inert aria-hidden="true">
+        <div class="postcard-copy" id="postcardCopy">
+          <div class="postcard-copy-inner">
+            <p class="postcard-story" id="postcardStory"></p>
+            <button class="postcard-cart" id="addToCart" type="button">
+  Add to cart +
+</button>
           </div>
-
-          <button class="flip-button" id="flipFront" type="button">
-            Click to return ↶
-          </button>
         </div>
-
+        <button class="postcard-flip" id="flipFront" type="button">Click to return ↶</button>
       </div>
     </div>
 
-    <button
-      class="postcard-arrow postcard-prev"
-      id="previousButton"
-      type="button"
-      aria-label="Previous postcard"
-    >←</button>
-
-    <button
-      class="postcard-arrow postcard-next"
-      id="nextButton"
-      type="button"
-      aria-label="Next postcard"
-    >→</button>
-
+    <button class="postcard-arrow postcard-prev" id="previousCard"
+      type="button" aria-label="Previous postcard">←</button>
+    <button class="postcard-arrow postcard-next" id="nextCard"
+      type="button" aria-label="Next postcard">→</button>
   </div>
 </dialog>
-
+<dialog id="cartDialog" aria-labelledby="cartTitle">
+  <div class="cart-header">
+    <h2 id="cartTitle">Your postcards</h2>
+    <button id="closeCart" type="button" aria-label="Close cart">×</button>
+  </div>
+  <div id="cartItems"></div>
+</dialog>
 <script>
-/* ==========================================
-   EDIT YOUR OBJECTS HERE
+/* Each row is [image filename, optional caption, optional back story].
+   Section names, colors, and descriptions are edited below. */
 
-   description = front caption
-   backText = individual story on the back
-   purchaseUrl = optional shopping link
-========================================== */
+const jadeStory =
+  "Every summer, Chloe’s mom would buy her a jade necklace. Over time, it became their tradition. Chloe wore hers every day, wherever she went. She believed the jade brought her luck and protection, and it felt especially meaningful because it came from her mom.\n\n" +
+  "When the jade chipped and its green color faded, Chloe felt as though some of its luck had faded with it. Her mom bought her another necklace, and Chloe has kept it for years. By now, it holds memories of her mom and all the time she’s spent wearing it. If she ever lost it, she’d do everything she could to find it again.";
+
+const ritualPlaceholder =
+  "Personal story word filling up this postcards about how the object holds significant meanings to this person.";
 
 const sectionData = [
   {
     key: "wearables",
     name: "Wearables",
+    objectLabel: "Wearable",
     color: "#FFF500",
     description: "Objects worn close to the body, carrying luck and protection.",
-    items: [
-      { name: "Wearable 1", image: "images/jade-heart-necklace.png", description: "Chloe C", backText: "Every summer, Chloe’s mom would buy her a jade necklace. Over time, it became their tradition. Chloe wore hers every day, wherever she went. She believed the jade brought her luck and protection, and it felt especially meaningful because it came from her mom. When the jade chipped and its green color faded, Chloe felt as though some of its luck had faded with it. Her mom bought her another necklace, and Chloe has kept it for years. By now, it holds memories of her mom and all the time she’s spent wearing it. If she ever lost it, she’d do everything she could to find it again.", purchaseUrl: "" },
-      { name: "Wearable 2", image: "images/Yellow Gold Scorpio Necklace.png", description: "name", backText: "boo", purchaseUrl: "" },
-      { name: "Wearable 3", image: "images/polished-wooden-bead-bracelet.png", description: "name", backText: "boo", purchaseUrl: "" },
-      { name: "Wearable 4", image: "images/red-twisted-cord.png", description: "name", backText: "boo", purchaseUrl: "" },
-      { name: "Wearable 5", image: "images/golden-bead-bracelet.png", description: "name", backText: "boo", purchaseUrl: "" },
-      { name: "Wearable 6", image: "images/watch.jpeg", description: "name", backText: "boo", purchaseUrl: "" },
-      { name: "Wearable 7", image: "images/black-beaded-necklace.png", description: "name", backText: "boo", purchaseUrl: "" },
-      { name: "Wearable 8", image: "images/silver-chain.png", description: "name", backText: "boo", purchaseUrl: "" }
+    defaultStory: "boo",
+    rows: [
+      ["jade-heart-necklace.png", "Chloe C", jadeStory],
+      ["Yellow Gold Scorpio Necklace.png"],
+      ["polished-wooden-bead-bracelet.png"],
+      ["red-twisted-cord.png"],
+      ["golden-bead-bracelet.png"],
+      ["watch.jpeg"],
+      ["black-beaded-necklace.png"],
+      ["silver-chain.png"]
     ]
   },
   {
     key: "rituals",
     name: "Rituals",
+    objectLabel: "Ritual Object",
     color: "#FF9BCB",
     description: "Objects given meaning through repeated actions and beliefs.",
-    items: [
-      { name: "Ritual Object 1", image: "images/Amethyst-cathedral.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Ritual Object 2", image: "images/Framed-Chinese-Amber-Ornament.png", description: "name", backText: "behavior" },
-      { name: "Ritual Object 3", image: "images/object-11.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 4", image: "images/object-12.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 5", image: "images/object-13.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 6", image: "images/object-14.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 7", image: "images/object-15.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." },
-      { name: "Ritual Object 8", image: "images/object-16.jpg", description: "name", backText: "Personal story word filling up this postcards about how the object holds significant meanings to this person." }
+    defaultStory: ritualPlaceholder,
+    rows: [
+      ["Amethyst-cathedral.png", "name", "Behavior phenomenon"],
+      ["Framed-Chinese-Amber-Ornament.png", "name", "behavior"],
+      ["object-11.jpg"], ["object-12.jpg"], ["object-13.jpg"],
+      ["object-14.jpg"], ["object-15.jpg"], ["object-16.jpg"]
     ]
   },
   {
     key: "paper",
     name: "Paper",
+    objectLabel: "Paper Object",
     color: "#B9DFFF",
     description: "Wishes, messages, and memories held on paper.",
-    items: [
-      { name: "Paper Object 1", image: "images/Red.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Paper Object 2", image: "images/yellow-tailsman.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Paper Object 3", image: "images/object-19.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Paper Object 4", image: "images/object-20.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Paper Object 5", image: "images/object-21.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Paper Object 6", image: "images/object-22.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Paper Object 7", image: "images/object-23.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Paper Object 8", image: "images/object-24.jpg", description: "name", backText: "Behavior phenomenon" }
+    rows: [
+      ["Red.png"], ["yellow-tailsman.png"], ["object-19.jpg"], ["object-20.jpg"],
+      ["object-21.jpg"], ["object-22.jpg"], ["object-23.jpg"], ["object-24.jpg"]
     ]
   },
   {
     key: "keychains",
     name: "Keychains",
+    objectLabel: "Keychain",
     color: "#BFE6AE",
     description: "Small companions carried from place to place.",
-    items: [
-      { name: "Keychain 1", image: "images/Eggplant-plush-keychain.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Keychain 2", image: "images/pink-plush-keychain.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Keychain 3", image: "images/object-27.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Keychain 4", image: "images/object-28.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Keychain 5", image: "images/object-29.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Keychain 6", image: "images/object-30.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Keychain 7", image: "images/object-31.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Keychain 8", image: "images/object-32.jpg", description: "name", backText: "Behavior phenomenon" }
+    rows: [
+      ["Eggplant-plush-keychain.png"], ["pink-plush-keychain.png"],
+      ["object-27.jpg"], ["object-28.jpg"], ["object-29.jpg"],
+      ["object-30.jpg"], ["object-31.jpg"], ["object-32.jpg"]
     ]
   },
   {
     key: "found",
     name: "Found Objects",
+    objectLabel: "Found Object",
     color: "#FFC18C",
     description: "Unexpected discoveries given a meaning of their own.",
-    items: [
-      { name: "Found Object 1", image: "images/Lysol.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Found Object 2", image: "images/Light-aqua-blue-helmet.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Found Object 3", image: "images/yellow-pencil.png", description: "name", backText: "Behavior phenomenon" },
-      { name: "Found Object 4", image: "images/object-36.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Found Object 5", image: "images/object-37.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Found Object 6", image: "images/object-38.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Found Object 7", image: "images/object-39.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Found Object 8", image: "images/object-40.jpg", description: "name", backText: "Behavior phenomenon" }
+    rows: [
+      ["Lysol.png"], ["Light-aqua-blue-helmet.png"], ["yellow-pencil.png"],
+      ["object-36.jpg"], ["object-37.jpg"], ["object-38.jpg"],
+      ["object-39.jpg"], ["object-40.jpg"]
     ]
   },
   {
     key: "others",
     name: "Others",
+    objectLabel: "Object",
     color: "#CDBBFA",
     description: "Other ordinary objects with extraordinary personal meaning.",
-    items: [
-      { name: "Object 41", image: "images/object-41.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Object 42", image: "images/object-42.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Object 43", image: "images/object-43.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Object 44", image: "images/object-44.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Object 45", image: "images/object-45.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Object 46", image: "images/object-46.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Object 47", image: "images/object-47.jpg", description: "name", backText: "Behavior phenomenon" },
-      { name: "Object 48", image: "images/object-48.jpg", description: "name", backText: "Behavior phenomenon" }
+    rows: [
+      ["object-41.jpg"], ["object-42.jpg"], ["object-43.jpg"], ["object-44.jpg"],
+      ["object-45.jpg"], ["object-46.jpg"], ["object-47.jpg"], ["object-48.jpg"]
     ]
   }
 ];
 
-/* PREPARE DATA */
-
-let objectNumber = 0;
-
 sectionData.forEach((group, groupIndex) => {
-  group.items = group.items.map(item => ({
-    ...item,
-    id: ++objectNumber,
-    groupIndex,
-    description: item.description || "",
-    backText: item.backText || item.backtxt || "",
-    purchaseUrl: item.purchaseUrl || ""
-  }));
+  group.items = group.rows.map((row, index) => {
+    const id = groupIndex * 8 + index + 1;
+    const number = group.key === "others" ? id : index + 1;
+
+    return {
+      id,
+      group,
+      name: group.objectLabel + " " + number,
+      image: row[0],
+      description: row[1] ?? "name",
+      backText: row[2] ?? group.defaultStory ?? "Behavior phenomenon"
+    };
+  });
 });
 
-const requested = new URLSearchParams(location.search).get("section");
-
-const activeGroup = sectionData.findIndex((group, index) =>
-  requested === String(index + 1) || requested === group.key
+const params = new URLSearchParams(window.location.search);
+const requested = params.get("section");
+const selectedGroup = sectionData.find((group, index) =>
+  requested === group.key || requested === String(index + 1)
 );
 
-const shownGroups = activeGroup === -1
-  ? sectionData
-  : [sectionData[activeGroup]];
-
+const shownGroups = selectedGroup ? [selectedGroup] : sectionData;
 const visibleObjects = shownGroups.flatMap(group => group.items);
 
 document.title =
-  (activeGroup === -1 ? "All Objects" : sectionData[activeGroup].name)
-  + " — The Price of Luck";
+  (selectedGroup ? selectedGroup.name : "All Objects") + " — The Price of Luck";
+
+function element(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function addPhoto(container, object) {
+  const placeholder = element("span", "photo-placeholder", "✳");
+  placeholder.setAttribute("aria-hidden", "true");
+  container.replaceChildren(placeholder);
+
+  if (!object.image) return;
+
+  const image = new Image();
+  image.alt = object.name;
+
+  image.addEventListener("load", () => {
+    if (placeholder.parentNode === container) placeholder.replaceWith(image);
+  }, { once: true });
+
+  image.src = "images/" + object.image;
+}
 
 /* NAVIGATION */
 
 const nav = document.getElementById("sectionNav");
+const allLink = element("a", "", "All Objects");
+allLink.href = "category.html";
+if (!selectedGroup) allLink.setAttribute("aria-current", "page");
+nav.append(allLink);
 
-function addNavLink(label, href, active, color = "#191919") {
-  const link = document.createElement("a");
-  link.textContent = label;
-  link.href = href;
-  link.style.setProperty("--section-hover", color);
-
-  if (active) link.setAttribute("aria-current", "page");
-
-  nav.appendChild(link);
+for (const group of sectionData) {
+  const link = element("a", "", group.name);
+  link.href = "category.html?section=" + group.key;
+  link.style.setProperty("--link-color", group.color);
+  if (group === selectedGroup) link.setAttribute("aria-current", "page");
+  nav.append(link);
 }
 
-addNavLink("All Objects", "category.html", activeGroup === -1);
+/* POSTCARD VIEWER */
 
-sectionData.forEach((group, index) => {
-  addNavLink(
-    group.name,
-    "?section=" + (index + 1),
-    activeGroup === index,
-    group.color
-  );
-});
-
-/* PHOTO LOADING */
-
-function addPhoto(container, object) {
-  container.replaceChildren();
-
-  const placeholder = document.createElement("span");
-  placeholder.className = "photo-placeholder";
-  placeholder.textContent = "Add object photo";
-  container.appendChild(placeholder);
-
-  if (!object.image) return;
-
-  const image = document.createElement("img");
-  image.alt = object.name;
-  image.hidden = true;
-
-  image.addEventListener("load", () => {
-    placeholder.remove();
-    image.hidden = false;
-  });
-
-  image.addEventListener("error", () => image.remove());
-
-  container.appendChild(image);
-  image.src = object.image;
-}
-
-/* BUILD CATEGORY CATALOG */
-
-const collection = document.getElementById("collection");
-
-shownGroups.forEach(group => {
-  const groupIndex = sectionData.indexOf(group);
-  const sectionNumber = String(groupIndex + 1).padStart(2, "0");
-
-  const section = document.createElement("section");
-  section.className = "catalog-section";
-  section.style.setProperty("--section-color", group.color);
-
-  section.innerHTML = `
-    <div class="catalog-strip"></div>
-
-    <div class="catalog-hero">
-      <div class="catalog-intro">
-        <p class="catalog-kicker"></p>
-        <h2 class="catalog-title"></h2>
-        <p class="catalog-description"></p>
-      </div>
-    </div>
-
-    <div class="catalog-bar">
-      <span>Objects in this section</span>
-      <span class="catalog-count"></span>
-    </div>
-
-    <div class="catalog-grid"></div>
-  `;
-
-  const title = section.querySelector(".catalog-title");
-  title.id = `catalog-title-${groupIndex}`;
-  title.textContent = group.name;
-  section.setAttribute("aria-labelledby", title.id);
-
-  section.querySelector(".catalog-kicker").textContent =
-    `Section ${sectionNumber} / The Price of Luck`;
-
-  section.querySelector(".catalog-description").textContent =
-    group.description;
-
-  section.querySelector(".catalog-count").textContent =
-    `${group.items.length} ${group.items.length === 1 ? "object" : "objects"}`;
-
-  function makeObjectButton(object, className) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = className;
-    button.setAttribute("aria-label", `View postcard for ${object.name}`);
-
-    button.addEventListener("click", () => {
-      openObject(visibleObjects.indexOf(object), button);
-    });
-
-    return button;
-  }
-
-  /* Use the first object with an image as the section feature. */
-  const featured = group.items.find(object => object.image);
-  const hero = section.querySelector(".catalog-hero");
-
-  if (featured) {
-    const feature = makeObjectButton(featured, "catalog-feature");
-    feature.innerHTML = `
-      <div class="catalog-feature-image photo"></div>
-      <span class="catalog-feature-label"></span>
-    `;
-
-    addPhoto(feature.querySelector(".photo"), featured);
-
-    feature.querySelector(".catalog-feature-label").textContent =
-      `Featured object / ${featured.name} ↗`;
-
-    hero.appendChild(feature);
-  } else {
-    hero.classList.add("catalog-hero-text-only");
-  }
-
-  const grid = section.querySelector(".catalog-grid");
-
-  group.items.forEach(object => {
-    const card = makeObjectButton(object, "catalog-object");
-
-    card.innerHTML = `
-      <div class="catalog-object-image photo"></div>
-      <div class="catalog-caption">
-        <div class="catalog-caption-top">
-          <h3></h3>
-          <span class="catalog-object-number"></span>
-        </div>
-        <p class="catalog-object-caption"></p>
-      </div>
-    `;
-
-    addPhoto(card.querySelector(".photo"), object);
-    card.querySelector("h3").textContent = object.name;
-
-    card.querySelector(".catalog-object-number").textContent =
-      `No. ${String(object.id).padStart(2, "0")}`;
-
-    const caption = card.querySelector(".catalog-object-caption");
-    caption.textContent = object.description || "";
-    caption.hidden = !object.description;
-
-    grid.appendChild(card);
-  });
-
-  collection.appendChild(section);
-});
-
-/* POSTCARD CONTROLS */
-
-const dialog = document.getElementById("objectDialog");
-const modalLayout = document.getElementById("modalLayout");
-const flipInner = document.getElementById("flipInner");
-const frontFace = document.getElementById("frontFace");
-const backFace = document.getElementById("backFace");
+const dialog = document.getElementById("postcard");
+const turn = document.getElementById("postcardTurn");
+const front = document.getElementById("frontFace");
+const back = document.getElementById("backFace");
 const flipBack = document.getElementById("flipBack");
 const flipFront = document.getElementById("flipFront");
-const purchaseLink = document.getElementById("purchaseLink");
-const previousButton = document.getElementById("previousButton");
-const nextButton = document.getElementById("nextButton");
+const previous = document.getElementById("previousCard");
+const next = document.getElementById("nextCard");
 
 let currentIndex = 0;
-let savedOverflow = "";
-let returnFocus = null;
+let returnFocus;
 
-function setFlipped(value, moveFocus = true) {
-  const visibleFace = value ? backFace : frontFace;
-  visibleFace.inert = false;
-  visibleFace.setAttribute("aria-hidden", "false");
+function setFlipped(showBack, moveFocus = true) {
+  const shown = showBack ? back : front;
+  const hidden = showBack ? front : back;
+
+  shown.inert = false;
+  shown.removeAttribute("aria-hidden");
 
   if (moveFocus) {
-    (value ? flipFront : flipBack).focus({ preventScroll: true });
+    (showBack ? flipFront : flipBack).focus({ preventScroll: true });
   }
 
-  frontFace.inert = value;
-  backFace.inert = !value;
-
-  frontFace.setAttribute("aria-hidden", String(value));
-  backFace.setAttribute("aria-hidden", String(!value));
-
-  flipInner.classList.toggle("flipped", value);
+  hidden.inert = true;
+  hidden.setAttribute("aria-hidden", "true");
+  turn.classList.toggle("flipped", showBack);
 }
 
-function safeUrl(value) {
-  try {
-    const url = new URL(value);
-    return ["https:", "http:"].includes(url.protocol)
-      ? url.href
-      : "";
-  } catch {
-    return "";
-  }
-}
+function openObject(index, trigger) {
+  const object = visibleObjects[index];
+  if (!object) return;
 
-function openObject(index, trigger = null) {
-  if (!visibleObjects.length) return;
+  currentIndex = index;
+  if (!dialog.open) returnFocus = trigger || document.activeElement;
 
-  currentIndex =
-    (index + visibleObjects.length) % visibleObjects.length;
-
-  const object = visibleObjects[currentIndex];
-  const group = sectionData[object.groupIndex];
-  const alreadyOpen = dialog.open;
-
-  if (!alreadyOpen) {
-    returnFocus = trigger || document.activeElement;
-  } else {
-    nextButton.focus({ preventScroll: true });
+  if (back.contains(document.activeElement)) {
+    next.focus({ preventScroll: true });
   }
 
-  /* Reset to the front without animating backward. */
-
-  flipInner.style.transition = "none";
+  turn.classList.add("reset");
   setFlipped(false, false);
-  void flipInner.offsetWidth;
-  flipInner.style.transition = "";
+  void turn.offsetWidth;
+  turn.classList.remove("reset");
 
-  modalLayout.style.setProperty("--section-color", group.color);
+  dialog.style.setProperty("--card-color", object.group.color);
+  document.getElementById("postcardNumber").textContent = "Object " + object.id;
+  document.getElementById("postcardTitle").textContent = object.name;
+  document.getElementById("postcardCaption").textContent = object.description;
+  document.getElementById("postcardStory").textContent = object.backText;
+  document.getElementById("postcardCopy").scrollTop = 0;
 
-  document.getElementById("modalNumber").textContent =
-    "Object " + object.id;
+  addPhoto(document.getElementById("postcardPhoto"), object);
+  addToCartButton.textContent = cart.has(object.id)
+  ? "Added to cart ✓"
+  : "Add to cart +";
 
-  document.getElementById("modalTitle").textContent = object.name;
-
-  document.getElementById("modalDescription").textContent =
-    object.description;
-
-  document.getElementById("purchaseMessage").textContent =
-    object.backText;
-
-  addPhoto(document.getElementById("modalPhoto"), object);
-
-  const url = safeUrl(object.purchaseUrl);
-  purchaseLink.hidden = !url;
-
-  if (url) {
-    purchaseLink.href = url;
-  } else {
-    purchaseLink.removeAttribute("href");
-  }
-
-  frontFace.querySelector(".card-caption").scrollTop = 0;
-  document.getElementById("backContent").scrollTop = 0;
-
-  if (!alreadyOpen) {
-    savedOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    dialog.showModal();
-  }
-
+  if (!dialog.open) dialog.showModal();
   flipBack.focus({ preventScroll: true });
 }
 
-/* CLICK POSTCARD TO FLIP */
+function moveCard(direction) {
+  const count = visibleObjects.length;
+  if (count > 1) {
+    openObject((currentIndex + direction + count) % count);
+  }
+}
 
-frontFace.addEventListener("click", () => {
-  if (!window.getSelection()?.toString()) {
+front.addEventListener("click", event => {
+  if (event.target === flipBack || !String(window.getSelection())) {
     setFlipped(true);
   }
 });
 
-backFace.addEventListener("click", event => {
+back.addEventListener("click", event => {
   if (event.target.closest("a")) return;
 
-  if (!window.getSelection()?.toString()) {
+  if (event.target === flipFront || !String(window.getSelection())) {
     setFlipped(false);
   }
 });
 
-/* CIRCULAR PREVIOUS / NEXT ARROWS */
-
-previousButton.addEventListener("click", event => {
-  event.stopPropagation();
-  openObject(currentIndex - 1);
-});
-
-nextButton.addEventListener("click", event => {
-  event.stopPropagation();
-  openObject(currentIndex + 1);
-});
-
-/* CLOSE WHEN BOTH PRESS AND RELEASE ARE OUTSIDE */
+previous.hidden = next.hidden = visibleObjects.length < 2;
+previous.addEventListener("click", () => moveCard(-1));
+next.addEventListener("click", () => moveCard(1));
 
 let pressedOutside = false;
 
-function isOutsidePostcard(target) {
-  return target instanceof Element &&
-    !target.closest(".face, .postcard-arrow");
-}
-
 dialog.addEventListener("pointerdown", event => {
-  pressedOutside = isOutsidePostcard(event.target);
+  pressedOutside = event.target === dialog;
 });
 
 dialog.addEventListener("click", event => {
-  if (pressedOutside && isOutsidePostcard(event.target)) {
-    dialog.close();
-  }
-
+  if (pressedOutside && event.target === dialog) dialog.close();
   pressedOutside = false;
 });
-
-/* KEYBOARD LEFT / RIGHT NAVIGATION
-   Escape closes the native dialog automatically. */
 
 dialog.addEventListener("keydown", event => {
   if (event.altKey || event.ctrlKey || event.metaKey) return;
 
-  if (event.key === "ArrowLeft") {
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
     event.preventDefault();
-    openObject(currentIndex - 1);
-  }
-
-  if (event.key === "ArrowRight") {
-    event.preventDefault();
-    openObject(currentIndex + 1);
+    moveCard(event.key === "ArrowLeft" ? -1 : 1);
   }
 });
 
 dialog.addEventListener("close", () => {
-  document.body.style.overflow = savedOverflow;
   returnFocus?.focus({ preventScroll: true });
 });
-</script>
 
+/* BUILD THE CATEGORY GRIDS */
+
+const collection = document.getElementById("collection");
+const buttonsById = new Map();
+
+function objectButton(object, className) {
+  const button = element("button", className);
+  button.type = "button";
+  button.setAttribute("aria-label", "View postcard for " + object.name);
+  button.addEventListener("click", () => {
+    openObject(visibleObjects.indexOf(object), button);
+  });
+  return button;
+}
+
+for (const group of shownGroups) {
+  const panel = element("section", "catalog-section");
+  panel.style.setProperty("--section-color", group.color);
+
+  const strip = element("div", "catalog-strip");
+  const hero = element("div", "catalog-hero");
+  const intro = element("div", "catalog-intro");
+  const title = element("h2", "catalog-title", group.name);
+  title.id = "section-" + group.key;
+  panel.setAttribute("aria-labelledby", title.id);
+
+  const sectionNumber = String(sectionData.indexOf(group) + 1).padStart(2, "0");
+  intro.append(
+    element("p", "catalog-kicker", "Section " + sectionNumber + " / The Price of Luck"),
+    title,
+    element("p", "catalog-description", group.description)
+  );
+  hero.append(intro);
+
+  const featured = group.items[0];
+  const feature = objectButton(featured, "catalog-feature");
+  const featurePhoto = element("span", "catalog-image");
+  addPhoto(featurePhoto, featured);
+  feature.append(
+    featurePhoto,
+    element("span", "catalog-feature-label", "Featured object / " + featured.name + " ↗")
+  );
+  hero.append(feature);
+
+  const bar = element("div", "catalog-bar");
+  bar.append(
+    element("span", "", "Objects in this section"),
+    element("span", "", group.items.length + " objects")
+  );
+
+  const grid = element("div", "catalog-grid");
+
+  for (const object of group.items) {
+    const button = objectButton(object, "catalog-object");
+    const photo = element("span", "catalog-image");
+    addPhoto(photo, object);
+
+    const caption = element("span", "catalog-caption");
+    const heading = element("span", "catalog-caption-top");
+    heading.append(
+      element("span", "catalog-object-title", object.name),
+      element("span", "catalog-number", "No. " + String(object.id).padStart(2, "0"))
+    );
+    caption.append(heading);
+
+    if (object.description) {
+      caption.append(element("span", "catalog-object-caption", object.description));
+    }
+
+    button.append(photo, caption);
+    buttonsById.set(object.id, button);
+    const tile = element("div", "catalog-tile");
+const cartButton = element("button", "grid-cart", "Add to cart +");
+
+cartButton.type = "button";
+cartButton.dataset.cartId = String(object.id);
+cartButton.setAttribute("aria-label", "Add " + object.name + " to cart");
+
+cartButton.addEventListener("click", () => {
+  addObjectToCart(object);
+});
+
+tile.append(button, cartButton);
+grid.append(tile);
+  }
+
+  panel.append(strip, hero, bar, grid);
+  collection.append(panel);
+}
+
+/* CART AND PERSONALIZED POSTCARDS */
+
+const cartToggle = document.getElementById("cartToggle");
+const cartDialog = document.getElementById("cartDialog");
+const cartItems = document.getElementById("cartItems");
+const addToCartButton = document.getElementById("addToCart");
+const allObjects = sectionData.flatMap(group => group.items);
+const cartKey = "price-of-luck-cart";
+const cart = new Map();
+
+try {
+  const saved = JSON.parse(localStorage.getItem(cartKey) || "[]");
+
+  for (const [id, note] of saved) {
+    if (allObjects.some(object => object.id === id)) {
+      cart.set(id, typeof note === "string" ? note : "");
+    }
+  }
+} catch {
+  // The cart still works during this visit if browser storage is unavailable.
+}
+
+function saveCart() {
+  cartToggle.textContent = "Cart (" + cart.size + ")";
+  document.querySelectorAll("[data-cart-id]").forEach(button => {
+  const added = cart.has(Number(button.dataset.cartId));
+  button.textContent = added ? "Added ✓" : "Add to cart +";
+  button.disabled = added;
+});
+
+  try {
+    localStorage.setItem(cartKey, JSON.stringify([...cart]));
+  } catch {
+    // The cart remains available until the page is closed.
+  }
+}
+
+function renderCart() {
+  cartItems.replaceChildren();
+
+  if (!cart.size) {
+    cartItems.append(element("p", "", "Your cart is empty."));
+    return;
+  }
+
+  for (const [id, savedNote] of cart) {
+    const object = allObjects.find(item => item.id === id);
+    const form = element("form", "cart-item");
+    form.style.setProperty("--item-color", object.group.color);
+
+    const toLabel = element("label", "", "Recipient’s email");
+    const recipient = element("input");
+    recipient.type = "email";
+    recipient.required = true;
+    recipient.placeholder = "friend@example.com";
+    toLabel.append(recipient);
+
+    const noteLabel = element("label", "", "Your note (up to 200 characters)");
+    const note = element("textarea");
+    note.rows = 4;
+    note.maxLength = 200;
+    note.required = true;
+    note.value = savedNote;
+    note.placeholder = "A little luck for whatever comes next…";
+    noteLabel.append(note);
+    const preview = element("div", "cart-preview");
+preview.style.setProperty("--card-color", object.group.color);
+
+const previewFront = element("div", "cart-preview-card");
+previewFront.hidden = true;
+
+const previewHeading = element("div", "postcard-heading");
+previewHeading.append(
+  element("div", "postcard-number", "Object " + object.id),
+  element("h3", "postcard-title", object.name)
+);
+
+const previewPhoto = element("div", "postcard-photo");
+addPhoto(previewPhoto, object);
+previewFront.append(previewHeading, previewPhoto);
+
+if (object.description) {
+  previewFront.append(
+    element("p", "postcard-caption", object.description)
+  );
+}
+
+const previewBack = element("div", "cart-preview-card cart-preview-back");
+const previewCopy = element("div", "postcard-copy");
+const previewCopyInner = element("div", "postcard-copy-inner");
+const previewMessage = element("p", "postcard-story");
+
+previewCopyInner.append(previewMessage);
+previewCopy.append(previewCopyInner);
+previewBack.append(previewCopy);
+
+const previewFlip = element("button", "cart-preview-flip", "Preview front ↗");
+previewFlip.type = "button";
+
+function showPreviewBack(showBack) {
+  previewFront.hidden = showBack;
+  previewBack.hidden = !showBack;
+  previewFlip.textContent = showBack ? "Preview front ↗" : "Preview back ↶";
+}
+
+function updatePreview() {
+  const message = note.value.trim();
+  previewMessage.textContent = message || "Your note will appear here.";
+  previewMessage.classList.toggle("is-empty", !message);
+}
+
+previewFlip.addEventListener("click", () => {
+  showPreviewBack(previewBack.hidden);
+});
+
+note.addEventListener("input", () => {
+  updatePreview();
+  showPreviewBack(true);
+});
+
+preview.append(previewFront, previewBack, previewFlip);
+updatePreview();
+
+    note.addEventListener("input", () => {
+      cart.set(id, note.value);
+      saveCart();
+    });
+
+    const actions = element("div", "cart-actions");
+    const remove = element("button", "", "Remove");
+    remove.type = "button";
+    remove.addEventListener("click", () => {
+      cart.delete(id);
+      saveCart();
+      renderCart();
+    });
+
+    const send = element("button", "", "Open email draft ↗");
+    send.type = "submit";
+    actions.append(remove, send);
+
+    form.append(
+  element("h3", "", object.name),
+  toLabel,
+  noteLabel,
+  preview,
+  actions
+);
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const message = note.value.trim();
+      if (!message) {
+        note.focus();
+        return;
+      }
+
+      const postcardUrl = new URL("category.html", window.location.href);
+      postcardUrl.searchParams.set("section", object.group.key);
+      postcardUrl.searchParams.set("object", String(object.id));
+      postcardUrl.hash = new URLSearchParams({ note: message }).toString();
+
+      const subject = "A little luck for you";
+      const body = [
+        message,
+        "",
+        "Open your postcard from The Price of Luck:",
+        postcardUrl.href
+      ].join("\r\n");
+
+      window.location.href =
+        "mailto:" + encodeURIComponent(recipient.value.trim()) +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+    });
+
+    cartItems.append(form);
+  }
+}
+
+function addObjectToCart(object) {
+  if (!object) return;
+
+  if (!cart.has(object.id)) cart.set(object.id, "");
+  saveCart();
+}
+
+addToCartButton.addEventListener("click", () => {
+  addObjectToCart(visibleObjects[currentIndex]);
+  addToCartButton.textContent = "Added to cart ✓";
+});
+
+cartToggle.addEventListener("click", () => {
+  renderCart();
+  cartDialog.showModal();
+});
+
+document.getElementById("closeCart").addEventListener("click", () => {
+  cartDialog.close();
+});
+
+saveCart();
+
+/* Open a shared postcard and show the sender’s note. */
+
+const emailedObjectId = params.get("object");
+
+if (emailedObjectId !== null) {
+  const index = visibleObjects.findIndex(object =>
+    String(object.id) === emailedObjectId
+  );
+
+  if (index !== -1) {
+    const button = buttonsById.get(visibleObjects[index].id);
+    button?.scrollIntoView({ block: "center" });
+    openObject(index, button);
+
+    const sharedNote = new URLSearchParams(window.location.hash.slice(1))
+      .get("note");
+
+    if (sharedNote) {
+      document.getElementById("postcardStory").textContent = sharedNote;
+      setFlipped(true);
+    }
+  }
+}
+</script>
 </body>
 </html>
