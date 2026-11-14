@@ -12,42 +12,44 @@
 
     body {
       margin: 0;
+      background: #555;
       color: #191919;
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* Change the background image here. */
     .page-background {
       position: fixed;
       inset: 0;
-      z-index: -1;
-      background: #9a9a9a url("images/bg.jpeg") center / cover no-repeat;
+      background: #555 url("images/bg.jpeg") center / cover no-repeat;
     }
 
     .site-title,
-    .scroll-hint {
+    .instructions {
       position: fixed;
       z-index: 2;
-      inset-inline: 16px;
+      left: 16px;
+      right: 16px;
       margin: 0;
-      text-align: center;
       color: white;
-      text-shadow: 0 1px 6px #000;
+      text-shadow: 0 1px 5px black, 0 0 12px black;
+      text-align: center;
       pointer-events: none;
     }
 
     .site-title {
       top: 24px;
-      font: normal 25px Georgia, serif;
+      font: 28px Georgia, serif;
     }
 
-    .scroll-hint {
+    .instructions {
       bottom: 24px;
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: .08em;
+      text-transform: uppercase;
     }
 
     .scroll-track {
+      position: relative;
       height: 350vh;
     }
 
@@ -58,38 +60,51 @@
       overflow: hidden;
     }
 
-    .archive {
-      --card-width: 210px;
-      --card-height: 290px;
+    .stack {
+      --card-width: clamp(150px, 36vw, 210px);
+      --card-height: clamp(210px, 50vw, 290px);
       position: absolute;
       top: calc(50% - var(--card-height) / 2);
       left: calc(50% - var(--card-width) / 2);
+      width: var(--card-width);
+      height: var(--card-height);
     }
 
     .archive-card {
       position: absolute;
-      width: var(--card-width);
-      height: var(--card-height);
-      padding: 0;
-      /* Transparency keeps the same background pixels visible through each card. */
+      inset: 0;
+      z-index: var(--layer);
+      transform: translate(var(--card-x), var(--card-y)) skewY(-8deg);
+      border: 2px solid white;
+      box-shadow: 0 0 0 1px #191919, 2px 3px 0 #191919;
       background: transparent;
-      border: 1px solid rgb(255 255 255 / 48%);
-      box-shadow: 1px 2px 5px rgb(0 0 0 / 18%);
+      padding: 0;
       cursor: pointer;
-      transform: translate(var(--x), var(--y)) skewY(-8deg);
-      transition: transform .25s ease, border-color .25s ease;
+      transition: transform .2s ease, border-color .2s ease;
     }
 
     .archive-card:hover,
     .archive-card:focus-visible {
-      z-index: 1;
-      border-color: #fff;
-      transform: translate(var(--x), calc(var(--y) - 28px)) skewY(-8deg);
+      z-index: 100;
+      border-color: #fff500;
+      transform:
+        translate(var(--card-x), calc(var(--card-y) - 16px))
+        skewY(-8deg);
     }
 
     .archive-card:focus-visible {
-      outline: 2px solid #fff;
+      outline: 2px solid #191919;
       outline-offset: 3px;
+    }
+
+    .card-number {
+      position: absolute;
+      right: 3px;
+      bottom: 6px;
+      padding: 3px;
+      background: #191919;
+      color: white;
+      font: 9px / 1 Arial, sans-serif;
     }
 
     .postcard {
@@ -97,34 +112,38 @@
       height: min(570px, calc(100dvh - 32px));
       max-height: none;
       padding: 0;
+      overflow: hidden;
       border: 0;
       background: white;
-      color: inherit;
-      overflow: hidden;
+      color: #191919;
     }
 
     .postcard::backdrop {
-      background: rgb(0 0 0 / 58%);
+      background: rgb(0 0 0 / 65%);
     }
 
-    .postcard-face {
+    .front,
+    .back {
       height: 100%;
     }
 
-    .postcard-face[hidden],
-    .purchase-link[hidden] {
-      display: none;
+    [hidden] {
+      display: none !important;
     }
 
-    .postcard-front {
+    .front {
       display: grid;
       grid-template-rows: auto minmax(0, 1fr) auto auto;
       text-align: center;
     }
 
+    .object-heading,
+    .back {
+      background: var(--section-color, #fff500);
+    }
+
     .object-heading {
       padding: 14px 16px;
-      background: var(--section-color, #fff500);
     }
 
     .object-number {
@@ -138,6 +157,7 @@
     }
 
     .object-photo {
+      position: relative;
       display: grid;
       place-items: center;
       min-height: 0;
@@ -147,41 +167,42 @@
     }
 
     .object-photo img {
-      display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      min-height: 0;
       object-fit: contain;
     }
 
-    .object-caption {
+    .caption {
       margin: 0;
-      padding: 0 16px 8px;
+      padding: 0 16px 10px;
       font: 17px Georgia, serif;
     }
 
-    .postcard-back {
+    .back {
       display: flex;
       flex-direction: column;
-      background: var(--section-color, #fff500);
     }
 
     .story-content {
+      display: flex;
       flex: 1;
+      flex-direction: column;
       min-height: 0;
       overflow: auto;
-      padding: 24px;
-      align-content: safe center;
+      padding: 28px;
     }
 
-    .object-story {
-      margin: 0;
+    .story-text {
+      margin: auto 0;
       font: 18px / 1.45 Georgia, serif;
       white-space: pre-wrap;
     }
 
     .purchase-link {
       display: inline-block;
+      align-self: flex-start;
       margin-top: 16px;
       color: inherit;
       font-size: 13px;
@@ -191,19 +212,11 @@
       width: 100%;
       padding: 12px;
       border: 0;
-      border-top: 1px solid rgb(0 0 0 / 12%);
+      border-top: 1px solid rgb(0 0 0 / 20%);
       background: transparent;
       color: inherit;
-      font: inherit;
-      font-size: 12px;
+      font: 12px Arial, sans-serif;
       cursor: pointer;
-    }
-
-    @media (max-width: 700px) {
-      .archive {
-        --card-width: 170px;
-        --card-height: 235px;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -211,15 +224,6 @@
         transition: none;
       }
     }
-    .archive-card {
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 1px #191919, 3px 5px 0 #191919;
-}
-
-.archive-card:hover,
-.archive-card:focus-visible {
-  border-color: #fff500;
-}
   </style>
 </head>
 
@@ -230,65 +234,272 @@
     <h1 class="site-title">The Price of Luck</h1>
   </header>
 
-  <main id="track" class="scroll-track" aria-label="Lucky object archive">
+  <main class="scroll-track" id="track" aria-label="Lucky object archive">
     <div class="scene">
-      <div id="archive" class="archive"></div>
+      <div class="stack" id="stack"></div>
     </div>
   </main>
 
-  <p class="scroll-hint">SCROLL TO EXPLORE · TAP A CARD TO REVEAL</p>
+  <p class="instructions">Scroll to explore · Click a card to reveal</p>
 
-  <dialog id="postcard" class="postcard" aria-label="Object details">
-    <section id="front" class="postcard-face postcard-front">
+  <dialog class="postcard" id="postcard" aria-labelledby="objectTitle">
+    <section class="front" id="front">
       <div class="object-heading">
-        <div id="objectNumber" class="object-number"></div>
-        <h2 id="objectTitle" class="object-title"></h2>
+        <div class="object-number" id="objectNumber"></div>
+        <h2 class="object-title" id="objectTitle"></h2>
       </div>
 
-      <div id="objectPhoto" class="object-photo"></div>
-      <p id="objectCaption" class="object-caption"></p>
-      <button id="showStory" class="flip-button" type="button">Flip to read the story ↗</button>
+      <div class="object-photo" id="objectPhoto"></div>
+      <p class="caption" id="objectCaption"></p>
+
+      <button class="flip-button" id="showStory" type="button">
+        Flip to read the story ↗
+      </button>
     </section>
 
-    <section id="back" class="postcard-face postcard-back" hidden>
-      <div class="story-content">
-        <p id="objectStory" class="object-story"></p>
-        <a id="purchaseLink" class="purchase-link"
+    <section class="back" id="back" hidden>
+      <div class="story-content" id="storyContent">
+        <p class="story-text" id="objectStory"></p>
+        <a class="purchase-link" id="purchaseLink"
            target="_blank" rel="noopener noreferrer" hidden></a>
       </div>
 
-      <button id="showObject" class="flip-button" type="button">Back to the object ↶</button>
+      <button class="flip-button" id="showObject" type="button">
+        Back to the object ↶
+      </button>
     </section>
   </dialog>
 
-  <script src="objects.js"></script>
   <script>
+    // Edit your postcard names, image filenames, and stories here.
+    const colors = {
+      wearables: "#FFF500",
+      rituals: "#FF9BCB",
+      paper: "#B9DFFF",
+      keychains: "#BFE6AE",
+      found: "#FFC18C",
+      others: "#CDBBFA"
+    };
+
+    const fortuneNote = {
+      name: "Fortune Note",
+      image: "fortune-note.jpg"
+    };
+
+    const clover = {
+      name: "Four-Leaf Clover",
+      image: "four-leaf-clover.jpg"
+    };
+
+    const watchPlaceholder = {
+      name: "watch",
+      image: "four-leaf-clover.jpg"
+    };
+
+    const objects = [
+      {
+        id: 1,
+        name: "Jade Heart Necklace",
+        image: "jade-heart-necklace.png",
+        category: "wearables",
+        description: "Chloe C",
+        backText: "Every summer, Chloe’s mom would buy her a jade necklace. Over time, it became their tradition. Chloe wore hers every day, wherever she went. She believed the jade brought her luck and protection, and it felt especially meaningful because it came from her mom. When the jade chipped and its green color faded, Chloe felt as though some of its luck had faded with it. Her mom bought her another necklace, and Chloe has kept it for years. By now, it holds memories of her mom and all the time she’s spent wearing it. If she ever lost it, she’d do everything she could to find it again."
+      },
+      {
+        id: 2,
+        name: "Scorpio Necklace",
+        image: "Yellow GOld Scorpio Necklace.png",
+        category: "wearables",
+        description: "Coby",
+        backText: "Coby got it at a crystal shop in Hawaii a few years ago. It’s been with Coby for so long that it’s come to feel lucky. “It’s like a child to me,” Coby says. It’s something Coby plans to keep forever."
+      },
+      {
+        id: 3,
+        name: "Polished Wooden Bead Bracelet",
+        image: "polished-wooden-bead-bracelet.png",
+        category: "wearables",
+        description: "Dad"
+      },
+      {
+        id: 4,
+        name: "Golden Bead Bracelet",
+        image: "golden-bead-bracelet.png",
+        category: "wearables",
+        description: "Mom"
+      },
+      {
+        id: 5,
+        name: "Red Twisted Cord with Gold Charm",
+        image: "red-twisted-cord.png",
+        category: "wearables",
+        description: "Anne L",
+        backText: "My mom gave me this gold Winnie the Pooh necklace for my sixth birthday. In Chinese culture, giving someone gold can be a way of wishing them good luck. I’ve had this necklace for so long that it holds memories from different parts of my life. When I wear it, I feel like I’m carrying a little of that luck with me, along with a reminder of my mom’s love."
+      },
+      {
+        id: 6,
+        name: "Watch",
+        image: "watch.jpeg",
+        category: "wearables",
+        description: "Faizul Rahman",
+        backText: "I think I started thinking of my watch as lucky in 2023, when I wore it to an accounting exam. I hadn’t studied much, so I went in nervous and just hoping to pass. I ended up with a decent grade, and that gave me a little more confidence. Ever since, this is the watch I reach for when I have something important coming up."
+      },
+      {
+        id: 7,
+        name: "Black Beaded Necklace with Carved Pendant",
+        image: "black-beaded-necklace.png",
+        category: "wearables",
+        description: "Terry W"
+      },
+      {
+        id: 8,
+        name: "Silver Chain",
+        image: "silver-chain.png",
+        category: "wearables",
+        description: "William Z",
+        backText: "I got my first necklace when I was so young that I barely remember what my dad said about it. I remember him telling me to keep it on, so I did. I wore it day and night, taking it off only for things like X-rays. When I got older, I asked him what it meant. He told me it was supposed to bring me luck, protect me, and keep me in good health. As I got older, I started noticing how rarely I got sick, even when I was stressed and barely sleeping. The necklace had gotten me this far, I figured. Why take it off and find out? When I outgrew the first one, my parents gave me a new one. That’s why there are two necklaces. I wear a different one now, but it means the same thing to me."
+      },
+      {
+        id: 9,
+        name: "Amethyst Cathedral",
+        image: "Amethyst-cathedral.png",
+        category: "rituals"
+      },
+      {
+        id: 10,
+        name: "Framed Chinese Amber Ornament",
+        image: "Framed-Chinese-Amber-Ornament.png",
+        category: "rituals"
+      },
+      { id: 11, name: "Shell", image: "shell.jpg", category: "rituals" },
+      { ...fortuneNote, id: 12, category: "rituals" },
+      { ...fortuneNote, id: 13, category: "rituals" },
+      { ...fortuneNote, id: 14, category: "rituals" },
+      { ...fortuneNote, id: 15, category: "rituals" },
+      { ...fortuneNote, id: 16, category: "rituals" },
+      {
+        id: 17,
+        name: "Red Pocket",
+        image: "Red.png",
+        category: "paper",
+        description: "Virgil L"
+      },
+      { ...fortuneNote, id: 18, category: "paper" },
+      {
+        id: 19,
+        name: "Yellow Talisman",
+        image: "yellow-tailsman.png",
+        category: "paper",
+        description: "Nathan J"
+      },
+      { ...fortuneNote, id: 20, category: "paper" },
+      { ...watchPlaceholder, id: 21, category: "paper" },
+      { ...clover, id: 22, category: "paper" },
+      { ...watchPlaceholder, id: 23, category: "paper" },
+      { ...clover, id: 24, category: "paper" },
+      {
+        id: 25,
+        name: "Eggplant Keychain",
+        image: "Eggplant-Keychain.png",
+        category: "keychains"
+      },
+      {
+        id: 26,
+        name: "Pink Plush Bunny Keychain",
+        image: "Pink-plush-keychain.png",
+        category: "keychains"
+      },
+      {
+        id: 27,
+        name: "Red Underwear",
+        image: "Red-Underwear.jpg",
+        category: "keychains"
+      },
+      { ...clover, id: 28, category: "keychains" },
+      { ...watchPlaceholder, id: 29, category: "keychains" },
+      { ...clover, id: 30, category: "keychains" },
+      { ...clover, id: 31, category: "keychains" },
+      { ...clover, id: 32, category: "keychains" },
+      {
+        id: 33,
+        name: "Lysol Disinfectant Spray",
+        image: "Lysol.png",
+        category: "found"
+      },
+      {
+        id: 34,
+        name: "Light Aqua Blue Helmet",
+        image: "Light-aqua-blue-helmet.png",
+        category: "found"
+      },
+      {
+        id: 35,
+        name: "Yellow Pencil with its Full Eraser",
+        image: "yellow-pencil.png",
+        category: "found"
+      },
+      { ...clover, id: 36, category: "found" },
+      { ...watchPlaceholder, id: 37, category: "found" },
+      { ...clover, id: 38, category: "found" },
+      { ...watchPlaceholder, id: 39, category: "found" },
+      { ...clover, id: 40, category: "found" },
+      {
+        id: 41,
+        name: "Lysol Disinfectant Spray",
+        image: "Lysol.png",
+        category: "others"
+      },
+      {
+        id: 42,
+        name: "Big Blue Helmet",
+        image: "Light-aqua-blue-helmet.png",
+        category: "others"
+      },
+      {
+        id: 43,
+        name: "Tetronica Pencil with its Full Eraser",
+        image: "yellow-pencil.png",
+        category: "others"
+      },
+      { ...clover, id: 44, category: "others" },
+      { ...watchPlaceholder, id: 45, category: "others" },
+      { ...clover, id: 49, category: "others" },
+      { ...watchPlaceholder, id: 46, category: "others" },
+      { ...clover, id: 47, category: "others" },
+      { ...watchPlaceholder, id: 48, category: "others" }
+    ];
+
     const track = document.getElementById("track");
-    const archive = document.getElementById("archive");
+    const stack = document.getElementById("stack");
     const postcard = document.getElementById("postcard");
     const front = document.getElementById("front");
     const back = document.getElementById("back");
+    const number = document.getElementById("objectNumber");
+    const title = document.getElementById("objectTitle");
     const photo = document.getElementById("objectPhoto");
     const caption = document.getElementById("objectCaption");
     const story = document.getElementById("objectStory");
+    const storyContent = document.getElementById("storyContent");
     const purchaseLink = document.getElementById("purchaseLink");
     const showStory = document.getElementById("showStory");
     const showObject = document.getElementById("showObject");
 
-    const stepX = 28;
+    const stepX = 30;
     const stepY = -10;
     const lastIndex = Math.max(0, objects.length - 1);
 
-    let lastTrigger = null;
+    let previousTrigger = null;
     let previousOverflow = "";
 
-    function updateStack() {
-      const scrollDistance = Math.max(1, track.offsetHeight - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, window.scrollY / scrollDistance));
+    function scrollDistance() {
+      return Math.max(1, track.offsetHeight - window.innerHeight);
+    }
 
-      archive.style.transform =
-        "translate(" + (-progress * lastIndex * stepX) + "px, "
-        + (-progress * lastIndex * stepY) + "px)";
+    function updateStack() {
+      const progress = Math.min(1, Math.max(0, window.scrollY / scrollDistance()));
+      const index = progress * lastIndex;
+
+      stack.style.transform =
+        "translate(" + (-index * stepX) + "px, " + (-index * stepY) + "px)";
     }
 
     function setFace(showingStory) {
@@ -296,66 +507,63 @@
       back.hidden = !showingStory;
 
       if (postcard.open) {
-        (showingStory ? showObject : showStory).focus();
+        (showingStory ? showObject : showStory).focus({ preventScroll: true });
       }
     }
 
     function showPhoto(object) {
       const fallback = document.createElement("span");
-      fallback.textContent = object.symbol || "◇";
+      fallback.textContent = "◇";
       fallback.setAttribute("aria-hidden", "true");
       photo.replaceChildren(fallback);
 
       if (!object.image) return;
 
-      const image = document.createElement("img");
-      image.alt = object.name;
-      image.style.display = "none";
+      const img = document.createElement("img");
+      img.alt = object.name;
+      img.hidden = true;
 
-      image.addEventListener("load", () => {
+      img.addEventListener("load", () => {
         fallback.remove();
-        image.style.display = "block";
+        img.hidden = false;
       });
 
-      image.addEventListener("error", () => image.remove());
-      photo.append(image);
-      image.src = object.image;
+      img.addEventListener("error", () => img.remove());
+      photo.append(img);
+      img.src = "images/" + object.image;
     }
 
-    function openObject(object, trigger) {
-      lastTrigger = trigger;
-      previousOverflow = document.body.style.overflow;
-
-      const sectionColor = typeof getObjectSectionColor === "function"
-        ? getObjectSectionColor(object)
-        : "#fff500";
-
-      postcard.style.setProperty("--section-color", sectionColor);
-      postcard.setAttribute("aria-label", object.name);
-      document.getElementById("objectNumber").textContent = "Object " + object.id;
-      document.getElementById("objectTitle").textContent = object.name;
-      caption.textContent = object.description ?? "";
-      caption.hidden = !caption.textContent;
-      story.textContent = object.backText ?? object.backtxt ?? "";
-      showPhoto(object);
-
+    function updatePurchaseLink(object) {
       purchaseLink.hidden = true;
       purchaseLink.removeAttribute("href");
 
-      if (object.purchaseUrl) {
-        try {
-          const url = new URL(object.purchaseUrl);
-          if (url.protocol === "https:" || url.protocol === "http:") {
-            purchaseLink.href = url.href;
-            purchaseLink.textContent = (object.purchaseLabel || "Visit website") + " ↗";
-            purchaseLink.hidden = false;
-          }
-        } catch {
-          // Leave the link hidden when the URL is invalid.
-        }
-      }
+      if (!object.purchaseUrl) return;
 
-      back.querySelector(".story-content").scrollTop = 0;
+      try {
+        const url = new URL(object.purchaseUrl);
+        if (!["https:", "http:"].includes(url.protocol)) return;
+
+        purchaseLink.href = url.href;
+        purchaseLink.textContent = (object.purchaseLabel || "Visit website") + " ↗";
+        purchaseLink.hidden = false;
+      } catch {
+        // An incomplete URL keeps the link hidden.
+      }
+    }
+
+    function openObject(object, trigger) {
+      previousTrigger = trigger;
+      previousOverflow = document.body.style.overflow;
+
+      postcard.style.setProperty("--section-color", colors[object.category] ?? "#fff500");
+      number.textContent = "Object " + object.id;
+      title.textContent = object.name;
+      caption.textContent = object.description ?? "";
+      caption.hidden = !caption.textContent;
+      story.textContent = object.backText ?? "Personal story";
+      showPhoto(object);
+      updatePurchaseLink(object);
+
       setFace(false);
       postcard.showModal();
       document.body.style.overflow = "hidden";
@@ -366,44 +574,53 @@
       const card = document.createElement("button");
       card.type = "button";
       card.className = "archive-card";
-      card.setAttribute("aria-label", "Reveal " + object.name);
+      card.setAttribute("aria-label", "Reveal object " + object.id + ", " + object.name);
       card.setAttribute("aria-haspopup", "dialog");
-      card.style.setProperty("--x", (index * stepX) + "px");
-      card.style.setProperty("--y", (index * stepY) + "px");
+      card.style.setProperty("--card-x", (index * stepX) + "px");
+      card.style.setProperty("--card-y", (index * stepY) + "px");
+      card.style.setProperty("--layer", objects.length - index);
+
+      const label = document.createElement("span");
+      label.className = "card-number";
+      label.textContent = String(object.id).padStart(2, "0");
+      label.setAttribute("aria-hidden", "true");
+      card.append(label);
+
       card.addEventListener("click", () => openObject(object, card));
-      archive.append(card);
+      card.addEventListener("focus", () => {
+        if (!card.matches(":focus-visible") || postcard.open) return;
+
+        const bounds = card.getBoundingClientRect();
+        if (bounds.left < 0 || bounds.right > window.innerWidth ||
+            bounds.top < 0 || bounds.bottom > window.innerHeight) {
+          window.scrollTo(0, index / Math.max(1, lastIndex) * scrollDistance());
+          updateStack();
+        }
+      });
+
+      stack.append(card);
     });
 
-    archive.addEventListener("focusin", (event) => {
-      if (!event.target.matches(".archive-card:focus-visible") || postcard.open) return;
-
-      const index = Array.from(archive.children).indexOf(event.target);
-      const bounds = event.target.getBoundingClientRect();
-
-      if (bounds.left < 0 || bounds.right > window.innerWidth ||
-          bounds.top < 0 || bounds.bottom > window.innerHeight) {
-        const scrollDistance = track.offsetHeight - window.innerHeight;
-        window.scrollTo(0, (index / Math.max(1, lastIndex)) * scrollDistance);
-        updateStack();
-      }
+    showStory.addEventListener("click", () => {
+      setFace(true);
+      storyContent.scrollTop = 0;
     });
 
-    showStory.addEventListener("click", () => setFace(true));
     showObject.addEventListener("click", () => setFace(false));
 
-    postcard.addEventListener("click", (event) => {
+    postcard.addEventListener("click", event => {
       if (event.target !== postcard) return;
 
       const bounds = postcard.getBoundingClientRect();
-      if (event.clientX < bounds.left || event.clientX > bounds.right ||
-          event.clientY < bounds.top || event.clientY > bounds.bottom) {
-        postcard.close();
-      }
+      const outside = event.clientX < bounds.left || event.clientX > bounds.right ||
+                      event.clientY < bounds.top || event.clientY > bounds.bottom;
+
+      if (outside) postcard.close();
     });
 
     postcard.addEventListener("close", () => {
       document.body.style.overflow = previousOverflow;
-      lastTrigger?.focus({ preventScroll: true });
+      previousTrigger?.focus({ preventScroll: true });
     });
 
     window.addEventListener("scroll", updateStack, { passive: true });
