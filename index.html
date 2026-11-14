@@ -283,35 +283,31 @@
   <p class="instructions">Scroll to explore · Click a card to reveal</p>
 
   <dialog class="postcard" id="postcard" aria-labelledby="objectTitle">
-    <section class="front" id="front">
-      <div class="object-heading">
-        <div class="object-number" id="objectNumber"></div>
-        <h2 class="object-title" id="objectTitle"></h2>
-      </div>
+  <section class="front" id="front">
+    <div class="object-heading">
+      <div class="object-number" id="objectNumber"></div>
+      <h2 class="object-title" id="objectTitle"></h2>
+    </div>
 
-      <div class="object-photo" id="objectPhoto"></div>
-      <p class="caption" id="objectCaption"></p>
+    <div class="object-photo" id="objectPhoto"></div>
+    <p class="caption" id="objectCaption"></p>
 
+    <button class="flip-button" id="showStory" type="button">
+    </button>
+  </section>
 
-    </section>
+  <section class="back" id="back" hidden>
+    <div class="story-content" id="storyContent">
+      <p class="story-text" id="objectStory"></p>
+      <a class="purchase-link" id="purchaseLink"
+         target="_blank" rel="noopener noreferrer" hidden></a>
+    </div>
 
-    <section class="back" id="back" hidden>
-      <div class="story-content" id="storyContent">
-        <p class="story-text" id="objectStory"></p>
-        <a class="purchase-link" id="purchaseLink"
-           target="_blank" rel="noopener noreferrer" hidden></a>
-      </div>
-
-      <button class="flip-button" id="showObject" type="button">
-        Back to the object ↶
-      </button>
-    </section>
-    <dialog class="postcard" id="postcard" aria-labelledby="objectTitle">
-  <div class="postcard-panel">
-    <!-- Your existing front and back sections go here. -->
-  </div>
+    <button class="flip-button" id="showObject" type="button">
+      Back to the object ↶
+    </button>
+  </section>
 </dialog>
-  </dialog>
 
 
   <script>
@@ -646,45 +642,37 @@
     });
 
     showStory.addEventListener("click", () => {
-      setFace(true);
-      storyContent.scrollTop = 0;
-    });
+  setFace(true);
+  storyContent.scrollTop = 0;
+});
 
-    showObject.addEventListener("click", () => setFace(false));
+showObject.addEventListener("click", () => {
+  setFace(false);
+});
 
-    postcard.addEventListener("click", event => {
-      if (event.target !== postcard) return;
+postcard.addEventListener("click", (event) => {
+  if (event.target !== postcard) return;
 
-      const bounds = postcard.getBoundingClientRect();
-      const outside = event.clientX < bounds.left || event.clientX > bounds.right ||
-                      event.clientY < bounds.top || event.clientY > bounds.bottom;
+  const bounds = postcard.getBoundingClientRect();
+  const clickedOutside =
+    event.clientX < bounds.left ||
+    event.clientX > bounds.right ||
+    event.clientY < bounds.top ||
+    event.clientY > bounds.bottom;
 
-      if (outside) postcard.close();
-    });
-
-    postcard.addEventListener("close", () => {
-      document.body.style.overflow = previousOverflow;
-      previousTrigger?.focus({ preventScroll: true });
-    });
-
-    window.addEventListener("scroll", updateStack, { passive: true });
-    window.addEventListener("resize", updateStack);
-    updateStack();
-    postcard.addEventListener("click", (event) => {
-  const panel = postcard.querySelector(".postcard-panel");
-  if (!postcard.open || !panel) return;
-
-  const { left, right, top, bottom } = panel.getBoundingClientRect();
-
-  if (
-    event.clientX < left ||
-    event.clientX > right ||
-    event.clientY < top ||
-    event.clientY > bottom
-  ) {
+  if (clickedOutside) {
     postcard.close();
   }
 });
+
+postcard.addEventListener("close", () => {
+  document.body.style.overflow = previousOverflow;
+  previousTrigger?.focus({ preventScroll: true });
+});
+
+window.addEventListener("scroll", updateStack, { passive: true });
+window.addEventListener("resize", updateStack);
+updateStack();
   </script>
 </body>
 </html>
