@@ -10,13 +10,18 @@
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      background: #555;
-      color: #191919;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+   @import url("https://use.typekit.net/wcs7vbf.css");
 
+    body,
+    .site-title,
+    .instructions,
+    .archive-about,
+    .object-title,
+    .caption,
+    .story-text,
+    .flip-button {
+      font-family: "neue-haas-grotesk-display", Arial, sans-serif;
+    }   
     .page-background {
       position: fixed;
       inset: 0;
@@ -224,6 +229,37 @@
         transition: none;
       }
     }
+    .archive-about {
+  position: fixed;
+  z-index: 3;
+  top: 43%;
+  left: 24px;
+  width: min(190px, calc(100% - 48px));
+  padding: 12px 14px;
+  color: white;
+  pointer-events: none;
+}
+
+.archive-about h2 {
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.archive-about p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+@media (max-width: 700px) {
+  .archive-about {
+    top: 68px;
+    left: 16px;
+    width: min(260px, calc(100% - 32px));
+  }
+}
   </style>
 </head>
 
@@ -233,6 +269,10 @@
   <header>
     <h1 class="site-title">The Price of Luck</h1>
   </header>
+  <aside class="archive-about" aria-labelledby="archive-about-title">
+  <h2 id="archive-about-title">About the Archive</h2>
+  <p>A collection of objects believed to carry luck, protection, and personal meaning.</p>
+</aside>
 
   <main class="scroll-track" id="track" aria-label="Lucky object archive">
     <div class="scene">
@@ -252,9 +292,7 @@
       <div class="object-photo" id="objectPhoto"></div>
       <p class="caption" id="objectCaption"></p>
 
-      <button class="flip-button" id="showStory" type="button">
-        Flip to read the story ↗
-      </button>
+
     </section>
 
     <section class="back" id="back" hidden>
@@ -268,7 +306,13 @@
         Back to the object ↶
       </button>
     </section>
+    <dialog class="postcard" id="postcard" aria-labelledby="objectTitle">
+  <div class="postcard-panel">
+    <!-- Your existing front and back sections go here. -->
+  </div>
+</dialog>
   </dialog>
+
 
   <script>
     // Edit your postcard names, image filenames, and stories here.
@@ -626,6 +670,21 @@
     window.addEventListener("scroll", updateStack, { passive: true });
     window.addEventListener("resize", updateStack);
     updateStack();
+    postcard.addEventListener("click", (event) => {
+  const panel = postcard.querySelector(".postcard-panel");
+  if (!postcard.open || !panel) return;
+
+  const { left, right, top, bottom } = panel.getBoundingClientRect();
+
+  if (
+    event.clientX < left ||
+    event.clientX > right ||
+    event.clientY < top ||
+    event.clientY > bottom
+  ) {
+    postcard.close();
+  }
+});
   </script>
 </body>
 </html>
