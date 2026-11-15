@@ -6,7 +6,6 @@
   <title>The Price of Luck</title>
 
   <style>
-    @import url("https://use.typekit.net/wcs7vbf.css");
     * {
       box-sizing: border-box;
     }
@@ -107,7 +106,7 @@
       padding: 3px;
       background: #191919;
       color: white;
-      font: 9px / 1 Arial, sans-serif;
+      font: 11px / 1 Arial, sans-serif;
     }
 
     .postcard {
@@ -258,6 +257,102 @@
     width: min(260px, calc(100% - 32px));
   }
 }
+body,
+.site-title,
+.archive-about,
+.instructions,
+.card-number,
+.object-title,
+.caption,
+.story-text,
+.flip-button,
+button,
+input,
+textarea,
+select {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
+.site-title,
+.archive-about h2,
+.object-title {
+  font-weight: 500;
+}
+.selection-controls {
+  position: fixed;
+  top: 24px;
+  right: 20px;
+  z-index: 110;
+  display: flex;
+  gap: 8px;
+}
+
+.selection-controls button,
+#postcardDownloads button {
+  padding: 7px 13px;
+  border: 1px solid #191919;
+  border-radius: 30px;
+  background: white;
+  color: #191919;
+  font: 14px Georgia, serif;
+  cursor: pointer;
+}
+
+.selection-controls button:disabled {
+  opacity: .55;
+}
+
+.archive-card.is-selected {
+  border-color: #fff500;
+}
+
+.archive-card.is-selected::after {
+  content: "✓";
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff500;
+  color: #191919;
+  font: bold 16px Georgia, serif;
+}
+
+#postcardDownloads {
+  width: min(440px, calc(100% - 32px));
+  max-height: 80vh;
+  padding: 24px;
+  font-family: Georgia, serif;
+}
+
+#postcardDownloads::backdrop {
+  background: rgb(0 0 0 / 65%);
+}
+
+#downloadList {
+  padding-left: 20px;
+}
+
+#downloadList li {
+  margin-bottom: 16px;
+}
+
+#downloadList a {
+  display: inline-block;
+  margin: 5px 12px 0 0;
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .selection-controls {
+    top: 60px;
+    right: 16px;
+  }
+}
   </style>
 </head>
 
@@ -271,6 +366,19 @@
   <h2 id="archive-about-title">About the Archive</h2>
   <p>A collection of objects believed to carry luck, protection, and personal meaning.</p>
 </aside>
+<div class="selection-controls" role="group" aria-label="Save postcards">
+  <button id="selectPostcards" type="button" aria-pressed="false">Select</button>
+  <button id="savePostcards" type="button" hidden disabled>Save selected (0)</button>
+</div>
+
+<dialog id="postcardDownloads" aria-labelledby="downloadTitle">
+  <h2 id="downloadTitle">Save postcards</h2>
+  <p id="downloadStatus" role="status"></p>
+  <ul id="downloadList"></ul>
+  <form method="dialog">
+    <button type="submit">Done</button>
+  </form>
+</dialog>
 
   <main class="scroll-track" id="track" aria-label="Lucky object archive">
     <div class="scene">
@@ -624,7 +732,15 @@
       label.setAttribute("aria-hidden", "true");
       card.append(label);
 
-      card.addEventListener("click", () => openObject(object, card));
+      card.dataset.objectId = String(object.id);
+
+card.addEventListener("click", () => {
+  if (selectingPostcards) {
+    togglePostcardSelection(object, card);
+  } else {
+    openObject(object, card);
+  }
+});
       card.addEventListener("focus", () => {
         if (!card.matches(":focus-visible") || postcard.open) return;
 
@@ -671,6 +787,255 @@ postcard.addEventListener("close", () => {
 window.addEventListener("scroll", updateStack, { passive: true });
 window.addEventListener("resize", updateStack);
 updateStack();
+const selectPostcardsButton = document.getElementById("selectPostcards");
+const savePostcardsButton = document.getElementById("savePostcards");
+const postcardDownloads = document.getElementById("postcardDownloads");
+const downloadStatus = document.getElementById("downloadStatus");
+const downloadList = document.getElementById("downloadList");
+
+let selectingPostcards = false;
+const selectedPostcardIds = new Set();
+const postcardDownloadUrls = [];
+
+function updateSelectionCount() {
+  savePostcardsButton.textContent = `Save selected (${selectedPostcardIds.size})`;
+  savePostcardsButton.disabled = selectedPostcardIds.size === 0;
+}
+
+function togglePostcardSelection(object, card) {
+  const selected = !selectedPostcardIds.has(object.id);
+
+  if (selected) {
+    selectedPostcardIds.add(object.id);
+  } else {
+    selectedPostcardIds.delete(object.id);
+  }
+
+  card.classList.toggle("is-selected", selected);
+  card.setAttribute("aria-pressed", String(selected));
+  updateSelectionCount();
+}
+
+selectPostcardsButton.addEventListener("click", () => {
+  selectingPostcards = !selectingPostcards;
+  selectPostcardsButton.textContent = selectingPostcards ? "Cancel" : "Select";
+  selectPostcardsButton.setAttribute("aria-pressed", String(selectingPostcards));
+  savePostcardsButton.hidden = !selectingPostcards;
+  selectedPostcardIds.clear();
+  updateSelectionCount();
+
+  document.querySelectorAll(".archive-card").forEach(card => {
+    card.classList.remove("is-selected");
+
+    if (selectingPostcards) {
+      card.removeAttribute("aria-haspopup");
+      card.setAttribute("aria-pressed", "false");
+    } else {
+      card.setAttribute("aria-haspopup", "dialog");
+      card.removeAttribute("aria-pressed");
+    }
+  });
+});
+
+async function loadPostcardPhoto(path) {
+  if (!path) return null;
+
+  const image = new Image();
+  image.src = path.startsWith("images/") ? path : `images/${path}`;
+
+  try {
+    await image.decode();
+    return image;
+  } catch {
+    return null;
+  }
+}
+
+function drawWrappedText(context, text, x, y, width, lineHeight, draw = true) {
+  let top = y;
+
+  for (const paragraph of String(text).split("\n")) {
+    let line = "";
+
+    for (const word of paragraph.split(/\s+/)) {
+      const nextLine = line ? `${line} ${word}` : word;
+
+      if (line && context.measureText(nextLine).width > width) {
+        if (draw) context.fillText(line, x, top);
+        top += lineHeight;
+        line = word;
+      } else {
+        line = nextLine;
+      }
+    }
+
+    if (draw) context.fillText(line, x, top);
+    top += lineHeight;
+  }
+
+  return top - y;
+}
+
+async function makePostcardPng(object, side, image) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 900;
+  canvas.height = 1350;
+
+  const ctx = canvas.getContext("2d");
+  const color = colors[object.category] ?? "#fff500";
+  const ink = "#191919";
+  const margin = 72;
+  const right = 828;
+  const width = right - margin;
+  const number = String(object.id).padStart(2, "0");
+
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, 900, 1350);
+
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, 900, 18);
+
+  ctx.fillStyle = ink;
+  ctx.textBaseline = "top";
+  ctx.font = "22px Georgia";
+  ctx.fillText("The Price of Luck", margin, 64);
+
+  ctx.textAlign = "right";
+  ctx.fillText(`No. ${number}`, right, 64);
+  ctx.textAlign = "left";
+
+  function drawRule(y) {
+    ctx.fillStyle = ink;
+    ctx.fillRect(margin, y, width, 1);
+  }
+
+  function drawFittedText(text, y, maxHeight, startSize, leading, weight = "") {
+    let size = startSize;
+    let lineHeight;
+    let height;
+
+    do {
+      ctx.font = `${weight ? weight + " " : ""}${size}px Georgia`;
+      lineHeight = Math.ceil(size * leading);
+      height = drawWrappedText(ctx, text, margin, 0, width, lineHeight, false);
+      if (height <= maxHeight || size <= 1) break;
+      size--;
+    } while (true);
+
+    drawWrappedText(ctx, text, canvas.width / 2, y, width, lineHeight);
+return height;
+  }
+
+  drawRule(108);
+ctx.textAlign = "center";
+  if (side === "front") {
+    if (image) {
+      const scale = Math.min(width / image.naturalWidth, 790 / image.naturalHeight);
+      const photoWidth = image.naturalWidth * scale;
+      const photoHeight = image.naturalHeight * scale;
+
+      ctx.drawImage(
+        image,
+        (900 - photoWidth) / 2,
+        145 + (790 - photoHeight) / 2,
+        photoWidth,
+        photoHeight
+      );
+    }
+
+    const titleY = 980;
+const titleHeight = drawFittedText(object.name, titleY, 130, 46, 1.1);
+
+if (object.description) {
+  ctx.fillStyle = "#555";
+  drawFittedText(object.description, titleY + titleHeight + 8, 68, 23, 1.25);
+} {
+      ctx.fillStyle = "#555";
+      drawFittedText(object.description, 1033 + titleHeight, 74, 28, 1.25);
+    }
+  } else {
+    ctx.font = "italic 26px Georgia";
+    ctx.fillText("The story behind it", margin, 154);
+
+    const titleHeight = drawFittedText(object.name, 205, 160, 52, 1.12);
+    const storyTop = 205 + titleHeight + 50;
+    const story = object.backText ?? object.backtxt ?? "";
+
+    drawFittedText(story, storyTop, 1190 - storyTop, 37, 1.45);
+    drawRule(1230);
+
+    if (object.description) {
+      ctx.fillStyle = "#555";
+      drawFittedText(object.description, 1252, 50, 24, 1.2);
+    }
+  }
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(blob => {
+      if (blob) resolve(blob);
+      else reject(new Error("Could not create a postcard image."));
+    }, "image/png");
+  });
+  ctx.fillText("The story behind it", canvas.width / 2, 154);
+}
+savePostcardsButton.addEventListener("click", async () => {
+  const selected = objects.filter(object => selectedPostcardIds.has(object.id));
+  if (!selected.length) return;
+
+  savePostcardsButton.disabled = true;
+  downloadList.replaceChildren();
+  downloadStatus.textContent = "Preparing your postcards…";
+  postcardDownloads.showModal();
+
+  let missingPhotos = 0;
+  let failedExports = 0;
+
+  for (const object of selected) {
+    try {
+      const image = await loadPostcardPhoto(object.image);
+      if (!image) missingPhotos++;
+
+      const frontPng = await makePostcardPng(object, "front", image);
+      const backPng = await makePostcardPng(object, "back", image);
+      if (!postcardDownloads.open) break;
+
+      const item = document.createElement("li");
+      const title = document.createElement("strong");
+      title.textContent = `Object ${object.id} · ${object.name}`;
+      item.append(title, document.createElement("br"));
+
+      for (const [side, blob] of [["front", frontPng], ["back", backPng]]) {
+        const url = URL.createObjectURL(blob);
+        postcardDownloadUrls.push(url);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `postcard-${object.id}-${side}.png`;
+        link.textContent = side === "front" ? "Download front" : "Download back";
+        item.append(link);
+      }
+
+      downloadList.append(item);
+    } catch {
+      failedExports++;
+    }
+  }
+
+  if (postcardDownloads.open) {
+    downloadStatus.textContent = [
+      "Click each link to save its PNG.",
+      missingPhotos ? `${missingPhotos} front image(s) exported without a photo. Check their filenames.` : "",
+      failedExports ? `${failedExports} postcard(s) could not be exported.` : ""
+    ].filter(Boolean).join(" ");
+  }
+
+  updateSelectionCount();
+});
+
+postcardDownloads.addEventListener("close", () => {
+  for (const url of postcardDownloadUrls) URL.revokeObjectURL(url);
+  postcardDownloadUrls.length = 0;
+});
   </script>
 </body>
 </html>
