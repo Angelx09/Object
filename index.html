@@ -525,6 +525,48 @@ select {
 #postcard #objectBackImage[hidden] {
   display: none;
 }
+#postcard .back {
+  position: relative;
+  padding: 0;
+  background: transparent;
+}
+
+#postcard .back #storyContent {
+  position: relative;
+  flex: 1;
+  padding: 0;
+  overflow: hidden;
+}
+
+#postcard .back #objectBackImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#postcard #showObject {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+
+#postcard #showObject:focus-visible {
+  outline: 2px solid white;
+  outline-offset: -4px;
+}
+#pdfPreview .preview-heading {
+  margin: 0 0 16px;
+  text-align: center;
+}
   </style>
 </head>
 
@@ -592,8 +634,7 @@ select {
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 <dialog id="pdfPreview" aria-labelledby="pdfPreviewTitle">
-  <h2 id="pdfPreviewTitle">Preview selected postcards</h2>
-  <p>Each front is followed by its back.</p>
+  <h2 class="preview-heading">Preview</h2>
 
   <iframe id="pdfPreviewFrame"
           title="Selected postcards PDF preview"></iframe>
