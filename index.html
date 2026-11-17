@@ -400,6 +400,52 @@ select {
   font-size: 13px;
   text-underline-offset: 3px;
 }
+/* Make the opened front entirely image. */
+#postcard .front {
+  position: relative;
+  display: block;
+  padding: 0;
+  background: transparent;
+}
+
+#postcard .front .object-heading,
+#postcard .front .caption {
+  display: none;
+}
+
+#postcard .front .object-photo {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+}
+
+#postcard .front .object-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Let the entire front image act as the flip button. */
+#postcard #showStory {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+
+#postcard #showStory:focus-visible {
+  outline: 2px solid white;
+  outline-offset: -4px;
+}
   </style>
 </head>
 
@@ -492,37 +538,37 @@ select {
       {
         id: 1,
         name: "Gold Bead",
-        image: "Postcardsfront.png",
+        image: "Post.png",
         category: "wearables",
         description: "Jina L",
         backText: "Story"
       },
       {
         id: 2,
-        name: "Scorpio Necklace",
-        image: "Yellow GOld Scorpio Necklace.png",
+        name: "Red Rubber",
+        image: "Post2.png",
         category: "wearables",
-        description: "Coby",
-        backText: "Coby got it at a crystal shop in Hawaii a few years ago. It’s been with Coby for so long that it’s come to feel lucky. “It’s like a child to me,” Coby says. It’s something Coby plans to keep forever."
+        description: "word",
+        backText: "Postcardsfront40.png"
       },
       {
         id: 3,
         name: "Polished Wooden Bead Bracelet",
-        image: "polished-wooden-bead-bracelet.png",
+        image: "Post3.png",
         category: "wearables",
         description: "Dad"
       },
       {
         id: 4,
         name: "Golden Bead Bracelet",
-        image: "golden-bead-bracelet.png",
+        image: "Post4.png",
         category: "wearables",
         description: "Mom"
       },
       {
         id: 5,
         name: "Red Twisted Cord with Gold Charm",
-        image: "red-twisted-cord.png",
+        image: "Post5.png",
         category: "wearables",
         description: "Anne L",
         backText: "My mom gave me this gold Winnie the Pooh necklace for my sixth birthday. In Chinese culture, giving someone gold can be a way of wishing them good luck. I’ve had this necklace for so long that it holds memories from different parts of my life. When I wear it, I feel like I’m carrying a little of that luck with me, along with a reminder of my mom’s love."
@@ -530,7 +576,7 @@ select {
       {
         id: 6,
         name: "Watch",
-        image: "watch.jpeg",
+        image: "Post6.png",
         category: "wearables",
         description: "Faizul Rahman",
         backText: "I think I started thinking of my watch as lucky in 2023, when I wore it to an accounting exam. I hadn’t studied much, so I went in nervous and just hoping to pass. I ended up with a decent grade, and that gave me a little more confidence. Ever since, this is the watch I reach for when I have something important coming up."
@@ -538,14 +584,14 @@ select {
       {
         id: 7,
         name: "Black Beaded Necklace with Carved Pendant",
-        image: "black-beaded-necklace.png",
+        image: "Post7.png",
         category: "wearables",
         description: "Terry W"
       },
       {
         id: 8,
         name: "Silver Chain",
-        image: "silver-chain.png",
+        image: "Post8.png",
         category: "wearables",
         description: "William Z",
         backText: "I got my first necklace when I was so young that I barely remember what my dad said about it. I remember him telling me to keep it on, so I did. I wore it day and night, taking it off only for things like X-rays. When I got older, I asked him what it meant. He told me it was supposed to bring me luck, protect me, and keep me in good health. As I got older, I started noticing how rarely I got sick, even when I was stressed and barely sleeping. The necklace had gotten me this far, I figured. Why take it off and find out? When I outgrew the first one, my parents gave me a new one. That’s why there are two necklaces. I wear a different one now, but it means the same thing to me."
@@ -553,103 +599,128 @@ select {
       {
         id: 9,
         name: "Amethyst Cathedral",
-        image: "Amethyst-cathedral.png",
+        image: "Post9.png",
         category: "rituals"
       },
       {
         id: 10,
         name: "Framed Chinese Amber Ornament",
-        image: "Framed-Chinese-Amber-Ornament.png",
+        image: "Post10.png",
         category: "rituals"
       },
-      { id: 11, name: "Shell", image: "shell.jpg", category: "rituals" },
-      { ...fortuneNote, id: 12, category: "rituals" },
-      { ...fortuneNote, id: 13, category: "rituals" },
-      { ...fortuneNote, id: 14, category: "rituals" },
-      { ...fortuneNote, id: 15, category: "rituals" },
-      { ...fortuneNote, id: 16, category: "rituals" },
+      { id: 11, name: "Shell", image: "Post11.png", category: "rituals" },
+      { ...fortuneNote, id: 12, category: "rituals",image: "Post12.png" },
+      { ...fortuneNote, id: 13, category: "rituals",image: "Post13.png" },
+      { ...fortuneNote, id: 14, category: "rituals",image: "Post14.png" },
+      { ...fortuneNote, id: 15, category: "rituals",image: "Post15.png" },
+      { ...fortuneNote, id: 16, category: "rituals",image: "Post16.png" },
       {
         id: 17,
         name: "Red Pocket",
-        image: "Red.png",
+        image: "Post17.png",
         category: "paper",
         description: "Virgil L"
       },
-      { ...fortuneNote, id: 18, category: "paper" },
+      { ...fortuneNote, id: 18, category: "paper",image: "Post18.png" },
       {
         id: 19,
         name: "Yellow Talisman",
-        image: "yellow-tailsman.png",
+        image: "Post19.png",
         category: "paper",
         description: "Nathan J"
       },
-      { ...fortuneNote, id: 20, category: "paper" },
-      { ...watchPlaceholder, id: 21, category: "paper" },
-      { ...clover, id: 22, category: "paper" },
-      { ...watchPlaceholder, id: 23, category: "paper" },
-      { ...clover, id: 24, category: "paper" },
+      { ...fortuneNote, id: 20, category: "paper",image: "Post20.png" },
+      { ...watchPlaceholder, id: 21, category: "paper",image: "Post21.png" },
+      { ...clover, id: 22, category: "paper",image: "Post22.png" },
+      { ...watchPlaceholder, id: 23, category: "paper",image: "Post23.png" },
+      { ...clover, id: 24, category: "paper",image: "Post24.png" },
       {
         id: 25,
         name: "Eggplant Keychain",
-        image: "Eggplant-Keychain.png",
+        image: "Post25.png",
         category: "keychains"
       },
       {
         id: 26,
         name: "Pink Plush Bunny Keychain",
-        image: "Pink-plush-keychain.png",
+        image: "Post26.png",
         category: "keychains"
       },
       {
         id: 27,
         name: "Red Underwear",
-        image: "Red-Underwear.jpg",
+        image: "Post27.png",
         category: "keychains"
       },
-      { ...clover, id: 28, category: "keychains" },
-      { ...watchPlaceholder, id: 29, category: "keychains" },
-      { ...clover, id: 30, category: "keychains" },
-      { ...clover, id: 31, category: "keychains" },
-      { ...clover, id: 32, category: "keychains" },
+      { ...clover, id: 28, category: "keychains", image: "Post28.png" },
+      { ...watchPlaceholder, id: 29, category: "keychains", image: "Post29.png" },
+      { ...clover, id: 30, category: "keychains", image: "Post30.png" },
+      { ...clover, id: 31, category: "keychains", image: "Post31.png" },
+      { ...clover, id: 32, category: "keychains", image: "Post32.png" },
       {
         id: 33,
         name: "Lysol Disinfectant Spray",
-        image: "Lysol.png",
+        image: "Post33.png",
         category: "found"
       },
       {
         id: 34,
         name: "Light Aqua Blue Helmet",
-        image: "Light-aqua-blue-helmet.png",
+        image: "Post34.png",
         category: "found"
       },
       {
         id: 35,
         name: "Yellow Pencil with its Full Eraser",
-        image: "yellow-pencil.png",
+        image: "Post35.png",
         category: "found"
       },
-      { ...clover, id: 36, category: "found" },
-      { ...watchPlaceholder, id: 37, category: "found" },
-      { ...clover, id: 38, category: "found" },
-      { ...watchPlaceholder, id: 39, category: "found" },
-      { ...clover, id: 40, category: "found" },
+      {
+        id: 36,
+        name: "Clover",
+        image: "Post36.png",
+        category: "found"
+      },
+      {
+        id: 37,
+        name: "Watch Placeholder",
+        image: "Post37.png",
+        category: "found"
+      },
+      {
+        id: 38,
+        name: "Clover",
+        image: "Post38.png",
+        category: "found"
+      },
+      {
+        id: 39,
+        name: "Watch Placeholder",
+        image: "Post39.png",
+        category: "found"
+      },
+      {
+        id: 40,
+        name: "Clover",
+        image: "Post40.png",
+        category: "found"
+      },
       {
         id: 41,
         name: "Lysol Disinfectant Spray",
-        image: "Lysol.png",
+        image: "Post41.png",
         category: "others"
       },
       {
         id: 42,
         name: "Big Blue Helmet",
-        image: "Light-aqua-blue-helmet.png",
+        image: "Post42.png",
         category: "others"
       },
       {
         id: 43,
         name: "Tetronica Pencil with its Full Eraser",
-        image: "yellow-pencil.png",
+        image: "Post43.png",
         category: "others"
       },
       { ...clover, id: 44, category: "others" },
