@@ -509,6 +509,22 @@ select {
   gap: 12px;
   margin-top: 16px;
 }
+#postcard #storyContent {
+  position: relative;
+}
+
+#postcard #objectBackImage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#postcard #objectBackImage[hidden] {
+  display: none;
+}
   </style>
 </head>
 
@@ -564,6 +580,7 @@ select {
   <section class="back" id="back" hidden>
     <div class="story-content" id="storyContent">
       <p class="story-text" id="objectStory"></p>
+      <img id="objectBackImage" alt="" hidden>
       <a class="purchase-link" id="purchaseLink"
          target="_blank" rel="noopener noreferrer" hidden></a>
     </div>
@@ -875,6 +892,20 @@ select {
       caption.textContent = object.description ?? "";
       caption.hidden = !caption.textContent;
       story.textContent = object.backText ?? "Personal story";
+      const backArtwork = document.getElementById("objectBackImage");
+const backFile = object.backImage?.trim();
+
+backArtwork.hidden = !backFile;
+story.hidden = Boolean(backFile);
+
+if (backFile) {
+  backArtwork.alt = `Back of ${object.name}`;
+  backArtwork.src = backFile.startsWith("images/")
+    ? backFile
+    : `images/${backFile}`;
+} else {
+  backArtwork.removeAttribute("src");
+}
       showPhoto(object);
       updatePurchaseLink(object);
 
