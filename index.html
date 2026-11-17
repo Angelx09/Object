@@ -20,10 +20,25 @@
       font-family: "neue-haas-grotesk-display", Arial, sans-serif;
     }   
     .page-background {
-      position: fixed;
-      inset: 0;
-      background: #555 url("images/bg.jpeg") center / cover no-repeat;
-    }
+  position: fixed;
+  inset: 0;
+  background: #555 url("images/rainbow-1.jpg") center / cover no-repeat;
+  pointer-events: none;
+}
+
+.rainbow-layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+.rainbow-layer.is-visible {
+  opacity: 1;
+}
 
     .site-title,
     .instructions {
@@ -446,11 +461,62 @@ select {
   outline: 2px solid white;
   outline-offset: -4px;
 }
+.archive-card .stack-artwork {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.archive-card.is-revealed {
+  z-index: 99;
+}
+
+.archive-card.is-revealed .card-number {
+  z-index: 1;
+}
+#pdfPreview {
+  width: min(840px, calc(100vw - 32px));
+  max-height: 90dvh;
+  padding: 20px;
+  border: 0;
+  background: white;
+  color: #191919;
+  font-family: Georgia, serif;
+}
+
+#pdfPreview::backdrop {
+  background: rgb(0 0 0 / 65%);
+}
+
+#pdfPreview h2 {
+  margin: 0;
+}
+
+#pdfPreviewFrame {
+  display: block;
+  width: 100%;
+  height: 60dvh;
+  border: 1px solid #ddd;
+}
+
+.pdf-preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
   </style>
 </head>
 
 <body>
-  <div class="page-background" aria-hidden="true"></div>
+  <div class="page-background" aria-hidden="true">
+  <div class="rainbow-layer is-visible"></div>
+  <div class="rainbow-layer"></div>
+</div>
 
   <header>
     <h1 class="site-title">The Price of Luck</h1>
@@ -508,6 +574,24 @@ select {
   </section>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<dialog id="pdfPreview" aria-labelledby="pdfPreviewTitle">
+  <h2 id="pdfPreviewTitle">Preview selected postcards</h2>
+  <p>Each front is followed by its back.</p>
+
+  <iframe id="pdfPreviewFrame"
+          title="Selected postcards PDF preview"></iframe>
+
+  <div class="pdf-preview-actions">
+    <form method="dialog">
+      <button type="submit">Back to selection</button>
+    </form>
+
+    <a id="openPdfPreview" target="_blank" rel="noopener">Open in new tab</a>
+    <a id="downloadPdf" download="The-Price-of-Luck-postcards.pdf">
+      Download PDF
+    </a>
+  </div>
+</dialog>
   <script>
     // Edit your postcard names, image filenames, and stories here.
     const colors = {
@@ -539,198 +623,165 @@ select {
         id: 1,
         name: "Gold Bead",
         image: "Post.png",
-        category: "wearables",
-        description: "Jina L",
-        backText: "Story"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 2,
         name: "Red Rubber",
         image: "Post2.png",
-        category: "wearables",
-        description: "word",
-        backText: "Postcardsfront40.png"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 3,
         name: "Polished Wooden Bead Bracelet",
         image: "Post3.png",
-        category: "wearables",
-        description: "Dad"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 4,
         name: "Golden Bead Bracelet",
         image: "Post4.png",
-        category: "wearables",
-        description: "Mom"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 5,
         name: "Red Twisted Cord with Gold Charm",
         image: "Post5.png",
-        category: "wearables",
-        description: "Anne L",
-        backText: "My mom gave me this gold Winnie the Pooh necklace for my sixth birthday. In Chinese culture, giving someone gold can be a way of wishing them good luck. I’ve had this necklace for so long that it holds memories from different parts of my life. When I wear it, I feel like I’m carrying a little of that luck with me, along with a reminder of my mom’s love."
+        backImage: "gold-bead-back.png"
       },
       {
         id: 6,
         name: "Watch",
         image: "Post6.png",
-        category: "wearables",
-        description: "Faizul Rahman",
-        backText: "I think I started thinking of my watch as lucky in 2023, when I wore it to an accounting exam. I hadn’t studied much, so I went in nervous and just hoping to pass. I ended up with a decent grade, and that gave me a little more confidence. Ever since, this is the watch I reach for when I have something important coming up."
+        backImage: "gold-bead-back.png"
       },
       {
         id: 7,
         name: "Black Beaded Necklace with Carved Pendant",
         image: "Post7.png",
-        category: "wearables",
-        description: "Terry W"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 8,
         name: "Silver Chain",
         image: "Post8.png",
         category: "wearables",
-        description: "William Z",
-        backText: "I got my first necklace when I was so young that I barely remember what my dad said about it. I remember him telling me to keep it on, so I did. I wore it day and night, taking it off only for things like X-rays. When I got older, I asked him what it meant. He told me it was supposed to bring me luck, protect me, and keep me in good health. As I got older, I started noticing how rarely I got sick, even when I was stressed and barely sleeping. The necklace had gotten me this far, I figured. Why take it off and find out? When I outgrew the first one, my parents gave me a new one. That’s why there are two necklaces. I wear a different one now, but it means the same thing to me."
+        backImage: "gold-bead-back.png"
       },
       {
         id: 9,
         name: "Amethyst Cathedral",
         image: "Post9.png",
-        category: "rituals"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 10,
         name: "Framed Chinese Amber Ornament",
         image: "Post10.png",
-        category: "rituals"
+        backImage: "gold-bead-back.png"
       },
-      { id: 11, name: "Shell", image: "Post11.png", category: "rituals" },
-      { ...fortuneNote, id: 12, category: "rituals",image: "Post12.png" },
-      { ...fortuneNote, id: 13, category: "rituals",image: "Post13.png" },
-      { ...fortuneNote, id: 14, category: "rituals",image: "Post14.png" },
-      { ...fortuneNote, id: 15, category: "rituals",image: "Post15.png" },
-      { ...fortuneNote, id: 16, category: "rituals",image: "Post16.png" },
+      { id: 11, name: "Shell", image: "Post11.png", category: "rituals", backImage: "gold-bead-back.png" },
+      { ...fortuneNote, id: 12, category: "rituals",image: "Post12.png", backImage: "gold-bead-back.png" },
+      { ...fortuneNote, id: 13, category: "rituals",image: "Post13.png", backImage: "gold-bead-back.png" },
+      { ...fortuneNote, id: 14, category: "rituals",image: "Post14.png", backImage: "gold-bead-back.png" },
+      { ...fortuneNote, id: 15, category: "rituals",image: "Post15.png", backImage: "gold-bead-back.png" },
+      { ...fortuneNote, id: 16, category: "rituals",image: "Post16.png", backImage: "gold-bead-back.png" },
       {
         id: 17,
         name: "Red Pocket",
         image: "Post17.png",
         category: "paper",
-        description: "Virgil L"
+        backImage: "gold-bead-back.png"
       },
-      { ...fortuneNote, id: 18, category: "paper",image: "Post18.png" },
+      { ...fortuneNote, id: 18, category: "paper",image: "Post18.png", backImage: "gold-bead-back.png" },
       {
         id: 19,
         name: "Yellow Talisman",
         image: "Post19.png",
         category: "paper",
-        description: "Nathan J"
+        backImage: "gold-bead-back.png"
       },
-      { ...fortuneNote, id: 20, category: "paper",image: "Post20.png" },
-      { ...watchPlaceholder, id: 21, category: "paper",image: "Post21.png" },
-      { ...clover, id: 22, category: "paper",image: "Post22.png" },
-      { ...watchPlaceholder, id: 23, category: "paper",image: "Post23.png" },
-      { ...clover, id: 24, category: "paper",image: "Post24.png" },
+      { ...fortuneNote, id: 20, category: "paper",image: "Post20.png", backImage: "gold-bead-back.png" },
+      { ...watchPlaceholder, id: 21, category: "paper",image: "Post21.png", backImage: "gold-bead-back.png" },
+      { ...clover, id: 22, category: "paper",image: "Post22.png", backImage: "gold-bead-back.png" },
+      { ...watchPlaceholder, id: 23, category: "paper",image: "Post23.png", backImage: "gold-bead-back.png" },
+      { ...clover, id: 24, category: "paper",image: "Post24.png", backImage: "gold-bead-back.png" },
       {
         id: 25,
         name: "Eggplant Keychain",
         image: "Post25.png",
-        category: "keychains"
+        category: "keychains",
+        backImage: "gold-bead-back.png"
       },
       {
         id: 26,
         name: "Pink Plush Bunny Keychain",
         image: "Post26.png",
-        category: "keychains"
+        category: "keychains",
+        backImage: "gold-bead-back.png"
       },
       {
         id: 27,
         name: "Red Underwear",
         image: "Post27.png",
-        category: "keychains"
+        category: "keychains",
+        backImage: "gold-bead-back.png"
       },
-      { ...clover, id: 28, category: "keychains", image: "Post28.png" },
-      { ...watchPlaceholder, id: 29, category: "keychains", image: "Post29.png" },
-      { ...clover, id: 30, category: "keychains", image: "Post30.png" },
-      { ...clover, id: 31, category: "keychains", image: "Post31.png" },
-      { ...clover, id: 32, category: "keychains", image: "Post32.png" },
+      { ...clover, id: 28, category: "keychains", image: "Post28.png",backImage: "gold-bead-back.png" },
+      { ...watchPlaceholder, id: 29, category: "keychains", image: "Post29.png", backImage: "gold-bead-back.png" },
+      { ...clover, id: 30, category: "keychains", image: "Post30.png", backImage: "gold-bead-back.png" },
+      { ...clover, id: 31, category: "keychains", image: "Post31.png", backImage: "gold-bead-back.png" },
+      { ...clover, id: 32, category: "keychains", image: "Post32.png", backImage: "gold-bead-back.png" },
       {
         id: 33,
         name: "Lysol Disinfectant Spray",
         image: "Post33.png",
-        category: "found"
+        category: "found",
+        backImage: "gold-bead-back.png"
       },
       {
         id: 34,
         name: "Light Aqua Blue Helmet",
         image: "Post34.png",
-        category: "found"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 35,
         name: "Yellow Pencil with its Full Eraser",
         image: "Post35.png",
-        category: "found"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 36,
         name: "Clover",
         image: "Post36.png",
-        category: "found"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 37,
         name: "Watch Placeholder",
         image: "Post37.png",
-        category: "found"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 38,
         name: "Clover",
         image: "Post38.png",
-        category: "found"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 39,
         name: "Watch Placeholder",
         image: "Post39.png",
-        category: "found"
+        backImage: "gold-bead-back.png"
       },
       {
         id: 40,
         name: "Clover",
         image: "Post40.png",
-        category: "found"
+        backImage: "gold-bead-back.png"
       },
-      {
-        id: 41,
-        name: "Lysol Disinfectant Spray",
-        image: "Post41.png",
-        category: "others"
-      },
-      {
-        id: 42,
-        name: "Big Blue Helmet",
-        image: "Post42.png",
-        category: "others"
-      },
-      {
-        id: 43,
-        name: "Tetronica Pencil with its Full Eraser",
-        image: "Post43.png",
-        category: "others"
-      },
-      { ...clover, id: 44, category: "others" },
-      { ...watchPlaceholder, id: 45, category: "others" },
-      { ...clover, id: 49, category: "others" },
-      { ...watchPlaceholder, id: 46, category: "others" },
-      { ...clover, id: 47, category: "others" },
-      { ...watchPlaceholder, id: 48, category: "others" }
     ];
-
     const track = document.getElementById("track");
     const stack = document.getElementById("stack");
     const postcard = document.getElementById("postcard");
@@ -898,7 +949,43 @@ postcard.addEventListener("click", (event) => {
 
 postcard.addEventListener("close", () => {
   document.body.style.overflow = previousOverflow;
-  previousTrigger?.focus({ preventScroll: true });
+
+  const card = previousTrigger;
+  if (!card) return;
+
+  const object = objects.find(item => String(item.id) === card.dataset.objectId);
+
+  if (object?.image && !card.querySelector(".stack-artwork")) {
+    const artwork = document.createElement("img");
+    artwork.className = "stack-artwork";
+    artwork.alt = "";
+    artwork.hidden = true;
+
+    Object.assign(artwork.style, {
+      position: "absolute",
+      inset: "0",
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      pointerEvents: "none"
+    });
+
+    artwork.addEventListener("load", () => {
+      artwork.hidden = false;
+    }, { once: true });
+
+    artwork.addEventListener("error", () => {
+      artwork.remove();
+    }, { once: true });
+
+    // Place the image behind the card number and inside the existing border.
+    card.prepend(artwork);
+    artwork.src = object.image.startsWith("images/")
+      ? object.image
+      : `images/${object.image}`;
+  }
+
+  card.focus({ preventScroll: true });
 });
 
 window.addEventListener("scroll", updateStack, { passive: true });
@@ -1099,54 +1186,108 @@ savePostcardsButton.addEventListener("click", async () => {
   const selected = objects.filter(object => selectedPostcardIds.has(object.id));
   if (!selected.length) return;
 
+  const Pdf = window.jspdf?.jsPDF;
+  if (!Pdf) {
+    alert("The PDF library couldn’t load. Check your internet connection and refresh.");
+    return;
+  }
+
+  const pageWidth = 4;
+  const pageHeight = 6;
+  const pixelsPerInch = 300;
+
   savePostcardsButton.disabled = true;
-  downloadList.replaceChildren();
-  downloadStatus.textContent = "Preparing your postcards…";
-  postcardDownloads.showModal();
+  selectPostcardsButton.disabled = true;
 
-  let missingPhotos = 0;
-  let failedExports = 0;
+  try {
+    const pdf = new Pdf({
+      orientation: "portrait",
+      unit: "in",
+      format: [pageWidth, pageHeight],
+      compress: true
+    });
 
-  for (const object of selected) {
-    try {
-      const image = await loadPostcardPhoto(object.image);
-      if (!image) missingPhotos++;
+    const canvas = document.createElement("canvas");
+    canvas.width = pageWidth * pixelsPerInch;
+    canvas.height = pageHeight * pixelsPerInch;
+    const context = canvas.getContext("2d");
+    let pageCount = 0;
 
-      const frontPng = await makePostcardPng(object, "front", image);
-      const backPng = await makePostcardPng(object, "back", image);
-      if (!postcardDownloads.open) break;
+    for (const [index, object] of selected.entries()) {
+      savePostcardsButton.textContent = `Preparing ${index + 1} of ${selected.length}…`;
 
-      const item = document.createElement("li");
-      const title = document.createElement("strong");
-      title.textContent = `Object ${object.id} · ${object.name}`;
-      item.append(title, document.createElement("br"));
+      for (const [side, filename] of [
+        ["front", object.image],
+        ["back", object.backImage]
+      ]) {
+        if (!filename) {
+          throw new Error(`${object.name} is missing its ${side} image filename.`);
+        }
 
-      for (const [side, blob] of [["front", frontPng], ["back", backPng]]) {
-        const url = URL.createObjectURL(blob);
-        postcardDownloadUrls.push(url);
+        const artwork = new Image();
+        artwork.src = filename.startsWith("images/")
+          ? filename
+          : `images/${filename}`;
 
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `postcard-${object.id}-${side}.png`;
-        link.textContent = side === "front" ? "Download front" : "Download back";
-        item.append(link);
+        try {
+          await artwork.decode();
+        } catch {
+          throw new Error(`Couldn’t load the ${side} of ${object.name}. Check "${filename}".`);
+        }
+
+        // Match the centered object-fit: cover used on the opened postcard.
+        const scale = Math.max(
+          canvas.width / artwork.naturalWidth,
+          canvas.height / artwork.naturalHeight
+        );
+        const width = artwork.naturalWidth * scale;
+        const height = artwork.naturalHeight * scale;
+
+        context.fillStyle = "#fff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          artwork,
+          (canvas.width - width) / 2,
+          (canvas.height - height) / 2,
+          width,
+          height
+        );
+
+        if (pageCount > 0) pdf.addPage([pageWidth, pageHeight], "portrait");
+
+        pdf.addImage(
+          canvas.toDataURL("image/png"),
+          "PNG",
+          0,
+          0,
+          pageWidth,
+          pageHeight
+        );
+        pageCount++;
       }
-
-      downloadList.append(item);
-    } catch {
-      failedExports++;
     }
-  }
 
-  if (postcardDownloads.open) {
-    downloadStatus.textContent = [
-      "Click each link to save its PNG.",
-      missingPhotos ? `${missingPhotos} front image(s) exported without a photo. Check their filenames.` : "",
-      failedExports ? `${failedExports} postcard(s) could not be exported.` : ""
-    ].filter(Boolean).join(" ");
-  }
+    const preview = document.getElementById("pdfPreview");
+const frame = document.getElementById("pdfPreviewFrame");
+const openLink = document.getElementById("openPdfPreview");
+const downloadLink = document.getElementById("downloadPdf");
 
-  updateSelectionCount();
+const previousUrl = downloadLink.getAttribute("href");
+const previewUrl = URL.createObjectURL(pdf.output("blob"));
+
+frame.src = previewUrl;
+openLink.href = previewUrl;
+downloadLink.href = previewUrl;
+
+if (previousUrl) URL.revokeObjectURL(previousUrl);
+
+preview.showModal();
+  } catch (error) {
+    alert(error.message || "The postcard PDF couldn’t be created.");
+  } finally {
+    selectPostcardsButton.disabled = false;
+    updateSelectionCount();
+  }
 });
 
 postcardDownloads.addEventListener("close", () => {
@@ -1154,5 +1295,59 @@ postcardDownloads.addEventListener("close", () => {
   postcardDownloadUrls.length = 0;
 });
   </script>
+  <script>
+  const rainbowPhotos = [
+    "images/rainbow1.jpeg",
+    "images/rainbow2.jpeg",
+    "images/rainbow3.jpeg",
+    "images/rainbow4.jpeg",
+    "images/rainbow5.jpeg",
+  ];
+
+  const rainbowLayers = document.querySelectorAll(".rainbow-layer");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const holdTime = 8000;
+  const fadeTime = 5000;
+
+  let currentPhoto = 0;
+  let visibleLayer = rainbowLayers[0];
+  let nextLayer = rainbowLayers[1];
+
+  visibleLayer.style.backgroundImage = `url("${rainbowPhotos[0]}")`;
+
+  async function changeRainbow() {
+    if (reduceMotion.matches || rainbowPhotos.length < 2) return;
+
+    currentPhoto = (currentPhoto + 1) % rainbowPhotos.length;
+    const path = rainbowPhotos[currentPhoto];
+
+    // Wait for the next photo to load before starting the fade.
+    const photo = new Image();
+    photo.src = path;
+
+    try {
+      await photo.decode();
+    } catch {
+      setTimeout(changeRainbow, holdTime);
+      return;
+    }
+
+    if (reduceMotion.matches) return;
+
+    nextLayer.style.backgroundImage = `url("${path}")`;
+    nextLayer.style.zIndex = "1";
+    nextLayer.classList.add("is-visible");
+
+    setTimeout(() => {
+      visibleLayer.classList.remove("is-visible");
+      visibleLayer.style.zIndex = "0";
+
+      [visibleLayer, nextLayer] = [nextLayer, visibleLayer];
+      setTimeout(changeRainbow, holdTime);
+    }, fadeTime);
+  }
+
+  setTimeout(changeRainbow, holdTime);
+</script>
 </body>
 </html>
